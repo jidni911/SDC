@@ -1,0 +1,15 @@
+<p>Conditional forward </p>
+<button type="button" class="btn btn-primary" routerLink="dashboardadmin">
+  Admin
+</button>
+<button type="button" class="btn btn-primary" routerLink="dashboarddev">
+  Dev
+</button>
+<button type="button" class="btn btn-primary" routerLink="dashboardseller">
+  Seller
+</button>
+<button type="button" class="btn btn-primary" (click)="forward('dashboarduser')">
+  User
+</button>
+
+<router-outlet></router-outlet>
