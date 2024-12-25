@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": "d011",
+      "username": "Jidni khan",
+      "contact": "01719987447",
+      "email": "gidni441@gmail.com",
+      "address": "Keraniganj, Dhaka",
+      "dob": "2000-12-27",
+      "gender": "M",
+      "password": "$2a$10$So8lFRTJieURFFJXQvD.auwG.PTfaGcc7UCnRiMyIjSMzzAou4GXG",
+      "role": "user",
+      "uniqueName": "jidni_khan@7447"
+    },
+    {
+      "id": "228f",
+      "username": "demoUser",
+      "contact": "1234567890",
+      "email": "demo@example.com",
+      "address": "123 Demo Street, Demo City",
+      "dob": "2000-01-01",
+      "gender": "M",
+      "password": "$2a$10$qGsMXAnc00W0Od4SmNTkBe4NN1EpI2LAf5gGm/vA1CpgGUMfP9bAy",
+      "role": "user",
+      "uniqueName": "demouser@7890"
+    }
+  ]
+}

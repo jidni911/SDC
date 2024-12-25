@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public static readonly development = true
-  public static readonly projectName = "South Dhaka Cyclists"
+  public static development = true
+  public static projectName = "South Dhaka Cyclists"
+  public static role = "user"
   appComponent = AppComponent;
 }

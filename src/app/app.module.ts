@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,6 +14,9 @@ import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-
 import { DashboardDeveloperComponent } from './components/dashboard-developer/dashboard-developer.component';
 import { DashboardUserComponent } from './components/dashboard-user/dashboard-user.component';
 import { DashboardSellerComponent } from './components/dashboard-seller/dashboard-seller.component';
+import { BugReportComponent } from './components/bug-report/bug-report.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -26,11 +30,15 @@ import { DashboardSellerComponent } from './components/dashboard-seller/dashboar
     DashboardAdminComponent,
     DashboardDeveloperComponent,
     DashboardUserComponent,
-    DashboardSellerComponent
+    DashboardSellerComponent,
+    BugReportComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

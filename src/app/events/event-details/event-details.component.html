@@ -1,0 +1,48 @@
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h2>{{ event.name }}</h2>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p><strong>Date:</strong> {{ event.date }} ({{ event.dayOfWeek }})</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Time:</strong> {{ event.startTime }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p><strong>Duration:</strong> {{ event.duration }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Distance:</strong> {{ event.distance }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p><strong>From:</strong> {{ event.fromLocation }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>To:</strong> {{ event.toLocation }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <p><strong>Location:</strong> {{ event.location }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <p><strong>Description:</strong> {{ event.description }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <p><strong>Organiser:</strong> {{ event.organiser }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
