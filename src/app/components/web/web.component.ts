@@ -7,6 +7,9 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./web.component.scss']
 })
 export class WebComponent {
+  signout() {
+    AppComponent.removeUser()
+  }
   changerole(role: string) {
     AppComponent.role = role;
   }

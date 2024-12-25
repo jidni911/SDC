@@ -24,5 +24,16 @@
       "role": "user",
       "uniqueName": "demouser@7890"
     }
+  ],
+  "bugs": [
+    {
+      "id": "d4b5",
+      "title": "Role Selection",
+      "description": "When role is modified, it doesnt change",
+      "severity": "medium",
+      "steps": "Click on the nav bar",
+      "isSolved": false,
+      "submittedBy": "228f"
+    }
   ]
 }
