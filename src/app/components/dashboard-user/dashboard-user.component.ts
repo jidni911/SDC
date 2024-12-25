@@ -7,4 +7,31 @@ import { Component } from '@angular/core';
 })
 export class DashboardUserComponent {
 
+
+  posts = [
+    {
+      user: {
+        name: 'John Doe',
+        profilePicture: 'https://via.placeholder.com/50'
+      },
+      content: 'This is my first post!',
+      image: 'https://via.placeholder.com/600x300'
+    },
+    {
+      user: {
+        name: 'Jane Smith',
+        profilePicture: 'https://via.placeholder.com/50'
+      },
+      content: 'Angular is awesome!',
+      image: null // No image for this post
+    },
+    {
+      user: {
+        name: 'Emily Johnson',
+        profilePicture: 'https://via.placeholder.com/50'
+      },
+      content: 'Check out this cool photo!',
+      image: 'https://via.placeholder.com/600x300'
+    }
+  ];
 }

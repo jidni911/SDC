@@ -6,7 +6,7 @@
           <h3 class="text-center">Welcome back</h3>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
 
             <div class="text-center">
               <img class="mb-4" src="assets/logo/logo1.png" alt="" width="72" height="72">
@@ -14,20 +14,35 @@
             </div>
 
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-              <label for="floatingInput">Email address</label>
+              <input type="email" class="form-control" [ngClass]="emailState" placeholder="name@example.com"
+                formControlName="email">
+              <label>Email address (required to log in)</label>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please provide a valid email.
+              </div>
             </div>
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-              <label for="floatingPassword">Password</label>
+              <input type="password" class="form-control" [ngClass]="passwordState" placeholder="Password"
+                formControlName="password">
+              <label>Password</label>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Password doesnt look good
+              </div>
             </div>
 
             <div class="checkbox mb-3">
               <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" formControlName="rememberMe" value="false"> Remember me
               </label>
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <button class="w-100 btn btn-lg btn-primary" type="button" (click)="loadDemo()">Demo</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2017 - 2022</p>
           </form>
         </div>

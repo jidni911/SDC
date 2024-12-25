@@ -1,6 +1,7 @@
 import { FormControl, FormGroup } from '@angular/forms';
 import { UsersService } from './../../service/users.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -10,31 +11,63 @@ import { Component, OnInit } from '@angular/core';
 export class SigninComponent implements OnInit {
   ngOnInit(): void {
     this.signinForm.setValue({
-      email:'',
-      password:''
+      email: '',
+      password: '',
+      rememberMe: false
     })
   }
-  constructor(private userService:UsersService){}
-  signinForm : FormGroup = new FormGroup({
+  constructor(private userService: UsersService, private router : Router) { }
+  signinForm: FormGroup = new FormGroup({
     email: new FormControl(),
-    password: new FormControl()
+    password: new FormControl(),
+    rememberMe: new FormControl(false)
   })
-  onSubmit(){
-    // if (this.signinForm.valid) {
-    //   this.userService.signIn(this.signinForm.value).subscribe(
-    //     response => {
-    //       console.log('Sign in successful', response);
-    //       // Handle successful sign in, e.g., navigate to another page
-    //     },
-    //     error => {
-    //       console.error('Sign in failed', error);
-    //       // Handle sign in error, e.g., show error message
-    //     }
-    //   );
-    // } else {
-    //   console.error('Form is invalid');
-    //   // Handle form validation errors
-    // }
+  emailState = ""
+  passwordState = ""
+  onSubmit() {
+    let flag = true;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(this.signinForm.value.email)) {
+      flag = false;
+      this.emailState = "is-invalid"
+    } else {
+      flag = true
+      this.emailState = "is-valid"
+
+    }
+    const password = this.signinForm.value.password;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordPattern.test(password)) {
+      flag = false;
+      this.passwordState = "is-invalid";
+    } else {
+      this.passwordState = "is-valid";
+    }
+    if (flag) {
+      this.userService.signIn(this.signinForm.value).then((isAuthenticated) => {
+        if (isAuthenticated) {
+          this.emailState = "is-valid";
+          this.passwordState = "is-valid";
+          this.router.navigateByUrl('home');
+        } else {
+          this.emailState = "is-invalid";
+          this.passwordState = "is-invalid";
+        }
+        console.log(isAuthenticated);
+      }).catch((error) => {
+        console.error('Error during sign-in:', error);
+      });
+
+    }
+
+  }
+
+  loadDemo(){
+    this.signinForm.setValue({
+      email: 'demo@example.com',
+      password: 'Demo@1234',
+      rememberMe:'true'
+    })
   }
 
 }
