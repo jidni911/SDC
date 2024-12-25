@@ -14,13 +14,13 @@
           <a class="nav-link" routerLink="/events">Events</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard">Products</a>
+          <a class="nav-link" routerLink="/products">Products</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard">Contact</a>
+          <a class="nav-link" routerLink="/contact">Contact</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard">About</a>
+          <a class="nav-link" routerLink="/about">About</a>
         </li>
         <li class="nav-item dropdown">
           <button class="nav-link dropdown-toggle btn btn-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,6 +38,16 @@
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            More
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><button class="dropdown-item" type="button" (click)="signout()">Sign out</button></li>
+            <li><button class="dropdown-item" type="button">Action 2</button></li>
+            <li><button class="dropdown-item" type="button" routerLink="/**" >Report A bug</button></li>
+          </ul>
+        </div>
       </form>
     </div>
   </div>
@@ -46,3 +56,5 @@
 
 
 <router-outlet></router-outlet>
+
+

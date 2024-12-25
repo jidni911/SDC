@@ -42,6 +42,11 @@
           </div>
           <small class="text-muted">15 Likes • 5 Comments</small>
         </div>
+        <div *ngIf="post.relatedProducts.length>0" class="d-flex justify-content-around">
+          <div *ngFor="let item of post.relatedProducts">
+            <img [src]="getProductById(item).imageLinks[0]" alt="">
+          </div>
+        </div>
       </div>
     </div>
   </div>

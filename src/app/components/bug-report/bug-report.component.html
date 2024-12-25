@@ -1,1 +1,53 @@
-<p>bug-report works!</p>
+<form class="container my-5 p-4 border rounded shadow-sm bg-light" [formGroup]="bugForm" (ngSubmit)="onSubmit()" *ngIf="!showBugs">
+  <h2 class="mb-4">Report a Bug</h2>
+  <p>If you've encountered an issue, please let us know by filling out the form below. Your feedback helps us improve our application.</p>
+  <div class="mb-3">
+    <label for="title" class="form-label">Title:</label>
+    <input type="text" id="title" name="title" class="form-control" formControlName="title">
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description:</label>
+    <textarea id="description" name="description" class="form-control" rows="4" formControlName="description"></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="severity" class="form-label">Severity:</label>
+    <select id="severity" name="severity" class="form-select" formControlName="severity">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="steps" class="form-label">Steps to Reproduce:</label>
+    <textarea id="steps" name="steps" class="form-control" rows="4" formControlName="steps"></textarea>
+  </div>
+  <div class="mb-3 text-end">
+    <button type="submit" class="btn btn-primary">Submit Bug</button>
+  </div>
+</form>
+
+<div class="text-center">
+  <button class="btn btn-outline-secondary" (click)="showBugs = !showBugs">{{showBugs?'Hide':'Show'}} Bugs</button>
+</div>
+
+<div class="container my-5" *ngIf="showBugs">
+  <h2 class="mb-4">Bug List</h2>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Severity</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bug of bugs">
+        <td>{{ bug.title }}</td>
+        <td>{{ bug.description }}</td>
+        <td>{{ bug.severity }}</td>
+        <td>{{ bug.solved ? 'Solved' : 'Not Solved' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
