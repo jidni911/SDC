@@ -7,5 +7,8 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./web.component.scss']
 })
 export class WebComponent {
+  changerole(role: string) {
+    AppComponent.role = role;
+  }
   appComponent = AppComponent;
 }

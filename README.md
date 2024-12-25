@@ -25,3 +25,35 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## Serving requirements
+
+To set up and serve the project, follow these steps:
+
+1. Install Bootstrap:
+  ```sh
+  npm install bootstrap
+  ```
+
+2. Install bcryptjs:
+  ```sh
+  npm install bcryptjs
+  npm i --save-dev @types/bcryptjs
+  ```
+
+3. Install json-server:
+  ```sh
+  npm install json-server
+  ```
+
+4. Serve the Angular application:
+  ```sh
+  ng serve
+  ```
+
+5. Run the JSON server:
+  ```sh
+  npm run server
+  ```
+
