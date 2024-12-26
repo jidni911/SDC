@@ -1,88 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PostsService } from 'src/app/service/posts.service';
+import { ProductsService } from 'src/app/service/products.service';
 
 @Component({
   selector: 'app-dashboard-user',
   templateUrl: './dashboard-user.component.html',
   styleUrls: ['./dashboard-user.component.scss']
 })
-export class DashboardUserComponent {
+export class DashboardUserComponent implements OnInit {
+  constructor(private postService: PostsService, private productService: ProductsService) { }
+  ngOnInit(): void {
+    this.postService.getPosts().subscribe((r: any) => {
+      this.posts = r;
+    })
+  }
 
 
-  posts = [
-    {
-      user: {
-        name: 'John Doe',
-        profilePicture: 'https://via.placeholder.com/50'
-      },
-      content: 'This is my first post!',
-      image: 'https://via.placeholder.com/600x300',
-      relatedProducts: ['abc', 'ijk', 'xyz']
-    },
-    {
-      user: {
-        name: 'Jane Smith',
-        profilePicture: 'https://via.placeholder.com/50'
-      },
-      content: 'Angular is awesome!',
-      image: null, // No image for this post
-      relatedProducts: ['abc', 'ijk', 'xyz']
-    },
-    {
-      user: {
-        name: 'Emily Johnson',
-        profilePicture: 'https://via.placeholder.com/50'
-      },
-      content: 'Check out this cool photo!',
-      image: 'https://via.placeholder.com/600x300',
-      relatedProducts: []
-    },
-    {
-      user: {
-        name: 'Michael Brown',
-        profilePicture: 'https://via.placeholder.com/50'
-      },
-      content: 'Loving the new Angular 16 features! 🚀',
-      image: 'https://via.placeholder.com/600x400',
-      relatedProducts: ['123', '456', '789']
-    },
-    {
-      user: {
-        name: 'Sarah Connor',
-        profilePicture: 'https://via.placeholder.com/50'
-      },
-      content: 'Just a simple post with no image or products.',
-      image: null,
-      relatedProducts: []
-    },
-    {
-      user: {
-        name: 'Tom Hardy',
-        profilePicture: 'https://via.placeholder.com/50'
-      },
-      content: 'Here’s a shot from my recent trip! 🌄',
-      image: 'https://via.placeholder.com/600x300',
-      relatedProducts: ['lmn', 'opq', 'rst']
-    },
-    {
-      user: {
-        name: 'Anna Kendrick',
-        profilePicture: 'https://via.placeholder.com/50'
-      },
-      content: 'Happy to announce my new project! 🎉',
-      image: 'https://via.placeholder.com/600x350',
-      relatedProducts: ['uvw', 'xyz']
-    },
-    {
-      user: {
-        name: 'Robert Downey Jr.',
-        profilePicture: 'https://via.placeholder.com/50'
-      },
-      content: 'A throwback to the good old days!',
-      image: null,
-      relatedProducts: ['iron', 'man', 'suit']
-    }
-  ];
+  posts: any = [];
 
+
+  //   async getProductById(id: string): Promise<any> {
+  //     return new Promise((resolve, reject) => {
+  //         this.productService.getProduct(id).subscribe(
+  //             (response: any) => {
+  //                 // Handle the response here
+  //                 console.log(response);
+  //                 resolve(response);
+  //             },
+  //             (error: any) => {
+  //                 // Handle the error here
+  //                 console.error(error);
+  //                 reject(error);
+  //             }
+  //         );
+  //     });
+  // }
 
   getProductById(id: string) {
     const productDatabase: { [key: string]: { imageLinks: string[] } } = {
