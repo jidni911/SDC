@@ -44,7 +44,7 @@
       "description": "When role is modified, it doesnt change",
       "severity": "medium",
       "steps": "Click on the nav bar",
-      "isSolved": false,
+      "isSolved": true,
       "submittedBy": "228f"
     },
     {
@@ -53,6 +53,24 @@
       "description": "where is the cart view options?",
       "severity": "medium",
       "steps": "its nowhere",
+      "isSolved": false,
+      "submittedBy": "228f"
+    },
+    {
+      "id": "2b35",
+      "title": "Profile pic",
+      "description": "User e profile picture nai",
+      "severity": "high",
+      "steps": "just... look",
+      "isSolved": false,
+      "submittedBy": "228f"
+    },
+    {
+      "id": "3c59",
+      "title": "Creating Posts",
+      "description": "How Can i create Posts?",
+      "severity": "high",
+      "steps": "can you find?",
       "isSolved": false,
       "submittedBy": "228f"
     }
@@ -274,6 +292,111 @@
       "dimensions": null,
       "weight": "400 grams",
       "sellerId": "seller05"
+    }
+  ],
+  "posts": [
+    {
+      "id": "2fa0",
+      "user": {
+        "name": "John Doe",
+        "profilePicture": "https://via.placeholder.com/50"
+      },
+      "content": "This is my first post!",
+      "image": "https://via.placeholder.com/600x300",
+      "relatedProducts": [
+        "prod001",
+        "prod002",
+        "prod003"
+      ]
+    },
+    {
+      "id": "2c86",
+      "user": {
+        "name": "Jane Smith",
+        "profilePicture": "https://via.placeholder.com/50"
+      },
+      "content": "Angular is awesome!",
+      "image": null,
+      "relatedProducts": [
+        "prod001",
+        "prod002",
+        "prod003"
+      ]
+    },
+    {
+      "id": "5e48",
+      "user": {
+        "name": "Anna Kendrick",
+        "profilePicture": "https://via.placeholder.com/50"
+      },
+      "content": "Happy to announce my new project! 🎉",
+      "image": "https://via.placeholder.com/600x350",
+      "relatedProducts": [
+        "prod004",
+        "prod005"
+      ]
+    },
+    {
+      "id": "3b98",
+      "user": {
+        "name": "Tom Hardy",
+        "profilePicture": "https://via.placeholder.com/50"
+      },
+      "content": "Here’s a shot from my recent trip! 🌄",
+      "image": "https://via.placeholder.com/600x300",
+      "relatedProducts": [
+        "prod006",
+        "prod007",
+        "prod008"
+      ]
+    },
+    {
+      "id": "d676",
+      "user": {
+        "name": "Sarah Connor",
+        "profilePicture": "https://via.placeholder.com/50"
+      },
+      "content": "Just a simple post with no image or products.",
+      "image": null,
+      "relatedProducts": []
+    },
+    {
+      "id": "b309",
+      "user": {
+        "name": "Michael Brown",
+        "profilePicture": "https://via.placeholder.com/50"
+      },
+      "content": "Loving the new Angular 16 features! 🚀",
+      "image": "https://via.placeholder.com/600x400",
+      "relatedProducts": [
+        "prod009",
+        "prod010",
+        "prod001"
+      ]
+    },
+    {
+      "id": "b89f",
+      "user": {
+        "name": "Emily Johnson",
+        "profilePicture": "https://via.placeholder.com/50"
+      },
+      "content": "Check out this cool photo!",
+      "image": "https://via.placeholder.com/600x300",
+      "relatedProducts": []
+    },
+    {
+      "id": "8269",
+      "user": {
+        "name": "Robert Downey Jr.",
+        "profilePicture": "https://via.placeholder.com/50"
+      },
+      "content": "A throwback to the good old days!",
+      "image": null,
+      "relatedProducts": [
+        "prod002",
+        "prod003",
+        "prod004"
+      ]
     }
   ]
 }

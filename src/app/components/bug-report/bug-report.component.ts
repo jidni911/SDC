@@ -21,6 +21,9 @@ export class BugReportComponent implements OnInit {
     }
   }
   constructor(private router: Router, private bugService: BugService) { }
+  isDeveloper(){
+    return AppComponent.getUser().role == 'dev'
+  }
   bugForm: FormGroup = new FormGroup({
     title: new FormControl(),
     description: new FormControl(),
@@ -46,4 +49,26 @@ export class BugReportComponent implements OnInit {
 
   showBugs = false;
   bugs: any[] = [];
+  selectedBug : any = {
+    id: "d4b5",
+    title: "Role Selection",
+    description: "When role is modified, it doesnt change",
+    severity: "medium",
+    steps: "Click on the nav bar",
+    isSolved: false,
+    submittedBy: "228f"
+  }
+  load(bug:any){
+    this.selectedBug = bug;
+  }
+  solve(bug:any){
+    bug.isSolved = true;
+    // console.log(bug);
+
+    this.bugService.updateBug(bug.id,bug).subscribe((r)=>{
+      console.log(r);
+
+      this.ngOnInit()
+    })
+  }
 }

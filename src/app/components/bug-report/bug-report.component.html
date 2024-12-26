@@ -1,13 +1,16 @@
-<form class="container my-5 p-4 border rounded shadow-sm bg-light" [formGroup]="bugForm" (ngSubmit)="onSubmit()" *ngIf="!showBugs">
+<form class="container my-5 p-4 border rounded shadow-sm bg-light" [formGroup]="bugForm" (ngSubmit)="onSubmit()"
+  *ngIf="!showBugs">
   <h2 class="mb-4">Report a Bug</h2>
-  <p>If you've encountered an issue, please let us know by filling out the form below. Your feedback helps us improve our application.</p>
+  <p>If you've encountered an issue, please let us know by filling out the form below. Your feedback helps us improve
+    our application.</p>
   <div class="mb-3">
     <label for="title" class="form-label">Title:</label>
     <input type="text" id="title" name="title" class="form-control" formControlName="title">
   </div>
   <div class="mb-3">
     <label for="description" class="form-label">Description:</label>
-    <textarea id="description" name="description" class="form-control" rows="4" formControlName="description"></textarea>
+    <textarea id="description" name="description" class="form-control" rows="4"
+      formControlName="description"></textarea>
   </div>
   <div class="mb-3">
     <label for="severity" class="form-label">Severity:</label>
@@ -39,6 +42,7 @@
         <th>Description</th>
         <th>Severity</th>
         <th>Status</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -46,8 +50,61 @@
         <td>{{ bug.title }}</td>
         <td>{{ bug.description }}</td>
         <td>{{ bug.severity }}</td>
-        <td>{{ bug.solved ? 'Solved' : 'Not Solved' }}</td>
+        <td>{{ bug.isSolved ? 'Solved' : 'Not Solved' }} </td>
+        <td>
+          <div>
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#bugViewModal" (click)="load(bug)">
+              View
+            </button>
+
+          </div>
+          <div>
+            <button *ngIf="isDeveloper()" class="btn btn-outline-success btn-sm" (click)="solve(bug)">Mark as solved</button>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+
+
+
+<!-- Modal Body -->
+<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+<div class="modal fade" id="bugViewModal" tabindex="-1"  role="dialog"
+  aria-labelledby="bugViewModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bugViewModalTitle">
+          Bug Details
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <p><strong>Title:</strong> {{ selectedBug.title }}</p>
+          <p><strong>Description:</strong> {{ selectedBug.description }}</p>
+          <p><strong>Severity:</strong> {{ selectedBug.severity }}</p>
+          <p><strong>Steps to Reproduce:</strong> {{ selectedBug.steps }}</p>
+          <p><strong>Status:</strong> {{ selectedBug.isSolved ? 'Solved' : 'Not Solved' }}</p>
+          <p><strong>Submitted By:</strong> {{ selectedBug.submittedBy }}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Optional: Place to the bottom of scripts -->
+<script>
+  const myModal = new bootstrap.Modal(
+    document.getElementById("bugViewModal"),
+    options,
+  );
+</script>
