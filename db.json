@@ -23,6 +23,18 @@
       "password": "$2a$10$qGsMXAnc00W0Od4SmNTkBe4NN1EpI2LAf5gGm/vA1CpgGUMfP9bAy",
       "role": "user",
       "uniqueName": "demouser@7890"
+    },
+    {
+      "id": "61b0",
+      "username": "demoUser",
+      "contact": "1234567890",
+      "email": "demo@example.com",
+      "address": "123 Demo Street, Demo City",
+      "dob": "2000-01-01",
+      "gender": "M",
+      "password": "$2a$10$guuTa80.XxHYUDL/wK/Qneefw366r/9Z6N4A/y3/PKWSyz7/iNIGG",
+      "role": "user",
+      "uniqueName": "demouser@7890"
     }
   ],
   "bugs": [
@@ -34,6 +46,234 @@
       "steps": "Click on the nav bar",
       "isSolved": false,
       "submittedBy": "228f"
+    },
+    {
+      "id": "08ee",
+      "title": "missing cart",
+      "description": "where is the cart view options?",
+      "severity": "medium",
+      "steps": "its nowhere",
+      "isSolved": false,
+      "submittedBy": "228f"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod001",
+      "name": "Mountain Bike",
+      "description": "A durable mountain bike perfect for off-road adventures.",
+      "category": "Bikes",
+      "brand": "TrailBlazer",
+      "price": 499.99,
+      "discountPrice": 449.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 20,
+      "mainImage": "https://via.placeholder.com/600x400",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400",
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": {
+        "height": "110 cm",
+        "width": "180 cm",
+        "depth": "40 cm"
+      },
+      "weight": "12 kg",
+      "sellerId": "seller01"
+    },
+    {
+      "id": "prod002",
+      "name": "Cycling Helmet",
+      "description": "Lightweight and sturdy helmet with adjustable straps.",
+      "category": "Accessories",
+      "brand": "SafeRide",
+      "price": 59.99,
+      "discountPrice": 49.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 50,
+      "mainImage": "https://via.placeholder.com/600x400",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400",
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": {
+        "height": "15 cm",
+        "width": "25 cm",
+        "depth": "20 cm"
+      },
+      "weight": "500 grams",
+      "sellerId": "seller02"
+    },
+    {
+      "id": "prod003",
+      "name": "Bike Pump",
+      "description": "Compact and efficient bike pump for on-the-go inflation.",
+      "category": "Tools",
+      "brand": "AirMaster",
+      "price": 25.99,
+      "discountPrice": null,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 100,
+      "mainImage": "https://via.placeholder.com/600x400",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": {
+        "height": "30 cm",
+        "width": "10 cm",
+        "depth": "5 cm"
+      },
+      "weight": "1 kg",
+      "sellerId": "seller03"
+    },
+    {
+      "id": "prod004",
+      "name": "Cycling Gloves",
+      "description": "Comfortable and padded gloves for long rides.",
+      "category": "Apparel",
+      "brand": "RideComfort",
+      "price": 29.99,
+      "discountPrice": 24.99,
+      "currency": "USD",
+      "stockStatus": "Out of Stock",
+      "quantityAvailable": 0,
+      "mainImage": "https://via.placeholder.com/600x400",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400",
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": null,
+      "weight": "200 grams",
+      "sellerId": "seller01"
+    },
+    {
+      "id": "prod005",
+      "name": "Water Bottle Holder",
+      "description": "Durable bottle holder for easy access during rides.",
+      "category": "Accessories",
+      "brand": "CycleEssentials",
+      "price": 15.99,
+      "discountPrice": 12.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 200,
+      "mainImage": "https://via.placeholder.com/600x400",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": null,
+      "weight": "300 grams",
+      "sellerId": "seller02"
+    },
+    {
+      "id": "prod006",
+      "name": "Bike Lights",
+      "description": "Bright LED lights for safe night riding.",
+      "category": "Accessories",
+      "brand": "BrightPath",
+      "price": 39.99,
+      "discountPrice": null,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 80,
+      "mainImage": "https://via.placeholder.com/600x400",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": {
+        "height": "5 cm",
+        "width": "8 cm",
+        "depth": "5 cm"
+      },
+      "weight": "400 grams",
+      "sellerId": "seller03"
+    },
+    {
+      "id": "prod007",
+      "name": "Cycling Shorts",
+      "description": "Breathable and flexible shorts designed for comfort.",
+      "category": "Apparel",
+      "brand": "CycleWear",
+      "price": 49.99,
+      "discountPrice": 44.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 60,
+      "mainImage": "https://via.placeholder.com/600x400",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": null,
+      "weight": "300 grams",
+      "sellerId": "seller04"
+    },
+    {
+      "id": "prod008",
+      "name": "Bike Lock",
+      "description": "Heavy-duty lock to keep your bike secure.",
+      "category": "Tools",
+      "brand": "SecureRide",
+      "price": 19.99,
+      "discountPrice": 17.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 150,
+      "mainImage": "https://via.placeholder.com/600x400",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": {
+        "height": "20 cm",
+        "width": "10 cm",
+        "depth": "5 cm"
+      },
+      "weight": "2 kg",
+      "sellerId": "seller05"
+    },
+    {
+      "id": "prod009",
+      "name": "Bike Saddle",
+      "description": "Ergonomic saddle for extra comfort during long rides.",
+      "category": "Accessories",
+      "brand": "ComfortRide",
+      "price": 35.99,
+      "discountPrice": 29.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 40,
+      "mainImage": "https://via.placeholder.com/600x400",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": {
+        "height": "10 cm",
+        "width": "25 cm",
+        "depth": "8 cm"
+      },
+      "weight": "1.5 kg",
+      "sellerId": "seller04"
+    },
+    {
+      "id": "prod010",
+      "name": "Cycling Jersey",
+      "description": "Stylish and sweat-wicking jersey for performance rides.",
+      "category": "Apparel",
+      "brand": "SpeedWear",
+      "price": 59.99,
+      "discountPrice": 54.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 70,
+      "mainImage": "https://via.placeholder.com/600x400",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": null,
+      "weight": "400 grams",
+      "sellerId": "seller05"
     }
   ]
 }

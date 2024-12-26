@@ -2,6 +2,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { UsersService } from './../../service/users.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-signin',
@@ -48,12 +49,18 @@ export class SigninComponent implements OnInit {
         if (isAuthenticated) {
           this.emailState = "is-valid";
           this.passwordState = "is-valid";
-          this.router.navigateByUrl('home');
+          let json = ''
+          if(this.signinForm.value.rememberMe){
+            json = localStorage.getItem('user') || ''
+          } else {
+            json = sessionStorage.getItem('user') || ''
+          }
+          AppComponent.setUser(JSON.parse(json))
+          this.router.navigateByUrl('/dashboard');
         } else {
           this.emailState = "is-invalid";
           this.passwordState = "is-invalid";
         }
-        console.log(isAuthenticated);
       }).catch((error) => {
         console.error('Error during sign-in:', error);
       });

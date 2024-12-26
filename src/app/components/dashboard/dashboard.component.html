@@ -1,16 +1,5 @@
-<p>Conditional forward </p>
 <p>hello {{user.username}}</p>
-<button type="button" class="btn btn-primary" routerLink="dashboardadmin">
-  Admin
-</button>
-<button type="button" class="btn btn-primary" routerLink="dashboarddev">
-  Dev
-</button>
-<button type="button" class="btn btn-primary" routerLink="dashboardseller">
-  Seller
-</button>
-<button type="button" class="btn btn-primary" (click)="forward('dashboarduser')">
-  User
-</button>
+<p>Acting as {{AppComponent.user.role}}</p>
+
 
 <router-outlet></router-outlet>

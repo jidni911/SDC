@@ -29,6 +29,9 @@ const routes: Routes = [
   {
     path: 'events', loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
   },
+  {
+    path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
+  },
   // otherwise redirect to intro,
   { path: '**', component: BugReportComponent }
 
