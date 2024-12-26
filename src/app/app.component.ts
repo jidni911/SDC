@@ -26,7 +26,6 @@ export class AppComponent implements OnInit {
 
   public static development = true
   public static projectName = "South Dhaka Cyclists"
-  public static role = "user"
   appComponent = AppComponent;
 
 }

@@ -1,1 +1,71 @@
-<p>product-details works!</p>
+<div class="container my-4">
+  <!-- Product Details -->
+  <div *ngIf="product" class="row">
+    <div class="col-md-6">
+      <!-- Main Product Image -->
+      <img [src]="product.mainImage" class="img-fluid rounded mb-3" alt="{{ product.name }}" />
+      <!-- Product Gallery -->
+      <div class="d-flex flex-wrap">
+        <img
+          *ngFor="let image of product.galleryImages"
+          [src]="image"
+          class="img-thumbnail me-2 mb-2"
+          [alt]="product.name"
+          style="width: 100px; height: 100px; object-fit: cover;"
+        />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h1 class="mb-3">{{ product.name }}</h1>
+      <p class="text-muted">{{ product.description }}</p>
+      <p>
+        <span>Category: </span><strong>{{ product.category }}</strong>
+      </p>
+      <p>
+        <span>Brand: </span><strong>{{ product.brand }}</strong>
+      </p>
+      <p class="h4">
+        <span *ngIf="product.discountPrice" class="text-decoration-line-through text-danger me-2">
+          {{ product.price | currency }}
+        </span>
+        <span>{{ product.discountPrice || product.price | currency }}</span>
+      </p>
+      <p>
+        <span>Stock Status: </span>
+        <span
+          [ngClass]="{
+            'text-success': product.stockStatus === 'In Stock',
+            'text-danger': product.stockStatus === 'Out of Stock'
+          }"
+        >
+          {{ product.stockStatus }}
+        </span>
+      </p>
+      <p>
+        <span>Available Quantity: </span>{{ product.quantityAvailable }}
+      </p>
+      <p>
+        <span>Dimensions: </span>{{ product.dimensions.height }} x {{ product.dimensions.width }} x {{ product.dimensions.depth }}
+      </p>
+      <p>
+        <span>Weight: </span>{{ product.weight }}
+      </p>
+      <p>
+        <span>Seller ID: </span><strong>{{ product.sellerId }}</strong>
+      </p>
+      <button
+        class="btn btn-primary btn-lg mt-3"
+        [disabled]="product.stockStatus === 'Out of Stock'"
+      >
+        Add to Cart
+      </button>
+    </div>
+  </div>
+
+  <!-- Product Not Found -->
+  <div *ngIf="!product" class="text-center">
+    <h2>Product not found</h2>
+    <p>The product you are looking for does not exist or has been removed.</p>
+  </div>
+</div>
+

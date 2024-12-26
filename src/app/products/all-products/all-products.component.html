@@ -1,1 +1,41 @@
-<p>all-products works!</p>
+<div class="container my-3">
+  <div class="row">
+    <div *ngFor="let product of products" class="col-md-3 mb-4">
+      <div class="card h-100">
+        <!-- Product Image -->
+        <img [src]="product.mainImage" class="card-img-top" alt="{{ product.name }}" />
+
+        <!-- Card Body -->
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text text-muted">{{ product.description }}</p>
+          <p class="card-text">
+            <span>Price: </span>
+            <span *ngIf="product.discountPrice" class="text-decoration-line-through text-danger">
+              {{ product.price | currency }}
+            </span>
+            <span>{{ product.discountPrice || product.price | currency }}</span>
+          </p>
+        </div>
+
+        <!-- Stock Status Badge -->
+        <div class="card-header bg-transparent text-end">
+          <span class="badge" [ngClass]="{
+              'bg-success': product.stockStatus === 'In Stock',
+              'bg-danger': product.stockStatus === 'Out of Stock'
+            }">
+            {{ product.stockStatus }}
+          </span>
+        </div>
+
+        <!-- Card Footer -->
+        <div class="card-footer text-center">
+          <button class="btn btn-primary btn-sm" [disabled]="product.stockStatus === 'Out of Stock'">
+            Add to Cart
+          </button>
+          <button class="btn btn-secondary btn-sm" [routerLink]="['/products/productDetails', product.id]">View Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
