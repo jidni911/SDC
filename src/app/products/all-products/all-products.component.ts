@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
+import { CartService } from 'src/app/service/cart.service';
 import { ProductsService } from 'src/app/service/products.service';
 
 @Component({
@@ -11,23 +14,48 @@ import { ProductsService } from 'src/app/service/products.service';
 
 export class AllProductsComponent implements OnInit {
 
-  constructor(private productService: ProductsService) { }
+  constructor(
+    private productService: ProductsService,
+    private cartService: CartService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe((r:any)=>{
+    this.productService.getProducts().subscribe((r: any) => {
       this.products = r;
+      if (AppComponent.getUser()) {
+        this.cartService.getCart(AppComponent.getUser().id).subscribe((res: any) => {
+          this.cart = res;
+          this.cartItemIds = res.items.map((v: any) => { return v.product_id });
+        })
+      }
     })
   }
   products: any[] = []
+  cart: any = null
+  cartItemIds: any[] = []
 
+  inCart(id: any) {
+    return this.cartItemIds.includes(id)
+  }
 
-
-
-
-
-
-
-
+  addToCart(product: any) {
+    if (AppComponent.getUser()) {
+      const userId = AppComponent.getUser().id;
+      this.cart.items.push({
+        product_id: product.id,
+        name: product.name,
+        quantity: 1,
+        price: product.price
+      })
+      this.cartService.updateCart(userId, this.cart).subscribe((res: any) => {
+        this.cart = res;
+        this.ngOnInit()
+      });
+    } else {
+      this.router.navigateByUrl('/signin');
+    }
+  }
 
   generateRandomProduct(): any {
     const categories = ["Bikes", "Accessories", "Tools", "Apparel"];

@@ -30,10 +30,15 @@
 
         <!-- Card Footer -->
         <div class="card-footer text-center">
-          <button class="btn btn-primary btn-sm" [disabled]="product.stockStatus === 'Out of Stock'">
+          <!-- <button class="btn btn-primary btn-sm" [disabled]="product.stockStatus === 'Out of Stock'">
+            Add to Cart
+          </button> -->
+          <button *ngIf="!inCart(product.id)" class="btn btn-primary btn-sm" [disabled]="product.quantityAvailable == 0 || inCart(product.id)" (click)="addToCart(product)">
             Add to Cart
           </button>
-          <button class="btn btn-secondary btn-sm" [routerLink]="['/products/productDetails', product.id]">View Details</button>
+          <a *ngIf="inCart(product.id)" class="btn btn-primary btn-sm" routerLink="/products/cart" role="button">View cart </a>
+          <button class="btn btn-secondary btn-sm" [routerLink]="['/products/productDetails', product.id]">View
+            Details</button>
         </div>
       </div>
     </div>

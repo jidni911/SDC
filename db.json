@@ -41,7 +41,7 @@
       "description": "where is the cart view options?",
       "severity": "medium",
       "steps": "its nowhere",
-      "isSolved": false,
+      "isSolved": true,
       "submittedBy": "228f"
     },
     {
@@ -113,6 +113,15 @@
       "description": "need to work on it",
       "severity": "low",
       "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "ab56",
+      "title": "Cart to check out",
+      "description": "Transaction from cart to check out",
+      "severity": "medium",
+      "steps": "need to work on it",
       "isSolved": false,
       "submittedBy": "61b0"
     }
@@ -341,16 +350,16 @@
       "id": "61b0",
       "items": [
         {
-          "product_id": "prod001",
-          "name": "Mountain Bike",
-          "quantity": 1,
-          "price": 449.99
-        },
-        {
           "product_id": "prod002",
           "name": "Cycling Helmet",
-          "quantity": 2,
-          "price": 49.99
+          "quantity": 1,
+          "price": 59.99
+        },
+        {
+          "product_id": "prod003",
+          "name": "Bike Pump",
+          "quantity": 1,
+          "price": 25.99
         }
       ]
     }
