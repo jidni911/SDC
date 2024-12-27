@@ -1,0 +1,41 @@
+<p>cart works!</p>
+
+<button type="button" class="btn btn-primary" routerLink="/products/checkout">
+  check out
+</button>
+<div class="cart p-3 bg-light rounded shadow-sm">
+  <h3 class="text-center mb-4">Your Cart</h3>
+
+  <div class="cart-item border-bottom py-3" *ngFor="let item of cart.items">
+    <div class="row align-items-center">
+      <!-- Product Image (optional) -->
+      <div class="col-3 col-md-2">
+        <img src="{{ item.image || 'placeholder.png' }}" alt="{{ item.name }}" class="img-fluid rounded">
+      </div>
+
+      <!-- Product Details -->
+      <div class="col-9 col-md-6">
+        <h5 class="mb-1">{{ item.name }}</h5>
+        <p class="mb-1 text-muted">Quantity: {{ item.quantity }}</p>
+        <p class="mb-0 small text-muted">Price per unit: ${{ item.price }}</p>
+      </div>
+
+      <!-- Product Subtotal and Remove Option -->
+      <div class="col-12 col-md-4 text-md-right mt-2 mt-md-0">
+        <p class="mb-1 font-weight-bold">Subtotal: ${{ item.price * item.quantity }}</p>
+        <!-- <button class="btn btn-outline-danger btn-sm" (click)="removeItem(item)">Remove</button> -->
+        <button class="btn btn-outline-danger btn-sm">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Total -->
+  <div class="cart-total mt-4 text-right">
+    <h4 class="font-weight-bold border-top pt-3">
+      Total: $
+      <!-- Total: ${{ cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0) }} -->
+    </h4>
+    <button class="btn btn-success btn-lg mt-2" >Checkout</button>
+  </div>
+</div>
+
