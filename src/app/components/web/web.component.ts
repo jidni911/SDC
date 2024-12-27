@@ -9,9 +9,13 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class WebComponent {
   constructor(private router:Router){}
-  signout() {
-    AppComponent.removeUser();
-    this.router.navigateByUrl('/');
+  sign() {
+    if(AppComponent.getUser()){
+      AppComponent.removeUser();
+      this.router.navigateByUrl('/');
+    } else {
+      this.router.navigateByUrl('/signin');
+    }
   }
   changerole(role: string) {
     AppComponent.user.role = role;

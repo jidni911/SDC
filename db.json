@@ -13,18 +13,6 @@
       "uniqueName": "jidni_khan@7447"
     },
     {
-      "id": "228f",
-      "username": "demoUser",
-      "contact": "1234567890",
-      "email": "demo@example.com",
-      "address": "123 Demo Street, Demo City",
-      "dob": "2000-01-01",
-      "gender": "M",
-      "password": "$2a$10$qGsMXAnc00W0Od4SmNTkBe4NN1EpI2LAf5gGm/vA1CpgGUMfP9bAy",
-      "role": "user",
-      "uniqueName": "demouser@7890"
-    },
-    {
       "id": "61b0",
       "username": "demoUser",
       "contact": "1234567890",
@@ -73,6 +61,60 @@
       "steps": "can you find?",
       "isSolved": false,
       "submittedBy": "228f"
+    },
+    {
+      "id": "5725",
+      "title": "Dashboard for seller",
+      "description": "work on it",
+      "severity": "medium",
+      "steps": "just do it",
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "d18d",
+      "title": "Event Sponsor",
+      "description": "As seller, events can be sponsored. user shall see sponsor name on the event list and on clicking that name, item from the shop will be shown",
+      "severity": "medium",
+      "steps": "think",
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "130a",
+      "title": "Products of seller",
+      "description": "as a seller, there should be an option to add and modify a product",
+      "severity": "medium",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "6d67",
+      "title": "Contacts and about",
+      "description": "not available",
+      "severity": "medium",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "8a6e",
+      "title": "Events",
+      "description": "Adding editing deleting",
+      "severity": "medium",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "d463",
+      "title": "Event description",
+      "description": "need to work on it",
+      "severity": "low",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
     }
   ],
   "products": [
@@ -292,6 +334,25 @@
       "dimensions": null,
       "weight": "400 grams",
       "sellerId": "seller05"
+    }
+  ],
+  "carts": [
+    {
+      "id": "61b0",
+      "items": [
+        {
+          "product_id": "prod001",
+          "name": "Mountain Bike",
+          "quantity": 1,
+          "price": 449.99
+        },
+        {
+          "product_id": "prod002",
+          "name": "Cycling Helmet",
+          "quantity": 2,
+          "price": 49.99
+        }
+      ]
     }
   ],
   "posts": [
