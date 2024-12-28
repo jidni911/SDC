@@ -16,6 +16,7 @@ import { DashboardUserComponent } from './components/dashboard-user/dashboard-us
 import { DashboardSellerComponent } from './components/dashboard-seller/dashboard-seller.component';
 import { BugReportComponent } from './components/bug-report/bug-report.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DemoComponent } from './components/demo/demo.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DashboardDeveloperComponent,
     DashboardUserComponent,
     DashboardSellerComponent,
-    BugReportComponent
+    BugReportComponent,
+    DemoComponent
   ],
   imports: [
     BrowserModule,

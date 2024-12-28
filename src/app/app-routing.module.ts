@@ -10,9 +10,11 @@ import { DashboardDeveloperComponent } from './components/dashboard-developer/da
 import { DashboardSellerComponent } from './components/dashboard-seller/dashboard-seller.component';
 import { DashboardUserComponent } from './components/dashboard-user/dashboard-user.component';
 import { BugReportComponent } from './components/bug-report/bug-report.component';
+import { DemoComponent } from './components/demo/demo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/intro', pathMatch: 'full' },
+  { path: 'demo', component: DemoComponent },
   { path: 'intro', component: IntroComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
@@ -31,6 +33,9 @@ const routes: Routes = [
   },
   {
     path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
+  },
+  {
+    path: 'people', loadChildren: () => import('./people/people.module').then(m => m.PeopleModule)
   },
   // otherwise redirect to intro,
   { path: '**', component: BugReportComponent }

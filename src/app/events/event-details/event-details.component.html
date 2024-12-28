@@ -1,48 +1,48 @@
 <div class="container mt-5">
-  <div class="card shadow-sm">
-    <div class="card-header bg-primary text-white">
-      <h2>{{ event.name }}</h2>
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white py-4">
+      <h2 class="m-0 text-center">{{ event.name }}</h2>
     </div>
-    <div class="card-body">
-      <div class="row mb-3">
+    <div class="card-body bg-light p-4">
+      <div class="row mb-4">
         <div class="col-md-6">
-          <p><strong>Date:</strong> {{ event.date }} ({{ event.dayOfWeek }})</p>
+          <p class="mb-1"><strong>Date:</strong> {{ event.date }} <span class="badge bg-secondary">{{ event.dayOfWeek }}</span></p>
         </div>
         <div class="col-md-6">
-          <p><strong>Time:</strong> {{ event.startTime }}</p>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <p><strong>Duration:</strong> {{ event.duration }}</p>
-        </div>
-        <div class="col-md-6">
-          <p><strong>Distance:</strong> {{ event.distance }}</p>
+          <p class="mb-1"><strong>Time:</strong> {{ event.startTime }}</p>
         </div>
       </div>
-      <div class="row mb-3">
+      <div class="row mb-4">
         <div class="col-md-6">
-          <p><strong>From:</strong> {{ event.fromLocation }}</p>
+          <p class="mb-1"><strong>Duration:</strong> {{ event.duration }}</p>
         </div>
         <div class="col-md-6">
-          <p><strong>To:</strong> {{ event.toLocation }}</p>
+          <p class="mb-1"><strong>Distance:</strong> {{ event.distance }}</p>
         </div>
       </div>
-      <div class="row mb-3">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <p class="mb-1"><strong>From:</strong> {{ event.fromLocation }}</p>
+        </div>
+        <div class="col-md-6">
+          <p class="mb-1"><strong>To:</strong> {{ event.toLocation }}</p>
+        </div>
+      </div>
+
+      <div class="row mb-4">
         <div class="col-md-12">
-          <p><strong>Location:</strong> {{ event.location }}</p>
+          <p class="mb-1"><strong>Description:</strong> {{ event.description }}</p>
         </div>
       </div>
-      <div class="row mb-3">
+      <div class="row">
         <div class="col-md-12">
-          <p><strong>Description:</strong> {{ event.description }}</p>
+          <p class="mb-1"><strong>Organiser:</strong> {{ event.organiser }}</p>
         </div>
       </div>
-      <div class="row mb-3">
-        <div class="col-md-12">
-          <p><strong>Organiser:</strong> {{ event.organiser }}</p>
-        </div>
-      </div>
+    </div>
+    <div class="card-footer text-center py-3">
+      <button class="btn btn-primary">Join Event</button>
+      <button class="btn btn-outline-secondary ms-2" [routerLink]="['/people/profile', event.organiser]">About Organiser</button>
     </div>
   </div>
 </div>

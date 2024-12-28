@@ -57,6 +57,11 @@ export class AllProductsComponent implements OnInit {
     }
   }
 
+  loadMore(){
+    this.products.forEach(p=>{
+      this.products.push(p)
+    })
+  }
   generateRandomProduct(): any {
     const categories = ["Bikes", "Accessories", "Tools", "Apparel"];
     const brands = ["TrailBlazer", "SafeRide", "AirMaster", "RideComfort", "CycleEssentials", "BrightPath", "CycleWear", "SecureRide", "ComfortRide", "SpeedWear"];

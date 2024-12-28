@@ -8,6 +8,11 @@ import { Component } from '@angular/core';
 export class DashboardSellerComponent {
 
 
-  
+  currentTab = "dashboard";
+  orders : any[] =[];
+  products: any[] = [];
+  reviews: any[]=[];
+  overallRating = 3.5
+  productRatings: any[] = []
 
 }

@@ -113,7 +113,7 @@
       "description": "need to work on it",
       "severity": "low",
       "steps": null,
-      "isSolved": false,
+      "isSolved": true,
       "submittedBy": "61b0"
     },
     {
@@ -122,6 +122,33 @@
       "description": "Transaction from cart to check out",
       "severity": "medium",
       "steps": "need to work on it",
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "a512",
+      "title": "Location on events",
+      "description": "there should not be a location",
+      "severity": "high",
+      "steps": null,
+      "isSolved": true,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "b288",
+      "title": "View User",
+      "description": "user view and edit",
+      "severity": "high",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "f145",
+      "title": "Related and similliar Product",
+      "description": "On product view show more products",
+      "severity": "low",
+      "steps": null,
       "isSolved": false,
       "submittedBy": "61b0"
     }
@@ -138,7 +165,7 @@
       "currency": "USD",
       "stockStatus": "In Stock",
       "quantityAvailable": 20,
-      "mainImage": "https://via.placeholder.com/600x400",
+      "mainImage": "https://www.diycarbonbikes.com/cdn/shop/files/F130fullbikegray-Photoroom_300x300.jpg",
       "galleryImages": [
         "https://via.placeholder.com/600x400",
         "https://via.placeholder.com/600x400"
@@ -162,7 +189,7 @@
       "currency": "USD",
       "stockStatus": "In Stock",
       "quantityAvailable": 50,
-      "mainImage": "https://via.placeholder.com/600x400",
+      "mainImage": "https://i.ebayimg.com/images/g/ibEAAOSw-f1mkHji/s-l300.jpg",
       "galleryImages": [
         "https://via.placeholder.com/600x400",
         "https://via.placeholder.com/600x400"
@@ -186,7 +213,7 @@
       "currency": "USD",
       "stockStatus": "In Stock",
       "quantityAvailable": 100,
-      "mainImage": "https://via.placeholder.com/600x400",
+      "mainImage": "https://ik.imagekit.io/w4c/santafixiecom/catalog/product/cache/890894c2af81858abdd618b130865074/b/o/bomba-topeak-mountain-2-stage-digital-negro1.jpg",
       "galleryImages": [
         "https://via.placeholder.com/600x400"
       ],
@@ -209,7 +236,7 @@
       "currency": "USD",
       "stockStatus": "Out of Stock",
       "quantityAvailable": 0,
-      "mainImage": "https://via.placeholder.com/600x400",
+      "mainImage": "https://www.ribblevalley-e-bikes.co.uk/wp-content/uploads/2023/09/BGG115-300x200.jpg",
       "galleryImages": [
         "https://via.placeholder.com/600x400",
         "https://via.placeholder.com/600x400"
@@ -229,7 +256,7 @@
       "currency": "USD",
       "stockStatus": "In Stock",
       "quantityAvailable": 200,
-      "mainImage": "https://via.placeholder.com/600x400",
+      "mainImage": "https://dawntodusk.bike/wp-content/uploads/Kaptive-14-cage-mountain-gravel-road-bike-cycle-cycling-water-hydration-bottle-grip-secure-holder-carbon-fiber-quality-2-300x200.jpg",
       "galleryImages": [
         "https://via.placeholder.com/600x400"
       ],
@@ -248,7 +275,7 @@
       "currency": "USD",
       "stockStatus": "In Stock",
       "quantityAvailable": 80,
-      "mainImage": "https://via.placeholder.com/600x400",
+      "mainImage": "https://ik.imagekit.io/w4c/santafixiecom/catalog/product/cache/890894c2af81858abdd618b130865074/l/u/luz-delantera-neg-800-lumen-1.jpg",
       "galleryImages": [
         "https://via.placeholder.com/600x400"
       ],
@@ -271,7 +298,7 @@
       "currency": "USD",
       "stockStatus": "In Stock",
       "quantityAvailable": 60,
-      "mainImage": "https://via.placeholder.com/600x400",
+      "mainImage": "https://cicli-berlinetta.com/wp-content/uploads/2022/08/Team-Italia-Bib-Cycling-Shorts-90-scaled-2-300x200.jpg",
       "galleryImages": [
         "https://via.placeholder.com/600x400"
       ],
@@ -290,7 +317,7 @@
       "currency": "USD",
       "stockStatus": "In Stock",
       "quantityAvailable": 150,
-      "mainImage": "https://via.placeholder.com/600x400",
+      "mainImage": "https://ik.imagekit.io/w4c/santafixiecom/catalog/product/cache/890894c2af81858abdd618b130865074/c/a/canda-2.jpg",
       "galleryImages": [
         "https://via.placeholder.com/600x400"
       ],
@@ -313,7 +340,7 @@
       "currency": "USD",
       "stockStatus": "In Stock",
       "quantityAvailable": 40,
-      "mainImage": "https://via.placeholder.com/600x400",
+      "mainImage": "https://ik.imagekit.io/w4c/santafixiecom/catalog/product/cache/890894c2af81858abdd618b130865074/s/i/sillin-brooks-c19-carved-negro1.jpg",
       "galleryImages": [
         "https://via.placeholder.com/600x400"
       ],
@@ -336,7 +363,7 @@
       "currency": "USD",
       "stockStatus": "In Stock",
       "quantityAvailable": 70,
-      "mainImage": "https://via.placeholder.com/600x400",
+      "mainImage": "https://ik.imagekit.io/w4c/santafixiecom/catalog/product/cache/890894c2af81858abdd618b130865074/m/a/maillot-adidas-the-end-1.jpg",
       "galleryImages": [
         "https://via.placeholder.com/600x400"
       ],
@@ -350,16 +377,16 @@
       "id": "61b0",
       "items": [
         {
-          "product_id": "prod002",
-          "name": "Cycling Helmet",
-          "quantity": 1,
-          "price": 59.99
-        },
-        {
           "product_id": "prod003",
           "name": "Bike Pump",
           "quantity": 1,
           "price": 25.99
+        },
+        {
+          "product_id": "prod002",
+          "name": "Cycling Helmet",
+          "quantity": 1,
+          "price": 59.99
         }
       ]
     }
@@ -372,7 +399,7 @@
         "profilePicture": "https://via.placeholder.com/50"
       },
       "content": "This is my first post!",
-      "image": "https://via.placeholder.com/600x300",
+      "image": "https://img0.oastatic.com/img2/64913141/600x300c/variant.jpg",
       "relatedProducts": [
         "prod001",
         "prod002",
@@ -400,7 +427,7 @@
         "profilePicture": "https://via.placeholder.com/50"
       },
       "content": "Happy to announce my new project! 🎉",
-      "image": "https://via.placeholder.com/600x350",
+      "image": "https://img3.oastatic.com/img2/66838804/600x300c/variant.jpg",
       "relatedProducts": [
         "prod004",
         "prod005"
@@ -413,7 +440,7 @@
         "profilePicture": "https://via.placeholder.com/50"
       },
       "content": "Here’s a shot from my recent trip! 🌄",
-      "image": "https://via.placeholder.com/600x300",
+      "image": "https://img.oastatic.com/img2/67324150/600x300c/variant.jpg",
       "relatedProducts": [
         "prod006",
         "prod007",
@@ -437,7 +464,7 @@
         "profilePicture": "https://via.placeholder.com/50"
       },
       "content": "Loving the new Angular 16 features! 🚀",
-      "image": "https://via.placeholder.com/600x400",
+      "image": "https://img.oastatic.com/img2/604652695/600x300c/variant.jpg",
       "relatedProducts": [
         "prod009",
         "prod010",
@@ -451,7 +478,7 @@
         "profilePicture": "https://via.placeholder.com/50"
       },
       "content": "Check out this cool photo!",
-      "image": "https://via.placeholder.com/600x300",
+      "image": "https://www.active-charnwood.org/images/49_618b908c86778285618001/600x300.jpg",
       "relatedProducts": []
     },
     {
@@ -467,6 +494,60 @@
         "prod003",
         "prod004"
       ]
+    }
+  ],
+  "events": [
+    {
+      "id": "1",
+      "name": "Event 1",
+      "date": "2023-10-01",
+      "dayOfWeek": "Sunday",
+      "fromLocation": "Location A",
+      "toLocation": "Location B",
+      "startTime": "08:00 AM",
+      "duration": "2 hours",
+      "distance": "20 km",
+      "description": "Description of Event 1",
+      "organiser": "SDC"
+    },
+    {
+      "id": "2",
+      "name": "Event 2",
+      "date": "2023-10-15",
+      "dayOfWeek": "Sunday",
+      "fromLocation": "Location C",
+      "toLocation": "Location D",
+      "startTime": "09:00 AM",
+      "duration": "3 hours",
+      "distance": "30 km",
+      "description": "Description of Event 2",
+      "organiser": "User"
+    },
+    {
+      "id": "3",
+      "name": "Event 3",
+      "date": "2023-11-01",
+      "dayOfWeek": "Wednesday",
+      "fromLocation": "Location E",
+      "toLocation": "Location F",
+      "startTime": "07:00 AM",
+      "duration": "1.5 hours",
+      "distance": "15 km",
+      "description": "Description of Event 3",
+      "organiser": "SDC"
+    },
+    {
+      "id": "711b",
+      "name": "Demo",
+      "date": "2024-12-29",
+      "dayOfWeek": "Sunday",
+      "fromLocation": "Home",
+      "toLocation": "Washroom",
+      "startTime": "09:30",
+      "duration": "1hour",
+      "distance": "10 metre",
+      "description": "we can do it",
+      "organiser": "61b0"
     }
   ]
 }

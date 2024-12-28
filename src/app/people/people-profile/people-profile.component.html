@@ -1,1 +1,46 @@
-<p>people-profile works!</p>
+<div class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white">
+      <h4 class="text-center mb-0">User Profile</h4>
+    </div>
+    <div class="card-body bg-light" *ngIf="person">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p><strong>ID:</strong> {{ person.id }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Username:</strong> {{ person.username }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p><strong>Contact:</strong> {{ person.contact }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Email:</strong> {{ person.email }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <p><strong>Address:</strong> {{ person.address }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p><strong>Date of Birth:</strong> {{ person.dob }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Gender:</strong> {{ person.gender === 'M' ? 'Male' : 'Female' }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p><strong>Role:</strong> {{ person.role }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Unique Name:</strong> {{ person.uniqueName }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
