@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostsService } from 'src/app/service/posts.service';
 import { ProductsService } from 'src/app/service/products.service';
 
@@ -8,56 +9,117 @@ import { ProductsService } from 'src/app/service/products.service';
   styleUrls: ['./dashboard-user.component.scss']
 })
 export class DashboardUserComponent implements OnInit {
-  constructor(private postService: PostsService, private productService: ProductsService) { }
+  postForm: FormGroup;
+  constructor(
+    private postService: PostsService,
+     private productService: ProductsService,
+     private fb : FormBuilder
+    ) {
+    this.postForm = this.fb.group({
+      content: ['', Validators.required],
+      media: this.fb.array([]),
+      privacy: ['public', Validators.required],
+      location: [''],
+      isPoll: [false],
+    });
+  }
   ngOnInit(): void {
-    this.postService.getPosts().subscribe((r: any) => {
-      this.posts = r;
+    this.productService.getProducts().subscribe((s:any)=>{
+      this.products = s;
+      this.postService.getPosts().subscribe((r: any) => {
+        this.posts = r;
+      })
     })
   }
 
-
-  posts: any = [];
-
-
-  //   async getProductById(id: string): Promise<any> {
-  //     return new Promise((resolve, reject) => {
-  //         this.productService.getProduct(id).subscribe(
-  //             (response: any) => {
-  //                 // Handle the response here
-  //                 console.log(response);
-  //                 resolve(response);
-  //             },
-  //             (error: any) => {
-  //                 // Handle the error here
-  //                 console.error(error);
-  //                 reject(error);
-  //             }
-  //         );
-  //     });
-  // }
+  posts: any[] = [];
+  products:any[] = []
 
   getProductById(id: string) {
-    const productDatabase: { [key: string]: { imageLinks: string[] } } = {
-      abc: { imageLinks: ['https://via.placeholder.com/90x90', 'https://via.placeholder.com/120x120'] },
-      ijk: { imageLinks: ['https://via.placeholder.com/90x90'] },
-      xyz: { imageLinks: ['https://via.placeholder.com/90x90'] },
-      "123": { imageLinks: ['https://via.placeholder.com/90x90', 'https://via.placeholder.com/110x110'] },
-      "456": { imageLinks: ['https://via.placeholder.com/90x90'] },
-      lmn: { imageLinks: ['https://via.placeholder.com/90x90'] },
-      opq: { imageLinks: ['https://via.placeholder.com/90x90'] },
-      rst: { imageLinks: ['https://via.placeholder.com/90x90'] },
-      uvw: { imageLinks: ['https://via.placeholder.com/90x90'] },
-      iron: { imageLinks: ['https://via.placeholder.com/90x90'] },
-      man: { imageLinks: ['https://via.placeholder.com/90x90'] },
-      suit: { imageLinks: ['https://via.placeholder.com/90x90'] }
-    };
-
-    // Normalize the id: trim spaces and convert to lowercase if needed
-    const normalizedId = id.trim();
-
-    // Return the corresponding product or a default object
-    return productDatabase[normalizedId] || { imageLinks: ['https://via.placeholder.com/90x90'] };
+    return this.products.filter((v)=>v.id==id)[0]
   }
 
+  get mediaControls(): FormArray {
+    return this.postForm.get('media') as FormArray;
+  }
+
+  addMedia() {
+    this.mediaControls.push(
+      this.fb.group({
+        mediaType: ['image', Validators.required],
+        url: ['', Validators.required],
+      })
+    );
+  }
+
+  removeMedia(index: number) {
+    this.mediaControls.removeAt(index);
+  }
+
+  onSubmit() {
+    if (this.postForm.valid) {
+      console.log(this.postForm.value);
+      alert('Post submitted successfully!');
+    } else {
+      alert('Please fill in all required fields.');
+    }
+  }
 
 }
+
+
+// {
+//   "postId": "12345",
+//   "userId": "67890",
+//   "content": "Check out this beautiful sunset! #Nature #Sunset",
+//   "media": [
+//     {
+//       "type": "image",
+//       "url": "https://example.com/images/sunset.jpg"
+//     },
+//     {
+//       "type": "video",
+//       "url": "https://example.com/videos/sunset.mp4"
+//     }
+//   ],
+//   "timestamp": "2024-12-27T14:30:00Z",
+//   "privacy": "public",
+//   "engagement": {
+//     "likesCount": 150,
+//     "commentsCount": 25,
+//     "sharesCount": 10
+//   },
+//   "interactions": {
+//     "tags": ["54321", "11223"],
+//     "mentions": ["@johndoe", "@janedoe"],
+//     "hashtags": ["Nature", "Sunset"]
+//   },
+//   "location": {
+//     "latitude": 23.8103,
+//     "longitude": 90.4125,
+//     "name": "Dhaka, Bangladesh"
+//   },
+//   "poll": {
+//     "isPoll": false,
+//     "options": []
+//   },
+//   "scheduledPostTime": null,
+//   "visibilityScope": null,
+//   "metadata": {
+//     "postType": "text",
+//     "editHistory": [
+//       {
+//         "timestamp": "2024-12-27T14:40:00Z",
+//         "editedContent": "Check out this amazing sunset! #Nature #Sunset"
+//       }
+//     ],
+//     "status": "active"
+//   },
+//   "moderation": {
+//     "reportedBy": ["98765", "65432"],
+//     "engagementRate": {
+//       "views": 2000,
+//       "clicks": 300
+//     }
+//   }
+// }

@@ -1,7 +1,75 @@
 <div class="container my-5">
   <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card mb-4 shadow-sm" *ngFor="let post of posts">
+    <div class="col-md-10">
+
+      <p>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#newPostForm"
+          aria-expanded="false" aria-controls="newPostForm">
+          New Post
+        </button>
+      </p>
+      <div class="collapse" id="newPostForm">
+        <!-- HTML Form -->
+        <div class="container mt-5">
+          <h2>Create a Post</h2>
+          <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="content" class="form-label">Post Content</label>
+              <textarea id="content" class="form-control" formControlName="content" rows="4"
+                placeholder="What's on your mind?"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="media" class="form-label">Media</label>
+              <div formArrayName="media">
+                <div *ngFor="let media of mediaControls.controls; let i = index" class="input-group mb-2">
+                  <select class="form-select w-25" [formControlName]="i" [name]="'mediaType' + i">
+                    <option value="image">Image</option>
+                    <option value="video">Video</option>
+                  </select>
+                  <input type="text" class="form-control" formControlName="url" placeholder="Enter media URL" />
+                  <button type="button" class="btn btn-danger" (click)="removeMedia(i)">
+                    Remove
+                  </button>
+                </div>
+              </div>
+              <button type="button" class="btn btn-secondary" (click)="addMedia()">
+                Add Media
+              </button>
+            </div>
+
+            <div class="mb-3">
+              <label for="privacy" class="form-label">Privacy</label>
+              <select class="form-select" formControlName="privacy">
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+                <option value="friends">Friends</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="location" class="form-label">Location</label>
+              <input type="text" id="location" class="form-control" formControlName="location"
+                placeholder="Enter location" />
+            </div>
+
+            <div class="form-check mb-3">
+              <input type="checkbox" id="poll" class="form-check-input" formControlName="isPoll" />
+              <label for="poll" class="form-check-label">Add Poll</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+
+
+      </div>
+
+
+
+
+
+      <div class="card my-4 shadow-sm" *ngFor="let post of posts">
         <!-- Card Header -->
         <div class="card-header d-flex align-items-center">
           <img [src]="post.user.profilePicture" class="rounded-circle me-3" width="50" height="50"
@@ -36,7 +104,7 @@
         <div *ngIf="post.relatedProducts.length>0" class="d-flex justify-content-around">
           <div *ngFor="let itemid of post.relatedProducts">
             <div [routerLink]="'/products/productDetails/' + itemid">
-              <img [src]="getProductById(itemid).imageLinks[0]" class="img-thumbnail me-2 mb-2"
+              <img [src]="getProductById(itemid).mainImage" class="img-thumbnail me-2 mb-2"
                 style="width: 100px; height: 100px; object-fit: cover;" alt="">
               <!-- <img [src]="(getProductById(itemid) | async)?.mainImage" alt=""> -->
             </div>

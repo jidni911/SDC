@@ -7,7 +7,21 @@ import { Injectable } from '@angular/core';
 export class EventsService {
 
   constructor(private http: HttpClient) { }
-  getEvents() {
-    return this.http.get('https://jsonplaceholder.typicode.com/posts');
-  }
+    private url = 'http://localhost:3000/events';
+
+    getEvents() {
+      return this.http.get(this.url);
+    }
+
+    getEvent(id: any) {
+      return this.http.get(`${this.url}/${id}`);
+    }
+
+    createEvent(event: any) {
+      return this.http.post(this.url, event);
+    }
+
+    updateEvent(id: any, event: any) {
+      return this.http.put(`${this.url}/${id}`, event);
+    }
 }

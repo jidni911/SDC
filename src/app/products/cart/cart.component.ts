@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { CartService } from 'src/app/service/cart.service';
+import { ProductsService } from 'src/app/service/products.service';
 
 @Component({
   selector: 'app-cart',
@@ -9,21 +10,26 @@ import { CartService } from 'src/app/service/cart.service';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  constructor(private router: Router, private cartService: CartService) { }
+  constructor(private router: Router, private cartService: CartService, private ps: ProductsService) { }
   ngOnInit(): void {
 
     if (!AppComponent.getUser()) {
       this.router.navigateByUrl('/signin')
     }
-    this.cartService.getCart(AppComponent.getUser().id).subscribe((r: any) => {
-      this.cart = r;
+    this.ps.getProducts().subscribe((s: any) => {
+      this.products = s;
 
+      this.cartService.getCart(AppComponent.getUser().id).subscribe((r: any) => {
+        this.cart = r;
+
+      })
     })
 
 
   }
 
   cart: any = null
+  products: any[] = []
 
   getTotal(): number {
 
@@ -32,16 +38,16 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(product_id: any) {
-    this.cart.items = this.cart.items.filter((item:any) => {return item.product_id!=product_id});
+    this.cart.items = this.cart.items.filter((item: any) => { return item.product_id != product_id });
     // console.log(this.cart);
-    this.cartService.updateCart(AppComponent.getUser().id,this.cart).subscribe((r:any)=>{
+    this.cartService.updateCart(AppComponent.getUser().id, this.cart).subscribe((r: any) => {
       this.ngOnInit()
     })
 
   }
 
-  getProductImgUrlById(product_id: any){
-    return "https://via.placeholder.com/600x400"
+  getProductImgUrlById(product_id: any) {
+    return this.products.filter((v)=>v.id==product_id)[0].mainImage
   }
 
 }

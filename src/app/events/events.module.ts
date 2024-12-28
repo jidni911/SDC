@@ -6,6 +6,8 @@ import { AllEventsComponent } from './all-events/all-events.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventCreateComponent } from './event-create/event-create.component';
 import { EventUpdateComponent } from './event-update/event-update.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,7 +19,10 @@ import { EventUpdateComponent } from './event-update/event-update.component';
   ],
   imports: [
     CommonModule,
-    EventsRoutingModule
+    EventsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class EventsModule { }
