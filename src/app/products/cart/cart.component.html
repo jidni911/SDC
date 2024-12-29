@@ -52,6 +52,6 @@
     <h4 class="font-weight-bold border-top pt-3" *ngIf="cart && cart.items && cart.items.length>0 ">
       Total: $ {{ getTotal() }}
     </h4>
-    <button class="btn btn-success btn-lg mt-2" routerLink="/products/checkout">Checkout</button>
+    <button class="btn btn-success btn-lg mt-2" routerLink="/products/checkout"  *ngIf="cart && cart.items && cart.items.length>0 ">Checkout</button>
   </div>
 </div>

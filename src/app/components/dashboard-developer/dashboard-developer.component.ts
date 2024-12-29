@@ -1,3 +1,4 @@
+import { OrdersService } from 'src/app/service/orders.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ProductsService } from './../../service/products.service';
 import { Component, OnInit } from '@angular/core';
@@ -8,25 +9,44 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './dashboard-developer.component.html',
   styleUrls: ['./dashboard-developer.component.scss']
 })
-export class DashboardDeveloperComponent implements OnInit{
+export class DashboardDeveloperComponent implements OnInit {
+  unix2Normal(unixTimestamp: number): string {
+    const date = new Date(unixTimestamp); // Convert UNIX timestamp to a Date object
 
-  constructor(private productsService : ProductsService){}
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+
+  constructor(
+    private productsService: ProductsService,
+    private ordersService: OrdersService
+  ) { }
   ngOnInit(): void {
-    this.productsService.getProducts().subscribe((r:any)=>{
+    this.productsService.getProducts().subscribe((r: any) => {
       this.products = r;
+    })
+    this.ordersService.getOrders().subscribe((r: any) => {
+      this.orders = r;
     })
 
   }
 
-  currentTab = "products";
-  orders : any[] =[];
+  currentTab = "dashboard";
+  orders: any[] = [];
   products: any[] = [];
-  reviews: any[]=[];
+  reviews: any[] = [];
   overallRating = 3.5
   productRatings: any[] = []
   selectedProduct: any = null;
 
-  productEditForm : FormGroup = new FormGroup({
+  productEditForm: FormGroup = new FormGroup({
     id: new FormControl(''),
     name: new FormControl(''),
     description: new FormControl(''),
@@ -54,7 +74,7 @@ export class DashboardDeveloperComponent implements OnInit{
 
   }
 
-  getJson(prod:any){
+  getJson(prod: any) {
     return JSON.stringify(prod);
   }
 
