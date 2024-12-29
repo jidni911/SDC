@@ -10,7 +10,12 @@
       "gender": "M",
       "password": "$2a$10$So8lFRTJieURFFJXQvD.auwG.PTfaGcc7UCnRiMyIjSMzzAou4GXG",
       "role": "user",
-      "uniqueName": "jidni_khan@7447"
+      "uniqueName": "jidni_khan@7447",
+      "profilePicture": "https://img.freepik.com/free-vector/profile-picture-template-design_742173-22027.jpg",
+      "paymentMethod": "Credit Card",
+      "accountStatus": "active",
+      "createdAt": "2024-01-20",
+      "lastLogin": "2024-12-20"
     },
     {
       "id": "61b0",
@@ -21,124 +26,142 @@
       "dob": "2000-01-01",
       "gender": "M",
       "password": "$2a$10$guuTa80.XxHYUDL/wK/Qneefw366r/9Z6N4A/y3/PKWSyz7/iNIGG",
-      "role": "dev",
-      "uniqueName": "demouser@7890"
+      "role": "seller",
+      "uniqueName": "demouser@7890",
+      "profilePicture": "https://img.freepik.com/free-vector/profile-picture-template-design_742173-22027.jpg",
+      "paymentMethod": "N/A",
+      "accountStatus": "active",
+      "createdAt": "2023-01-01",
+      "lastLogin": "2024-12-29",
+      "canManageUsers": true,
+      "canDeletePosts": true
+    },
+    {
+      "id": "e243",
+      "username": "Alice Parker",
+      "contact": "0112233445",
+      "email": "alice.parker@example.com",
+      "address": "Hilltop Road, London",
+      "dob": "1998-07-19",
+      "gender": "F",
+      "password": "$2a$10$FQdqVBOmW/q1DjRvmYPQyOk6.OIu6pCC10QdmzyvNEmwb4w56XZp6",
+      "role": "user",
+      "uniqueName": "alice_parker@1122",
+      "profilePicture": "https://img.freepik.com/free-vector/profile-picture-template-design_742173-22027.jpg",
+      "paymentMethod": "Debit Card",
+      "accountStatus": "active",
+      "createdAt": "2024-04-12",
+      "lastLogin": "2024-12-25"
+    },
+    {
+      "id": "f574",
+      "username": "James Bond",
+      "contact": "01455667788",
+      "email": "james.bond@mi6.com",
+      "address": "MI6 Headquarters, London",
+      "dob": "1985-11-11",
+      "gender": "M",
+      "password": "$2a$10$T11uEK3Fgk0IjR0lP0NckZkMpcHiTw8JpA8ccVGKZIzstZbO.KyEq",
+      "role": "user",
+      "uniqueName": "james_bond@007",
+      "profilePicture": "https://img.freepik.com/free-vector/profile-picture-template-design_742173-22027.jpg",
+      "paymentMethod": "Paypal",
+      "accountStatus": "active",
+      "createdAt": "2024-03-03",
+      "lastLogin": "2024-12-20"
+    },
+    {
+      "id": "a832",
+      "username": "Sarah Connors",
+      "contact": "0198776543",
+      "email": "sarah.connors@skynet.com",
+      "address": "Future Street, LA",
+      "dob": "1995-02-22",
+      "gender": "F",
+      "password": "$2a$10$UdAeYPF0HcSM.9F5nZGg/qZo77HkqQKDxzGbFfWcOVpIElo2Gn9z6",
+      "role": "user",
+      "uniqueName": "sarah_connors@2077",
+      "profilePicture": "https://img.freepik.com/free-vector/profile-picture-template-design_742173-22027.jpg",
+      "paymentMethod": "Credit Card",
+      "accountStatus": "active",
+      "createdAt": "2024-02-25",
+      "lastLogin": "2024-12-21"
+    },
+    {
+      "id": "g291",
+      "username": "Emma Watson",
+      "contact": "0178993234",
+      "email": "emma.watson@hermione.com",
+      "address": "Hogwarts, Scotland",
+      "dob": "1990-04-15",
+      "gender": "F",
+      "password": "$2a$10$yW7KmDPtQydXi5wq6J2Zd6Goq6vg6vU8jXRL2kEwG0rZYbq.QJHXm",
+      "role": "user",
+      "uniqueName": "emma_watson@1990",
+      "profilePicture": "https://img.freepik.com/free-vector/profile-picture-template-design_742173-22027.jpg",
+      "paymentMethod": "Debit Card",
+      "accountStatus": "active",
+      "createdAt": "2024-07-09",
+      "lastLogin": "2024-12-15"
+    },
+    {
+      "id": "h903",
+      "username": "Oliver Twist",
+      "contact": "0192446857",
+      "email": "oliver.twist@example.com",
+      "address": "London, UK",
+      "dob": "1999-09-10",
+      "gender": "M",
+      "password": "$2a$10$kYIsBzExLSqzdwFBOOQLgOxIEKtPttH9PzUvYNbSzfnB2eYu1Kb7e",
+      "role": "user",
+      "uniqueName": "oliver_twist@1122",
+      "profilePicture": "https://img.freepik.com/free-vector/profile-picture-template-design_742173-22027.jpg",
+      "paymentMethod": "Paypal",
+      "accountStatus": "active",
+      "createdAt": "2024-05-01",
+      "lastLogin": "2024-12-18"
+    },
+    {
+      "id": "i776",
+      "username": "Robert Downey Jr.",
+      "contact": "0186442235",
+      "email": "robert.downey@example.com",
+      "address": "Malibu, California",
+      "dob": "1982-03-30",
+      "gender": "M",
+      "password": "$2a$10$ch16BwaNdAwzU/2h35bFOgM8oQpvLhwHtmY7j4mhmbWvR5cH51pNe",
+      "role": "user",
+      "uniqueName": "robert_downey@1982",
+      "profilePicture": "https://img.freepik.com/free-vector/profile-picture-template-design_742173-22027.jpg",
+      "paymentMethod": "Credit Card",
+      "accountStatus": "active",
+      "createdAt": "2024-08-15",
+      "lastLogin": "2024-12-17"
+    },
+    {
+      "id": "j450",
+      "username": "Chris Hemsworth",
+      "contact": "0155588779",
+      "email": "chris.hemsworth@thor.com",
+      "address": "Sydney, Australia",
+      "dob": "1983-11-11",
+      "gender": "M",
+      "password": "$2a$10$bmMvwhZyA0OFd2PV9Slrg02nkmr1MRFYToGJmkPthzXiFubRfI7aq",
+      "role": "user",
+      "uniqueName": "chris_hemsworth@1983",
+      "profilePicture": "https://img.freepik.com/free-vector/profile-picture-template-design_742173-22027.jpg",
+      "paymentMethod": "Debit Card",
+      "accountStatus": "active",
+      "createdAt": "2024-06-18",
+      "lastLogin": "2024-12-22"
     }
   ],
   "bugs": [
-    {
-      "id": "d4b5",
-      "title": "Role Selection",
-      "description": "When role is modified, it doesnt change",
-      "severity": "medium",
-      "steps": "Click on the nav bar",
-      "isSolved": true,
-      "submittedBy": "228f"
-    },
-    {
-      "id": "08ee",
-      "title": "missing cart",
-      "description": "where is the cart view options?",
-      "severity": "medium",
-      "steps": "its nowhere",
-      "isSolved": true,
-      "submittedBy": "228f"
-    },
-    {
-      "id": "2b35",
-      "title": "Profile pic",
-      "description": "User e profile picture nai",
-      "severity": "high",
-      "steps": "just... look",
-      "isSolved": false,
-      "submittedBy": "228f"
-    },
-    {
-      "id": "3c59",
-      "title": "Creating Posts",
-      "description": "How Can i create Posts?",
-      "severity": "high",
-      "steps": "can you find?",
-      "isSolved": false,
-      "submittedBy": "228f"
-    },
-    {
-      "id": "5725",
-      "title": "Dashboard for seller",
-      "description": "work on it",
-      "severity": "medium",
-      "steps": "just do it",
-      "isSolved": false,
-      "submittedBy": "61b0"
-    },
-    {
-      "id": "d18d",
-      "title": "Event Sponsor",
-      "description": "As seller, events can be sponsored. user shall see sponsor name on the event list and on clicking that name, item from the shop will be shown",
-      "severity": "medium",
-      "steps": "think",
-      "isSolved": false,
-      "submittedBy": "61b0"
-    },
     {
       "id": "130a",
       "title": "Products of seller",
       "description": "as a seller, there should be an option to add and modify a product",
       "severity": "medium",
-      "steps": null,
-      "isSolved": false,
-      "submittedBy": "61b0"
-    },
-    {
-      "id": "6d67",
-      "title": "Contacts and about",
-      "description": "not available",
-      "severity": "medium",
-      "steps": null,
-      "isSolved": false,
-      "submittedBy": "61b0"
-    },
-    {
-      "id": "8a6e",
-      "title": "Events",
-      "description": "Adding editing deleting",
-      "severity": "medium",
-      "steps": null,
-      "isSolved": false,
-      "submittedBy": "61b0"
-    },
-    {
-      "id": "d463",
-      "title": "Event description",
-      "description": "need to work on it",
-      "severity": "low",
-      "steps": null,
-      "isSolved": true,
-      "submittedBy": "61b0"
-    },
-    {
-      "id": "ab56",
-      "title": "Cart to check out",
-      "description": "Transaction from cart to check out",
-      "severity": "medium",
-      "steps": "need to work on it",
-      "isSolved": true,
-      "submittedBy": "61b0"
-    },
-    {
-      "id": "a512",
-      "title": "Location on events",
-      "description": "there should not be a location",
-      "severity": "high",
-      "steps": null,
-      "isSolved": true,
-      "submittedBy": "61b0"
-    },
-    {
-      "id": "b288",
-      "title": "View User",
-      "description": "user view and edit",
-      "severity": "high",
       "steps": null,
       "isSolved": true,
       "submittedBy": "61b0"
@@ -156,24 +179,6 @@
       "id": "9dd8",
       "title": "Event Update",
       "description": "complete event update",
-      "severity": "low",
-      "steps": null,
-      "isSolved": false,
-      "submittedBy": "61b0"
-    },
-    {
-      "id": "33cf",
-      "title": "All people",
-      "description": "complete All People",
-      "severity": "low",
-      "steps": null,
-      "isSolved": false,
-      "submittedBy": "61b0"
-    },
-    {
-      "id": "b710",
-      "title": " people card",
-      "description": "complete  People card",
       "severity": "low",
       "steps": null,
       "isSolved": false,
@@ -205,15 +210,6 @@
       "steps": null,
       "isSolved": false,
       "submittedBy": "61b0"
-    },
-    {
-      "id": "4996",
-      "title": " review",
-      "description": "Complete review",
-      "severity": "low",
-      "steps": null,
-      "isSolved": false,
-      "submittedBy": "61b0"
     }
   ],
   "products": [
@@ -239,7 +235,20 @@
         "depth": "40 cm"
       },
       "weight": "12 kg",
-      "sellerId": "seller01"
+      "sellerId": "seller01",
+      "rating": 4.7,
+      "reviews": 120,
+      "tags": [
+        "Mountain Bike",
+        "Durable",
+        "Off-road"
+      ],
+      "origin": "USA",
+      "features": [
+        "High-durability frame",
+        "Shock-absorbing suspension"
+      ],
+      "addedDate": "2024-12-29"
     },
     {
       "id": "prod002",
@@ -263,7 +272,20 @@
         "depth": "20 cm"
       },
       "weight": "500 grams",
-      "sellerId": "seller02"
+      "sellerId": "seller02",
+      "rating": 4.3,
+      "reviews": 65,
+      "tags": [
+        "Helmet",
+        "Safety",
+        "Lightweight"
+      ],
+      "origin": "Germany",
+      "features": [
+        "Adjustable straps",
+        "Shock resistance"
+      ],
+      "addedDate": "2024-12-28"
     },
     {
       "id": "prod003",
@@ -286,7 +308,20 @@
         "depth": "5 cm"
       },
       "weight": "1 kg",
-      "sellerId": "seller03"
+      "sellerId": "seller03",
+      "rating": 4.5,
+      "reviews": 35,
+      "tags": [
+        "Pump",
+        "Compact",
+        "Efficient"
+      ],
+      "origin": "China",
+      "features": [
+        "Dual-action inflation",
+        "Compact design"
+      ],
+      "addedDate": "2024-12-27"
     },
     {
       "id": "prod004",
@@ -306,7 +341,20 @@
       ],
       "dimensions": null,
       "weight": "200 grams",
-      "sellerId": "seller01"
+      "sellerId": "seller01",
+      "rating": 4,
+      "reviews": 18,
+      "tags": [
+        "Gloves",
+        "Comfort",
+        "Padded"
+      ],
+      "origin": "India",
+      "features": [
+        "Breathable material",
+        "Shock absorption"
+      ],
+      "addedDate": "2024-12-26"
     },
     {
       "id": "prod005",
@@ -325,7 +373,20 @@
       ],
       "dimensions": null,
       "weight": "300 grams",
-      "sellerId": "seller02"
+      "sellerId": "seller02",
+      "rating": 4.8,
+      "reviews": 95,
+      "tags": [
+        "Bottle Holder",
+        "Durable",
+        "Lightweight"
+      ],
+      "origin": "USA",
+      "features": [
+        "Easy access",
+        "Secure grip"
+      ],
+      "addedDate": "2024-12-25"
     },
     {
       "id": "prod006",
@@ -348,7 +409,20 @@
         "depth": "5 cm"
       },
       "weight": "400 grams",
-      "sellerId": "seller03"
+      "sellerId": "seller03",
+      "rating": 4.6,
+      "reviews": 50,
+      "tags": [
+        "Bike Lights",
+        "LED",
+        "Bright"
+      ],
+      "origin": "Japan",
+      "features": [
+        "High-brightness LED",
+        "Rechargeable battery"
+      ],
+      "addedDate": "2024-12-24"
     },
     {
       "id": "prod007",
@@ -367,7 +441,14 @@
       ],
       "dimensions": null,
       "weight": "300 grams",
-      "sellerId": "seller04"
+      "sellerId": "seller04",
+      "ratings": 4.6,
+      "origin": "Italy",
+      "tags": [
+        "apparel",
+        "comfort",
+        "cycling"
+      ]
     },
     {
       "id": "prod008",
@@ -390,7 +471,14 @@
         "depth": "5 cm"
       },
       "weight": "2 kg",
-      "sellerId": "seller05"
+      "sellerId": "seller05",
+      "ratings": 4.8,
+      "origin": "Germany",
+      "tags": [
+        "tools",
+        "security",
+        "bike"
+      ]
     },
     {
       "id": "prod009",
@@ -413,7 +501,14 @@
         "depth": "8 cm"
       },
       "weight": "1.5 kg",
-      "sellerId": "seller04"
+      "sellerId": "seller04",
+      "ratings": 4.5,
+      "origin": "France",
+      "tags": [
+        "accessories",
+        "comfort",
+        "saddle"
+      ]
     },
     {
       "id": "prod010",
@@ -432,13 +527,177 @@
       ],
       "dimensions": null,
       "weight": "400 grams",
-      "sellerId": "seller05"
+      "sellerId": "seller05",
+      "ratings": 4.7,
+      "origin": "USA",
+      "tags": [
+        "apparel",
+        "jersey",
+        "cycling"
+      ]
+    },
+    {
+      "id": "prod011",
+      "name": "Bike Chain Lubricant",
+      "description": "Long-lasting lubricant for smooth and rust-free chain performance.",
+      "category": "Maintenance",
+      "brand": "LubePro",
+      "price": 12.99,
+      "discountPrice": 10.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 200,
+      "mainImage": "https://m.media-amazon.com/images/I/71YsPODL8IL._SL1500_.jpg",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": {
+        "height": "15 cm",
+        "width": "5 cm",
+        "depth": "5 cm"
+      },
+      "weight": "300 grams",
+      "sellerId": "seller06",
+      "ratings": 4.9,
+      "origin": "Japan",
+      "tags": [
+        "maintenance",
+        "lubricant",
+        "chain"
+      ]
+    },
+    {
+      "id": "prod012",
+      "name": "Cycling Sunglasses",
+      "description": "Polarized sunglasses to protect your eyes from UV rays during rides.",
+      "category": "Accessories",
+      "brand": "SunShield",
+      "price": 39.99,
+      "discountPrice": 35.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 120,
+      "mainImage": "https://cdn.shopify.com/s/files/1/0024/9803/5810/products/7-1_500x.jpg",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": {
+        "height": "5 cm",
+        "width": "15 cm",
+        "depth": "5 cm"
+      },
+      "weight": "200 grams",
+      "sellerId": "seller07",
+      "ratings": 4.8,
+      "origin": "USA",
+      "tags": [
+        "accessories",
+        "sunglasses",
+        "cycling"
+      ]
+    },
+    {
+      "id": "prod013",
+      "name": "Cycling Backpack",
+      "description": "Lightweight backpack with water reservoir for long rides.",
+      "category": "Accessories",
+      "brand": "HydroPack",
+      "price": 89.99,
+      "discountPrice": 79.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 60,
+      "mainImage": "https://cdn11.bigcommerce.com/s-g8x5b/images/stencil/1280x1280/products/257/1264/Sycling_Backpack_Green_01__31752.1573502634.jpg",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": {
+        "height": "40 cm",
+        "width": "25 cm",
+        "depth": "10 cm"
+      },
+      "weight": "1.2 kg",
+      "sellerId": "seller08",
+      "ratings": 4.7,
+      "origin": "Germany",
+      "tags": [
+        "accessories",
+        "backpack",
+        "hydration"
+      ]
+    },
+    {
+      "id": "prod014",
+      "name": "Bike Repair Tool Kit",
+      "description": "Comprehensive tool kit for emergency bike repairs on the go.",
+      "category": "Tools",
+      "brand": "FixItAll",
+      "price": 59.99,
+      "discountPrice": 49.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 80,
+      "mainImage": "https://5.imimg.com/data5/SELLER/Default/2022/11/GM/QC/WW/15707229/bike-repair-tool-kit-500x500.jpg",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": {
+        "height": "10 cm",
+        "width": "20 cm",
+        "depth": "8 cm"
+      },
+      "weight": "2.5 kg",
+      "sellerId": "seller09",
+      "ratings": 4.9,
+      "origin": "India",
+      "tags": [
+        "tools",
+        "repair",
+        "bike"
+      ]
+    },
+    {
+      "id": "prod015",
+      "name": "Portable Bike Stand",
+      "description": "Foldable bike stand for easy maintenance and storage.",
+      "category": "Tools",
+      "brand": "EasyStand",
+      "price": 79.99,
+      "discountPrice": 69.99,
+      "currency": "USD",
+      "stockStatus": "In Stock",
+      "quantityAvailable": 40,
+      "mainImage": "https://m.media-amazon.com/images/I/71ybMe41w0L._AC_SL1500_.jpg",
+      "galleryImages": [
+        "https://via.placeholder.com/600x400"
+      ],
+      "dimensions": {
+        "height": "50 cm",
+        "width": "40 cm",
+        "depth": "20 cm"
+      },
+      "weight": "3 kg",
+      "sellerId": "seller10",
+      "ratings": 4.8,
+      "origin": "Australia",
+      "tags": [
+        "tools",
+        "stand",
+        "bike"
+      ]
     }
   ],
   "carts": [
     {
       "id": "61b0",
-      "items": []
+      "items": [
+        {
+          "product_id": "prod003",
+          "name": "Bike Pump",
+          "quantity": 1,
+          "price": 25.99
+        }
+      ]
     }
   ],
   "posts": [
@@ -558,7 +817,10 @@
       "duration": "2 hours",
       "distance": "20 km",
       "description": "Description of Event 1",
-      "organiser": "SDC"
+      "organiser": "SDC",
+      "sponsor": {
+        "name": "SDC"
+      }
     },
     {
       "id": "2",
@@ -571,7 +833,10 @@
       "duration": "3 hours",
       "distance": "30 km",
       "description": "Description of Event 2",
-      "organiser": "User"
+      "organiser": "User",
+      "sponsor": {
+        "name": "SDC"
+      }
     },
     {
       "id": "3",
@@ -584,7 +849,8 @@
       "duration": "1.5 hours",
       "distance": "15 km",
       "description": "Description of Event 3",
-      "organiser": "SDC"
+      "organiser": "SDC",
+      "sponsor": null
     },
     {
       "id": "711b",
@@ -597,7 +863,8 @@
       "duration": "1hour",
       "distance": "10 metre",
       "description": "we can do it",
-      "organiser": "61b0"
+      "organiser": "61b0",
+      "sponsor": null
     }
   ],
   "orders": [

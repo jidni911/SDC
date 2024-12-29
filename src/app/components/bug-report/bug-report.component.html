@@ -60,6 +60,7 @@
           </div>
           <div>
             <button *ngIf="isDeveloper()" class="btn btn-outline-success btn-sm" (click)="solve(bug)">Mark as solved</button>
+            <button *ngIf="isDeveloper()" class="btn btn-outline-danger btn-sm" (click)="delete(bug)">Delete</button>
           </div>
         </td>
       </tr>

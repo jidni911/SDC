@@ -71,4 +71,9 @@ export class BugReportComponent implements OnInit {
       this.ngOnInit()
     })
   }
+  delete(bug:any){
+    this.bugService.deleteBug(bug.id).subscribe((r:any)=>{
+      this.ngOnInit()
+    })
+  }
 }

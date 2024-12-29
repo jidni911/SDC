@@ -1,3 +1,4 @@
+import { UsersService } from 'src/app/service/users.service';
 import { OrdersService } from 'src/app/service/orders.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ProductsService } from './../../service/products.service';
@@ -26,9 +27,13 @@ export class DashboardDeveloperComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private userService: UsersService
   ) { }
   ngOnInit(): void {
+    this.userService.getUsers().subscribe((r: any) => {
+      this.users = r;
+    })
     this.productsService.getProducts().subscribe((r: any) => {
       this.products = r;
     })
@@ -41,6 +46,7 @@ export class DashboardDeveloperComponent implements OnInit {
   currentTab = "dashboard";
   orders: any[] = [];
   products: any[] = [];
+  users: any[] = [];
   reviews: any[] = [];
   overallRating = 3.5
   productRatings: any[] = []
@@ -82,5 +88,14 @@ export class DashboardDeveloperComponent implements OnInit {
     // Find and update the product in the products array
     console.log(this.productEditForm.value);
 
+  }
+
+  getUserFromId(id: any) {
+
+    return this.users.find((v) => { return v.id == id })
+  }
+  getProductFromId(id: any) {
+
+    return this.products.find((v) => { return v.id == id })
   }
 }

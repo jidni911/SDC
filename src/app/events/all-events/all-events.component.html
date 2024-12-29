@@ -33,8 +33,9 @@
         <td>{{ event.description }}</td>
         <td>{{ event.organiser }}</td>
 
-        <td>
-          <!-- <a  class="btn btn-outline-primary"  role="button">{{event.sponsor.name}}</a> -->
+        <td  >
+          <a  *ngIf="event.sponsor" class="btn btn-outline-primary"  role="button">{{event.sponsor.name}}</a>
+          <a  *ngIf="isSeller()" class="btn btn-outline-success"  role="button">Click to become one</a>
 
         </td>
       </tr>
@@ -75,8 +76,9 @@
         <td>{{ event.distance }}</td>
         <td>{{ event.description }}</td>
         <td>{{ event.organiser }}</td>
-        <td>
-          <!-- <a  class="btn btn-outline-primary"  role="button">{{event.sponsor.name}}</a> -->
+        <td  *ngIf="event.sponsor">
+          <a  class="btn btn-outline-primary"  role="button">{{event.sponsor.name}}</a>
+
 
         </td>
         <!-- </a> -->
