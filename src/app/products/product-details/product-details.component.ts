@@ -54,5 +54,12 @@ export class ProductDetailsComponent implements OnInit {
       this.router.navigateByUrl('/signin');
     }
   }
+  getStars(rating: number): string {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 !== 0 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+    return '★'.repeat(fullStars) + (halfStar ? '☆' : '') + '★'.repeat(emptyStars);
+  }
+
 
 }

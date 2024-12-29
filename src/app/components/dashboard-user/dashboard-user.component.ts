@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AppComponent } from 'src/app/app.component';
 import { PostsService } from 'src/app/service/posts.service';
 import { ProductsService } from 'src/app/service/products.service';
 
@@ -32,6 +33,7 @@ export class DashboardUserComponent implements OnInit {
     })
   }
 
+  user : any = AppComponent.getUser()
   posts: any[] = [];
   products:any[] = []
 

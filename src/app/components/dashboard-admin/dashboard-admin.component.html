@@ -1,23 +1,282 @@
 <div class="container mt-5">
   <div class="row">
-    <div class="col-md-3">
-      <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action active">Dashboard</a>
-        <a href="#" class="list-group-item list-group-item-action">Users</a>
-        <a href="#" class="list-group-item list-group-item-action">Settings</a>
-        <a href="#" class="list-group-item list-group-item-action">Reports</a>
+    <div class="col-md-2 col-lg-1 d-md-block bg-light sidebar collapse">
+      <div class="list-group position-sticky pt-3 sidebar-sticky">
+        <a href="/dashboard/dashboardadmin#dashboard"
+          class="list-group-item list-group-item-action active">Dashboard</a>
+        <a href="/dashboard/dashboardadmin#users" class="list-group-item list-group-item-action">Users</a>
+        <a href="/dashboard/dashboardadmin#settings" class="list-group-item list-group-item-action">Settings</a>
+        <a href="/dashboard/dashboardadmin#reports" class="list-group-item list-group-item-action">Reports</a>
       </div>
+
     </div>
-    <div class="col-md-9">
-      <div class="card">
-        <div class="card-header">
-          Admin Dashboard
+    <div class="col-md-10 ms-sm-auto col-lg-11 px-md-5">
+      <div>
+        <div data-bs-spy="scroll" data-bs-target="#nav-example" data-bs-smooth-scroll="true" tabindex="0">
+          
+          <div id="dashboard" style="height: 100vh">
+            <div class="card">
+              <div class="card-header">
+                Admin Dashboard
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Welcome, Admin!</h5>
+                <p class="card-text">Use the sidebar to navigate through the admin options.</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="users">
+            <h2>Users</h2>
+            <div class="card">
+              <div class="card-header">
+                All users
+              </div>
+              <div class="card-body table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                  <thead class="table-light">
+                    <tr>
+                      <th>#</th>
+                      <th>Username</th>
+                      <th>Email</th>
+                      <th>Contact</th>
+                      <th>Address</th>
+                      <th>Date of Birth</th>
+                      <th>Gender</th>
+                      <th>Unique Name</th>
+                      <th>Role</th>
+                      <th>Profile</th>
+                      <th>Payment Method</th>
+                      <th>Status</th>
+                      <th>Account Created</th>
+                      <th>Last Login</th>
+                      <th>Can Manage Users</th>
+                      <th>Can Delete Posts</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of users; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ user.username }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>{{ user.contact }}</td>
+                      <td>{{ user.address }}</td>
+                      <td>{{ user.dob }}</td>
+                      <td>{{ user.gender }}</td>
+                      <td>{{ user.uniqueName }}</td>
+                      <td>
+                        <span
+                          [ngClass]="{'badge bg-primary': user.role === 'admin', 'badge bg-secondary': user.role === 'user'}">
+                          {{ user.role | titlecase }}
+                        </span>
+                      </td>
+                      <td>
+                        <img [src]="user.profilePicture" alt="Profile Picture" class="rounded-circle" width="50"
+                          height="50">
+                      </td>
+                      <td>{{ user.paymentMethod }}</td>
+                      <td>
+                        <span
+                          [ngClass]="{'badge bg-success': user.accountStatus === 'active', 'badge bg-danger': user.accountStatus !== 'active'}">
+                          {{ user.accountStatus | titlecase }}
+                        </span>
+                      </td>
+                      <td>{{ user.createdAt | date: 'short' }}</td>
+                      <td>{{ user.lastLogin | date: 'short' }}</td>
+                      <td>{{ user.canManageUsers ? 'Yes' : 'No' }}</td>
+                      <td>{{ user.canDeletePosts ? 'Yes' : 'No' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+
+              </div>
+            </div>
+
+          </div>
+
+          <div id="settings">
+            <h2>Settings</h2>
+            <div class="card">
+              <div class="card-header">
+                Setting Dashboard
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="mb-3">
+                    <label for="siteTitle" class="form-label">Site Title</label>
+                    <input type="text" class="form-control" id="siteTitle" placeholder="Enter site title">
+                  </div>
+                  <div class="mb-3">
+                    <label for="siteDescription" class="form-label">Site Description</label>
+                    <textarea class="form-control" id="siteDescription" rows="3" placeholder="Enter site description"></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="timezone" class="form-label">Timezone</label>
+                    <select class="form-select" id="timezone">
+                      <option selected>Select Timezone</option>
+                      <option value="GMT">GMT</option>
+                      <option value="UTC">UTC</option>
+                      <option value="EST">EST</option>
+                      <option value="PST">PST</option>
+                      <option value="CST">CST</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="logoUpload" class="form-label">Upload Logo</label>
+                    <input type="file" class="form-control" id="logoUpload">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="reports">
+            <h2>Reports</h2>
+            <div class="card">
+              <div class="card-header">
+                Admin Dashboard
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <!-- Total Users Card -->
+                  <div class="col-md-3 mb-3">
+                    <div class="card text-white bg-primary">
+                      <div class="card-body">
+                        <h5 class="card-title">Total Users</h5>
+                        <p class="card-text">1500</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Total Posts Card -->
+                  <div class="col-md-3 mb-3">
+                    <div class="card text-white bg-success">
+                      <div class="card-body">
+                        <h5 class="card-title">Total Posts</h5>
+                        <p class="card-text">320</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Active Users Card -->
+                  <div class="col-md-3 mb-3">
+                    <div class="card text-white bg-warning">
+                      <div class="card-body">
+                        <h5 class="card-title">Active Users</h5>
+                        <p class="card-text">1200</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Pending Posts Card -->
+                  <div class="col-md-3 mb-3">
+                    <div class="card text-white bg-danger">
+                      <div class="card-body">
+                        <h5 class="card-title">Pending Posts</h5>
+                        <p class="card-text">50</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr>
+
+                <!-- Reports Table -->
+                <h5>Recent User Activity</h5>
+                <table class="table table-striped table-hover table-bordered">
+                  <thead class="table-light">
+                    <tr>
+                      <th>User ID</th>
+                      <th>Username</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th>Last Login</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>#1001</td>
+                      <td>John Doe</td>
+                      <td><span class="badge bg-primary">Admin</span></td>
+                      <td><span class="badge bg-success">Active</span></td>
+                      <td>2024-12-20</td>
+                    </tr>
+                    <tr>
+                      <td>#1002</td>
+                      <td>Jane Smith</td>
+                      <td><span class="badge bg-secondary">User</span></td>
+                      <td><span class="badge bg-warning">Inactive</span></td>
+                      <td>2024-12-22</td>
+                    </tr>
+                    <tr>
+                      <td>#1003</td>
+                      <td>Mark Lee</td>
+                      <td><span class="badge bg-secondary">User</span></td>
+                      <td><span class="badge bg-success">Active</span></td>
+                      <td>2024-12-23</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <hr>
+
+                <!-- Recent Posts Table -->
+                <h5>Recent Posts</h5>
+                <table class="table table-striped table-hover table-bordered">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Post ID</th>
+                      <th>Title</th>
+                      <th>Author</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>#2001</td>
+                      <td>Best Practices for Cycling</td>
+                      <td>John Doe</td>
+                      <td><span class="badge bg-success">Published</span></td>
+                      <td>2024-12-20</td>
+                      <td>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                        <button class="btn btn-primary btn-sm">Edit</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>#2002</td>
+                      <td>Top 10 Bike Trails</td>
+                      <td>Jane Smith</td>
+                      <td><span class="badge bg-warning">Pending</span></td>
+                      <td>2024-12-22</td>
+                      <td>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                        <button class="btn btn-primary btn-sm">Edit</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>#2003</td>
+                      <td>Choosing the Right Helmet</td>
+                      <td>Mark Lee</td>
+                      <td><span class="badge bg-danger">Rejected</span></td>
+                      <td>2024-12-23</td>
+                      <td>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                        <button class="btn btn-primary btn-sm">Edit</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Welcome, Admin!</h5>
-          <p class="card-text">Use the sidebar to navigate through the admin options.</p>
-        </div>
+
       </div>
     </div>
   </div>
-</div>

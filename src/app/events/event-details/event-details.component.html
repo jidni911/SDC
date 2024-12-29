@@ -6,7 +6,8 @@
     <div class="card-body bg-light p-4">
       <div class="row mb-4">
         <div class="col-md-6">
-          <p class="mb-1"><strong>Date:</strong> {{ event.date }} <span class="badge bg-secondary">{{ event.dayOfWeek }}</span></p>
+          <p class="mb-1"><strong>Date:</strong> {{ event.date }} <span class="badge bg-secondary">{{ event.dayOfWeek
+              }}</span></p>
         </div>
         <div class="col-md-6">
           <p class="mb-1"><strong>Time:</strong> {{ event.startTime }}</p>
@@ -30,8 +31,14 @@
       </div>
 
       <div class="row mb-4">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <p class="mb-1"><strong>Description:</strong> {{ event.description }}</p>
+        </div>
+        <div class="col-md-6" *ngIf="event.sponsor">
+          <p class="mb-1 "><strong>Sponsor :</strong> <a class="btn btn-primary"
+              role="button">{{ event.sponsor.name }}</a>
+          </p>
+          <button *ngIf="isSeller()" class="btn btn-outline-success" role="button">Click to become one</button>
         </div>
       </div>
       <div class="row">
@@ -39,10 +46,13 @@
           <p class="mb-1"><strong>Organiser:</strong> {{ event.organiser }}</p>
         </div>
       </div>
+
+
     </div>
     <div class="card-footer text-center py-3">
       <button class="btn btn-primary">Join Event</button>
-      <button class="btn btn-outline-secondary ms-2" [routerLink]="['/people/profile', event.organiser]">About Organiser</button>
+      <button class="btn btn-outline-secondary ms-2" [routerLink]="['/people/profile', event.organiser]">About
+        Organiser</button>
     </div>
   </div>
 </div>
