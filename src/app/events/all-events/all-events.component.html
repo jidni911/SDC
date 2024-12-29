@@ -17,6 +17,7 @@
         <th>Distance</th>
         <th>Description</th>
         <th>Organiser</th>
+        <th>Sponsor</th>
       </tr>
     </thead>
     <tbody>
@@ -31,6 +32,11 @@
         <td>{{ event.distance }}</td>
         <td>{{ event.description }}</td>
         <td>{{ event.organiser }}</td>
+
+        <td>
+          <!-- <a  class="btn btn-outline-primary"  role="button">{{event.sponsor.name}}</a> -->
+
+        </td>
       </tr>
     </tbody>
   </table>
@@ -52,24 +58,29 @@
         <th>Distance</th>
         <th>Description</th>
         <th>Organiser</th>
+        <th>Sponsor</th>
       </tr>
     </thead>
     <tbody>
 
       <tr *ngFor="let event of events" (click)="onEventClick(event.id)">
-          <!-- <a [routerLink]="['/events/event', event.id]"> -->
-          <td>{{ event.name }}</td>
-          <td>{{ event.date }}</td>
-          <td>{{ event.dayOfWeek }}</td>
-          <td>{{ event.fromLocation }}</td>
-          <td>{{ event.toLocation }}</td>
-          <td>{{ event.startTime }}</td>
-          <td>{{ event.duration }}</td>
-          <td>{{ event.distance }}</td>
-          <td>{{ event.description }}</td>
-          <td>{{ event.organiser }}</td>
+        <!-- <a [routerLink]="['/events/event', event.id]"> -->
+        <td>{{ event.name }}</td>
+        <td>{{ event.date }}</td>
+        <td>{{ event.dayOfWeek }}</td>
+        <td>{{ event.fromLocation }}</td>
+        <td>{{ event.toLocation }}</td>
+        <td>{{ event.startTime }}</td>
+        <td>{{ event.duration }}</td>
+        <td>{{ event.distance }}</td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.organiser }}</td>
+        <td>
+          <!-- <a  class="btn btn-outline-primary"  role="button">{{event.sponsor.name}}</a> -->
+
+        </td>
         <!-- </a> -->
-        </tr>
+      </tr>
 
     </tbody>
   </table>

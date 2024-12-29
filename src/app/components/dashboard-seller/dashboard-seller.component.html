@@ -127,18 +127,30 @@
                 <th>#</th>
                 <th>Order ID</th>
                 <th>Customer</th>
-                <th>Status</th>
+                <th>Product</th>
+                <th>Price</th>
                 <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let order of orders">
+              <tr *ngFor="let order of orders; let i = index">
+                <td>{{i+1}}</td>
                 <td>{{ order.id }}</td>
-                <td>{{ order.orderId }}</td>
-                <td>{{ order.customer }}</td>
+                <td>
+                  <a [routerLink]="['/people/profile', order.cid]" class="btn btn-outline-primary">{{ order.cid }} </a>
+
+                </td>
+                <td>
+
+                  <a [routerLink]="['/products/productDetails', order.pid]" class="btn btn-outline-primary">{{ order.pid }} </a>
+                </td>
+                <td>{{ order.price }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ unix2Normal( order.date )}}</td>
                 <td>{{ order.status }}</td>
-                <td>${{ order.amount }}</td>
                 <td>
                   <button class="btn btn-sm btn-outline-info">View</button>
                   <button class="btn btn-sm btn-outline-danger">Cancel</button>
@@ -151,16 +163,18 @@
 
       <!-- Products -->
       <div *ngIf="currentTab === 'products'">
-        <h2 class="mt-4">Products</h2>
-        <button class="btn btn-primary mb-3">Add Product</button>
         <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
+          <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
               <tr>
-                <th>#</th>
+                <th>ID</th>
                 <th>Name</th>
-                <th>Stock</th>
+                <th>Category</th>
+                <th>Brand</th>
                 <th>Price</th>
+                <th>Discount Price</th>
+                <th>Stock Status</th>
+                <th>Quantity</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -168,51 +182,204 @@
               <tr *ngFor="let product of products">
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td>{{ product.stock }}</td>
-                <td>${{ product.price }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.brand }}</td>
+                <td>{{ product.price | currency: product.currency }}</td>
                 <td>
-                  <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                  <button class="btn btn-sm btn-outline-danger">Delete</button>
+                  <span *ngIf="product.discountPrice">{{ product.discountPrice | currency: product.currency }}</span>
+                  <span *ngIf="!product.discountPrice">N/A</span>
+                </td>
+                <td>
+                  <span [class]="product.stockStatus === 'In Stock' ? 'text-success' : 'text-danger'">
+                    {{ product.stockStatus }}
+                  </span>
+                </td>
+                <td>{{ product.quantityAvailable }}</td>
+                <td>
+                  <button class="btn btn-primary btn-sm" (click)="editProduct(product)" data-bs-toggle="modal"
+                    data-bs-target="#editProductModal">Edit</button>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+
       </div>
+      <!-- Modal Body -->
+      <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+      <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModatTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-fullscreen" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editProductModatTitle">
+                Edit Product
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="d-flex">
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="#jsonviewer" aria-expanded="false"
+                  aria-controls="jsonviewer">
+                  Show Json
+                </a>
+                <div class="collapse" id="jsonviewer">
+                  <div class="card card-body">
+
+                    {{getJson(selectedProduct)}}
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="selectedProduct">
+                <!-- Form Fields -->
+                <form class="row" [formGroup]="productEditForm">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="productName" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="productName" formControlName="name" />
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="productCategory" class="form-label">Category</label>
+                        <input type="text" class="form-control" id="productCategory" formControlName="category" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="productBrand" class="form-label">Brand</label>
+                        <input type="text" class="form-control" id="productBrand" formControlName="brand" />
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="productStockStatus" class="form-label">Stock Status</label>
+                        <input type="text" class="form-control" id="productStockStatus" formControlName="stockStatus" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="productPrice" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="productPrice" formControlName="price" />
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="productDiscountPrice" class="form-label">Discount Price</label>
+                        <input type="number" class="form-control" id="productDiscountPrice"
+                          formControlName="discountPrice" />
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="productDescription" class="form-label">Description</label>
+                      <textarea class="form-control" id="productDescription" rows="3"
+                        formControlName="description"></textarea>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="productQuantityAvailable" class="form-label">Quantity Available</label>
+                        <input type="number" class="form-control" id="productQuantityAvailable"
+                          formControlName="quantityAvailable" />
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="productSellerId" class="form-label">Seller ID</label>
+                        <input type="text" class="form-control" id="productSellerId" formControlName="sellerId" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="productMainImage" class="form-label">Main Image URL</label>
+                        <input type="text" class="form-control" id="productMainImage" formControlName="mainImage" />
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="productGalleryImages" class="form-label">Gallery Images URLs (comma
+                          separated)</label>
+                        <input type="text" class="form-control" id="productGalleryImages"
+                          formControlName="galleryImages" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="productDimensions" class="form-label">Dimensions (Height x Width x Depth)</label>
+                        <input type="text" class="form-control" id="productDimensions" formControlName="dimensions" />
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="productWeight" class="form-label">Weight</label>
+                        <input type="text" class="form-control" id="productWeight" formControlName="weight" />
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- Image Preview Section -->
+                  <div class="col-md-4">
+                    <h5>Image Preview</h5>
+                    <div class="mb-3">
+                      <label>Main Image</label>
+                      <div class="border rounded p-2 text-center">
+                        <img *ngIf="selectedProduct.mainImage" [src]="productEditForm.value.mainImage" alt="Main Image"
+                          class="img-fluid" />
+                        <p *ngIf="!selectedProduct.mainImage">No image available</p>
+                      </div>
+                    </div>
+                    <div>
+                      <label>Gallery Images</label>
+                      <div class="d-flex flex-wrap">
+                        <div *ngFor="let img of productEditForm.value.galleryImages?.split(',')"
+                          class="border rounded m-1 p-2 text-center" style="width: 100px; height: 100px;">
+                          <img [src]="img" alt="Gallery Image" class="img-fluid" style="max-height: 80px;" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary" (click)="saveProduct()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
 
       <!-- financials -->
       <div *ngIf="currentTab === 'financials'">
         <h2 class="mt-4">Financials</h2>
         <div class="row">
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Earnings Overview</h5>
-            <p class="card-text">Total earnings: $24,000</p>
-            <p class="card-text">Pending payouts: $5,000</p>
-            <p class="card-text">Payout history: $19,000</p>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Earnings Overview</h5>
+                <p class="card-text">Total earnings: $24,000</p>
+                <p class="card-text">Pending payouts: $5,000</p>
+                <p class="card-text">Payout history: $19,000</p>
+              </div>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Fees Breakdown</h5>
-            <p class="card-text">Platform fees: $1,200</p>
-            <p class="card-text">Taxes: $300</p>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Fees Breakdown</h5>
+                <p class="card-text">Platform fees: $1,200</p>
+                <p class="card-text">Taxes: $300</p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Invoice Management</h5>
-            <p class="card-text">Access and download invoices for transactions.</p>
-            <p class="card-text">Tax forms (if applicable in your region).</p>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Invoice Management</h5>
+                <p class="card-text">Access and download invoices for transactions.</p>
+                <p class="card-text">Tax forms (if applicable in your region).</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -222,53 +389,53 @@
         <h2 class="mt-4">Customer Feedback</h2>
         <div class="table-responsive">
           <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Product</th>
-            <th>Customer</th>
-            <th>Rating</th>
-            <th>Review</th>
-            <th>Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let review of reviews">
-            <td>{{ review.id }}</td>
-            <td>{{ review.product }}</td>
-            <td>{{ review.customer }}</td>
-            <td>{{ review.rating }}</td>
-            <td>{{ review.comment }}</td>
-            <td>{{ review.date }}</td>
-            <td>
-          <button class="btn btn-sm btn-outline-secondary">Respond</button>
-            </td>
-          </tr>
-        </tbody>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Customer</th>
+                <th>Rating</th>
+                <th>Review</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let review of reviews">
+                <td>{{ review.id }}</td>
+                <td>{{ review.product }}</td>
+                <td>{{ review.customer }}</td>
+                <td>{{ review.rating }}</td>
+                <td>{{ review.comment }}</td>
+                <td>{{ review.date }}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-secondary">Respond</button>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <h3 class="mt-4">Rating Summary</h3>
         <div class="row">
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Overall Seller Rating</h5>
-            <p class="card-text">{{ overallRating }} / 5</p>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Overall Seller Rating</h5>
+                <p class="card-text">{{ overallRating }} / 5</p>
+              </div>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Product-specific Ratings</h5>
-            <ul class="list-group">
-          <li class="list-group-item" *ngFor="let productRating of productRatings">
-            {{ productRating.product }}: {{ productRating.rating }} / 5
-          </li>
-            </ul>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Product-specific Ratings</h5>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let productRating of productRatings">
+                    {{ productRating.product }}: {{ productRating.rating }} / 5
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -278,20 +445,20 @@
         <h2 class="mt-4">Notifications</h2>
         <div class="list-group">
           <div class="list-group-item">
-        <h5 class="mb-1">Low-stock alerts</h5>
-        <p class="mb-1">You have low stock on some products.</p>
+            <h5 class="mb-1">Low-stock alerts</h5>
+            <p class="mb-1">You have low stock on some products.</p>
           </div>
           <div class="list-group-item">
-        <h5 class="mb-1">New order notifications</h5>
-        <p class="mb-1">You have new orders to process.</p>
+            <h5 class="mb-1">New order notifications</h5>
+            <p class="mb-1">You have new orders to process.</p>
           </div>
           <div class="list-group-item">
-        <h5 class="mb-1">Returns or disputes</h5>
-        <p class="mb-1">Customers have raised returns or disputes.</p>
+            <h5 class="mb-1">Returns or disputes</h5>
+            <p class="mb-1">Customers have raised returns or disputes.</p>
           </div>
           <div class="list-group-item">
-        <h5 class="mb-1">Platform Updates</h5>
-        <p class="mb-1">Policy changes or promotional opportunities from the e-commerce platform.</p>
+            <h5 class="mb-1">Platform Updates</h5>
+            <p class="mb-1">Policy changes or promotional opportunities from the e-commerce platform.</p>
           </div>
         </div>
       </div>
@@ -301,40 +468,40 @@
         <h2 class="mt-4">Sales Analytics</h2>
         <div class="row">
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Sales Trends</h5>
-            <p class="card-text">Sales trends over time.</p>
-            <p class="card-text">Comparison with previous periods.</p>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Sales Trends</h5>
+                <p class="card-text">Sales trends over time.</p>
+                <p class="card-text">Comparison with previous periods.</p>
+              </div>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Product Performance</h5>
-            <p class="card-text">Revenue and orders per product.</p>
-            <p class="card-text">Conversion rates.</p>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Product Performance</h5>
+                <p class="card-text">Revenue and orders per product.</p>
+                <p class="card-text">Conversion rates.</p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Customer Demographics</h5>
-            <p class="card-text">Insights into customer locations, preferences, etc.</p>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Customer Demographics</h5>
+                <p class="card-text">Insights into customer locations, preferences, etc.</p>
+              </div>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Returns and Cancellations</h5>
-            <p class="card-text">Analyze why items are being returned or canceled.</p>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Returns and Cancellations</h5>
+                <p class="card-text">Analyze why items are being returned or canceled.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -345,58 +512,58 @@
         <h2 class="mt-4">Store Settings</h2>
         <div class="row">
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Business Information</h5>
-            <p class="card-text">Business name, logo, and description.</p>
-            <button class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Business Information</h5>
+                <p class="card-text">Business name, logo, and description.</p>
+                <button class="btn btn-sm btn-outline-secondary">Edit</button>
+              </div>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Policies</h5>
-            <p class="card-text">Shipping, returns, and other policies.</p>
-            <button class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Policies</h5>
+                <p class="card-text">Shipping, returns, and other policies.</p>
+                <button class="btn btn-sm btn-outline-secondary">Edit</button>
+              </div>
+            </div>
           </div>
         </div>
         <h2 class="mt-4">Payment Settings</h2>
         <div class="row">
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Bank Account Details</h5>
-            <p class="card-text">Configure bank account details for payouts.</p>
-            <button class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Bank Account Details</h5>
+                <p class="card-text">Configure bank account details for payouts.</p>
+                <button class="btn btn-sm btn-outline-secondary">Edit</button>
+              </div>
+            </div>
           </div>
         </div>
         <h2 class="mt-4">Shipping Settings</h2>
         <div class="row">
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Shipping Options</h5>
-            <p class="card-text">Configure shipping options and regions.</p>
-            <button class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Shipping Options</h5>
+                <p class="card-text">Configure shipping options and regions.</p>
+                <button class="btn btn-sm btn-outline-secondary">Edit</button>
+              </div>
+            </div>
           </div>
         </div>
         <h2 class="mt-4">Profile Management</h2>
         <div class="row">
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Personal Information</h5>
-            <p class="card-text">Update personal information.</p>
-            <button class="btn btn-sm btn-outline-secondary">Edit</button>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Personal Information</h5>
+                <p class="card-text">Update personal information.</p>
+                <button class="btn btn-sm btn-outline-secondary">Edit</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -406,33 +573,33 @@
         <h2 class="mt-4">Support and Assistance</h2>
         <div class="row">
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Help Center</h5>
-            <p class="card-text">Guides or FAQs for managing the store.</p>
-            <button class="btn btn-sm btn-outline-secondary">View</button>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Help Center</h5>
+                <p class="card-text">Guides or FAQs for managing the store.</p>
+                <button class="btn btn-sm btn-outline-secondary">View</button>
+              </div>
+            </div>
           </div>
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Customer Support</h5>
-            <p class="card-text">Contact platform support for issues.</p>
-            <button class="btn btn-sm btn-outline-secondary">Contact</button>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Customer Support</h5>
+                <p class="card-text">Contact platform support for issues.</p>
+                <button class="btn btn-sm btn-outline-secondary">Contact</button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Dispute Management</h5>
-            <p class="card-text">Handle disputes with customers directly through the dashboard.</p>
-            <button class="btn btn-sm btn-outline-secondary">Manage</button>
-          </div>
-        </div>
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">Dispute Management</h5>
+                <p class="card-text">Handle disputes with customers directly through the dashboard.</p>
+                <button class="btn btn-sm btn-outline-secondary">Manage</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

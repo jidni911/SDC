@@ -127,18 +127,30 @@
                 <th>#</th>
                 <th>Order ID</th>
                 <th>Customer</th>
-                <th>Status</th>
+                <th>Product</th>
+                <th>Price</th>
                 <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let order of orders">
+              <tr *ngFor="let order of orders; let i = index">
+                <td>{{i+1}}</td>
                 <td>{{ order.id }}</td>
-                <td>{{ order.orderId }}</td>
-                <td>{{ order.customer }}</td>
+                <td>
+                  <a [routerLink]="['/people/profile', order.cid]" class="btn btn-outline-primary">{{ order.cid }} </a>
+
+                </td>
+                <td>
+
+                  <a [routerLink]="['/products/productDetails', order.pid]" class="btn btn-outline-primary">{{ order.pid }} </a>
+                </td>
+                <td>{{ order.price }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ unix2Normal( order.date )}}</td>
                 <td>{{ order.status }}</td>
-                <td>${{ order.amount }}</td>
                 <td>
                   <button class="btn btn-sm btn-outline-info">View</button>
                   <button class="btn btn-sm btn-outline-danger">Cancel</button>
@@ -219,7 +231,7 @@
                 </div>
               </div>
 
-              <div  *ngIf="selectedProduct">
+              <div *ngIf="selectedProduct">
                 <!-- Form Fields -->
                 <form class="row" [formGroup]="productEditForm">
                   <div class="col-md-8">

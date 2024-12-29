@@ -21,7 +21,7 @@
       "dob": "2000-01-01",
       "gender": "M",
       "password": "$2a$10$guuTa80.XxHYUDL/wK/Qneefw366r/9Z6N4A/y3/PKWSyz7/iNIGG",
-      "role": "user",
+      "role": "dev",
       "uniqueName": "demouser@7890"
     }
   ],
@@ -122,7 +122,7 @@
       "description": "Transaction from cart to check out",
       "severity": "medium",
       "steps": "need to work on it",
-      "isSolved": false,
+      "isSolved": true,
       "submittedBy": "61b0"
     },
     {
@@ -140,13 +140,76 @@
       "description": "user view and edit",
       "severity": "high",
       "steps": null,
-      "isSolved": false,
+      "isSolved": true,
       "submittedBy": "61b0"
     },
     {
       "id": "f145",
       "title": "Related and similliar Product",
       "description": "On product view show more products",
+      "severity": "low",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "9dd8",
+      "title": "Event Update",
+      "description": "complete event update",
+      "severity": "low",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "33cf",
+      "title": "All people",
+      "description": "complete All People",
+      "severity": "low",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "b710",
+      "title": " people card",
+      "description": "complete  People card",
+      "severity": "low",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "1eda",
+      "title": "Add product",
+      "description": "complete Add Product",
+      "severity": "low",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "d2ad",
+      "title": "reviews",
+      "description": "complete  reviews",
+      "severity": "low",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "2322",
+      "title": "cart and check out",
+      "description": "move them form product to sell",
+      "severity": "low",
+      "steps": null,
+      "isSolved": false,
+      "submittedBy": "61b0"
+    },
+    {
+      "id": "4996",
+      "title": " review",
+      "description": "Complete review",
       "severity": "low",
       "steps": null,
       "isSolved": false,
@@ -375,28 +438,15 @@
   "carts": [
     {
       "id": "61b0",
-      "items": [
-        {
-          "product_id": "prod003",
-          "name": "Bike Pump",
-          "quantity": 1,
-          "price": 25.99
-        },
-        {
-          "product_id": "prod002",
-          "name": "Cycling Helmet",
-          "quantity": 1,
-          "price": 59.99
-        }
-      ]
+      "items": []
     }
   ],
   "posts": [
     {
       "id": "2fa0",
       "user": {
-        "name": "John Doe",
-        "profilePicture": "https://via.placeholder.com/50"
+        "name": "Jubayer Rahman",
+        "profilePicture": "https://img.freepik.com/free-vector/profile-picture-template-design_742173-22027.jpg"
       },
       "content": "This is my first post!",
       "image": "https://img0.oastatic.com/img2/64913141/600x300c/variant.jpg",
@@ -409,8 +459,8 @@
     {
       "id": "2c86",
       "user": {
-        "name": "Jane Smith",
-        "profilePicture": "https://via.placeholder.com/50"
+        "name": "Monika Shakhawat",
+        "profilePicture": "https://spng.pngfind.com/pngs/s/169-1699993_female-profile-icon-in-circle-hd-png-download.png"
       },
       "content": "Angular is awesome!",
       "image": null,
@@ -423,8 +473,8 @@
     {
       "id": "5e48",
       "user": {
-        "name": "Anna Kendrick",
-        "profilePicture": "https://via.placeholder.com/50"
+        "name": "Ananna Amin",
+        "profilePicture": "https://s1.piq.land/2018/07/04/gR3NnDCZtfirzxeOi5HFhb0B_400x400.png"
       },
       "content": "Happy to announce my new project! 🎉",
       "image": "https://img3.oastatic.com/img2/66838804/600x300c/variant.jpg",
@@ -436,8 +486,8 @@
     {
       "id": "3b98",
       "user": {
-        "name": "Tom Hardy",
-        "profilePicture": "https://via.placeholder.com/50"
+        "name": "Tushar Sharif",
+        "profilePicture": "https://xetaravel.com/images/avatar.png"
       },
       "content": "Here’s a shot from my recent trip! 🌄",
       "image": "https://img.oastatic.com/img2/67324150/600x300c/variant.jpg",
@@ -450,8 +500,8 @@
     {
       "id": "d676",
       "user": {
-        "name": "Sarah Connor",
-        "profilePicture": "https://via.placeholder.com/50"
+        "name": "Sajib Khan",
+        "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAUj2aXn4XZLV703G5UhvYrrnxgCA5L7QHlw&s"
       },
       "content": "Just a simple post with no image or products.",
       "image": null,
@@ -460,8 +510,8 @@
     {
       "id": "b309",
       "user": {
-        "name": "Michael Brown",
-        "profilePicture": "https://via.placeholder.com/50"
+        "name": "Mohammad Barekullah",
+        "profilePicture": "https://png.pngtree.com/element_pic/16/12/07/921c6d12350e366ee4af07eb9055ab40.jpg"
       },
       "content": "Loving the new Angular 16 features! 🚀",
       "image": "https://img.oastatic.com/img2/604652695/600x300c/variant.jpg",
@@ -474,8 +524,8 @@
     {
       "id": "b89f",
       "user": {
-        "name": "Emily Johnson",
-        "profilePicture": "https://via.placeholder.com/50"
+        "name": "E kemon bichar",
+        "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs-6f_LDB3kECmg-b1uX-Jr63SVLrZ2bYGYw&s"
       },
       "content": "Check out this cool photo!",
       "image": "https://www.active-charnwood.org/images/49_618b908c86778285618001/600x300.jpg",
@@ -484,8 +534,8 @@
     {
       "id": "8269",
       "user": {
-        "name": "Robert Downey Jr.",
-        "profilePicture": "https://via.placeholder.com/50"
+        "name": "Rasel Sheikh",
+        "profilePicture": "https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-business-user-profile-vector-png-image_1541960.jpg"
       },
       "content": "A throwback to the good old days!",
       "image": null,
@@ -548,6 +598,89 @@
       "distance": "10 metre",
       "description": "we can do it",
       "organiser": "61b0"
+    }
+  ],
+  "orders": [
+    {
+      "id": "9467",
+      "cid": "61b0",
+      "pid": "prod003",
+      "price": 25.99,
+      "quantity": 1,
+      "date": 1735453945716,
+      "status": "pending"
+    },
+    {
+      "id": "ace3",
+      "cid": "61b0",
+      "pid": "prod002",
+      "price": 59.99,
+      "quantity": 1,
+      "date": 1735453945717,
+      "status": "pending"
+    },
+    {
+      "id": "f468",
+      "cid": "61b0",
+      "pid": "prod001",
+      "price": 499.99,
+      "quantity": 1,
+      "date": 1735453945718,
+      "status": "pending"
+    },
+    {
+      "id": "3c51",
+      "cid": "61b0",
+      "pid": "prod003",
+      "price": 25.99,
+      "quantity": 1,
+      "date": 1735454295725,
+      "status": "pending"
+    },
+    {
+      "id": "500c",
+      "cid": "61b0",
+      "pid": "prod002",
+      "price": 59.99,
+      "quantity": 1,
+      "date": 1735454295727,
+      "status": "pending"
+    },
+    {
+      "id": "9d66",
+      "cid": "61b0",
+      "pid": "prod001",
+      "price": 499.99,
+      "quantity": 1,
+      "date": 1735454295728,
+      "status": "pending"
+    },
+    {
+      "id": "1c93",
+      "cid": "61b0",
+      "pid": "prod003",
+      "price": 25.99,
+      "quantity": 1,
+      "date": 1735454409675,
+      "status": "pending"
+    },
+    {
+      "id": "00eb",
+      "cid": "61b0",
+      "pid": "prod002",
+      "price": 59.99,
+      "quantity": 1,
+      "date": 1735454409677,
+      "status": "pending"
+    },
+    {
+      "id": "42b7",
+      "cid": "61b0",
+      "pid": "prod001",
+      "price": 499.99,
+      "quantity": 1,
+      "date": 1735454409678,
+      "status": "pending"
     }
   ]
 }
