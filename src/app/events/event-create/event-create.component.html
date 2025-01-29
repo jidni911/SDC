@@ -15,7 +15,15 @@
   <div class="row mb-3">
     <div class="col-md-6">
       <label for="dayOfWeek" class="form-label fw-bold">Day of the Week:</label>
-      <input id="dayOfWeek" formControlName="dayOfWeek" type="text" class="form-control" placeholder="e.g., Monday">
+      <select id="dayOfWeek" formControlName="dayOfWeek" class="form-select">
+        <option value="FRIDAY" selected>Friday</option>
+        <option value="SATURDAY">Saturday</option>
+        <option value="SUNDAY">Sunday</option>
+        <option value="MONDAY">Monday</option>
+        <option value="TUESDAY">Tuesday</option>
+        <option value="WEDNESDAY">Wednesday</option>
+        <option value="THURSDAY">Thursday</option>
+      </select>
     </div>
     <div class="col-md-6">
       <label for="fromLocation" class="form-label fw-bold">From Location:</label>
@@ -41,7 +49,7 @@
     </div>
     <div class="col-md-6">
       <label for="distance" class="form-label fw-bold">Distance:</label>
-      <input id="distance" formControlName="distance" type="text" class="form-control" placeholder="e.g., 10 km">
+      <input id="distance" formControlName="distanceInKM" type="text" class="form-control" placeholder="e.g., 10 km">
     </div>
   </div>
 

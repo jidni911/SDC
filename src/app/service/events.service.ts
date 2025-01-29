@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class EventsService {
 
   constructor(private http: HttpClient) { }
-    private url = 'http://localhost:3000/events';
+    private url = 'http://localhost:3000/event';
 
     getEvents() {
       return this.http.get(this.url);
