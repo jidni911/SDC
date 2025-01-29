@@ -26,7 +26,7 @@
       "dob": "2000-01-01",
       "gender": "M",
       "password": "$2a$10$guuTa80.XxHYUDL/wK/Qneefw366r/9Z6N4A/y3/PKWSyz7/iNIGG",
-      "role": "seller",
+      "role": "user",
       "uniqueName": "demouser@7890",
       "profilePicture": "https://img.freepik.com/free-vector/profile-picture-template-design_742173-22027.jpg",
       "paymentMethod": "N/A",
@@ -692,10 +692,16 @@
       "id": "61b0",
       "items": [
         {
-          "product_id": "prod003",
-          "name": "Bike Pump",
+          "product_id": "prod006",
+          "name": "Bike Lights",
           "quantity": 1,
-          "price": 25.99
+          "price": 39.99
+        },
+        {
+          "product_id": "prod007",
+          "name": "Cycling Shorts",
+          "quantity": 1,
+          "price": 49.99
         }
       ]
     }
@@ -947,6 +953,15 @@
       "price": 499.99,
       "quantity": 1,
       "date": 1735454409678,
+      "status": "pending"
+    },
+    {
+      "id": "3488",
+      "cid": "61b0",
+      "pid": "prod002",
+      "price": 59.99,
+      "quantity": 1,
+      "date": 1735552512601,
       "status": "pending"
     }
   ]

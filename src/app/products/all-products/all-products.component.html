@@ -29,7 +29,7 @@
         </div>
 
         <!-- Card Footer -->
-        <div class="card-footer text-center">
+        <div class="card-footer text-center ">
           <!-- <button class="btn btn-primary btn-sm" [disabled]="product.stockStatus === 'Out of Stock'">
             Add to Cart
           </button> -->
@@ -39,7 +39,7 @@
           </button>
           <a *ngIf="inCart(product.id)" class="btn btn-outline-info btn-sm" routerLink="/products/cart" role="button">View
             cart </a>
-          <button class="btn btn-secondary btn-sm" [routerLink]="['/products/productDetails', product.id]">View
+          <button class="btn btn-secondary btn-sm ms-5" [routerLink]="['/products/productDetails', product.id]">View
             Details</button>
         </div>
       </div>
