@@ -11,6 +11,7 @@ import { DashboardSellerComponent } from './components/dashboard-seller/dashboar
 import { DashboardUserComponent } from './components/dashboard-user/dashboard-user.component';
 import { BugReportComponent } from './components/bug-report/bug-report.component';
 import { DemoComponent } from './components/demo/demo.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/intro', pathMatch: 'full' },
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'resetpass', component: ResetpassComponent },
   {
-    path: 'dashboard', component: DashboardComponent,
+    path: 'dashboard', component: DashboardComponent,  canActivate: [AuthGuard],
     children: [
       { path: 'dashboardadmin', component: DashboardAdminComponent },
       { path: 'dashboarddev', component: DashboardDeveloperComponent },
@@ -29,13 +30,13 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'events', loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
+    path: 'events', canActivate: [AuthGuard], loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
   },
   {
-    path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
+    path: 'products', canActivate: [AuthGuard], loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
   },
   {
-    path: 'people', loadChildren: () => import('./people/people.module').then(m => m.PeopleModule)
+    path: 'people', canActivate: [AuthGuard], loadChildren: () => import('./people/people.module').then(m => m.PeopleModule)
   },
   // otherwise redirect to intro,
   { path: '**', component: BugReportComponent }

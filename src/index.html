@@ -9,5 +9,29 @@
 </head>
 <body>
   <app-root></app-root>
+
+  <script>
+
+    let shortcutmMode = false;
+    document.onkeydown = function (e) {
+      if (e.keyCode == 220) {
+        shortcutmMode = true;
+      }
+      if (e.key == 't' && shortcutmMode) {
+        const currentTheme = document.body.getAttribute('data-bs-theme');
+        if (currentTheme === 'dark') {
+            document.body.setAttribute('data-bs-theme', 'light');
+        } else {
+            document.body.setAttribute('data-bs-theme', 'dark');
+        }
+      }
+    };
+
+    document.onkeyup = function (e) {
+      if (e.keyCode == 220) {
+        shortcutmMode = false;
+      }
+    };
+  </script>
 </body>
 </html>
