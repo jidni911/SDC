@@ -20,7 +20,9 @@ export class AllEventsComponent implements OnInit {
 
   ngOnInit(): void {
     this.es.getEvents().subscribe((r: any) => {
-      this.events = r
+      console.log(r);
+
+      this.events = r.content
     })
   }
 }

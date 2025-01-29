@@ -12,23 +12,23 @@ import { AppComponent } from 'src/app/app.component';
 export class EventCreateComponent implements OnInit {
   constructor(private eventsService: EventsService, private router: Router) { }
   ngOnInit(): void {
-    if(!AppComponent.getUser()){
-      this.router.navigateByUrl('/signin');
-    }
+    // if(!AppComponent.getUser()){
+    //   this.router.navigateByUrl('/signin');
+    // }
   }
 
 
   eventForm: FormGroup = new FormGroup({
-    name: new FormControl(''),
-    date: new FormControl(''),
-    dayOfWeek: new FormControl(''),
-    fromLocation: new FormControl(''),
-    toLocation: new FormControl(''),
+    name: new FormControl('Chill Ride'),
+    date: new FormControl(new Date(Date.now() + 86400000).toISOString().substr(0, 10)),
+    dayOfWeek: new FormControl('FRIDAY'),
+    fromLocation: new FormControl('Kamalapur '),
+    toLocation: new FormControl('Sharighat'),
     startTime: new FormControl(''),
-    duration: new FormControl(''),
-    distance: new FormControl(''),
+    duration: new FormControl('2'),
+    distanceInKM: new FormControl(''),
     description: new FormControl(''),
-    organiser: new FormControl(AppComponent.getUser().id)
+    organiser: new FormControl("0")
   });
 
   onSubmit() {
