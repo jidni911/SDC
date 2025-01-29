@@ -10,6 +10,13 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./event-create.component.scss']
 })
 export class EventCreateComponent implements OnInit {
+  onDateInputChange() {
+    const selectedDate = this.eventForm.value.date; // Get the selected date
+    const startTime = new Date(selectedDate + 'T13:00:00').toISOString().substr(0, 19); // Set 07:00 AM
+  
+    this.eventForm.patchValue({ startTime });
+  }
+  
   constructor(private eventsService: EventsService, private router: Router) { }
   ngOnInit(): void {
     // if(!AppComponent.getUser()){
@@ -20,20 +27,22 @@ export class EventCreateComponent implements OnInit {
 
   eventForm: FormGroup = new FormGroup({
     name: new FormControl('Chill Ride'),
-    date: new FormControl(new Date(Date.now() + 86400000).toISOString().substr(0, 10)),
+    date: new FormControl(new Date(Date.now() + 86400000).toISOString().substr(0, 10)), // YYYY-MM-DD
     dayOfWeek: new FormControl('FRIDAY'),
-    fromLocation: new FormControl('Kamalapur '),
+    fromLocation: new FormControl('Kamalapur'),
     toLocation: new FormControl('Sharighat'),
-    startTime: new FormControl(''),
-    duration: new FormControl('2'),
-    distanceInKM: new FormControl(''),
-    description: new FormControl(''),
-    organiser: new FormControl("0")
+    startTime: new FormControl(new Date().toISOString().substr(0, 19)), // YYYY-MM-DDTHH:mm:ss
+    duration: new FormControl(2), // Convert to number
+    distanceInKM: new FormControl(20), // Convert to number
+    description: new FormControl('lorem ipsum dolor sit amet consectetur adipiscing elit')
   });
+  
+
 
   onSubmit() {
-    console.log(this.eventForm.value);
+
     this.eventsService.createEvent(this.eventForm.value).subscribe((r) => {
+
       this.router.navigateByUrl('/events')
     })
 

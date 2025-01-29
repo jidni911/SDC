@@ -8,7 +8,7 @@
     </div>
     <div class="col-md-6">
       <label for="date" class="form-label fw-bold">Date:</label>
-      <input id="date" formControlName="date" type="date" class="form-control">
+      <input id="date" formControlName="date" type="date" class="form-control" (input)="onDateInputChange()">
     </div>
   </div>
 
@@ -38,7 +38,7 @@
     </div>
     <div class="col-md-6">
       <label for="startTime" class="form-label fw-bold">Start Time:</label>
-      <input id="startTime" formControlName="startTime" type="time" class="form-control">
+      <input id="startTime" formControlName="startTime" type="datetime-local" class="form-control" value="2022-11-21T07:00">
     </div>
   </div>
 
@@ -48,7 +48,7 @@
       <input id="duration" formControlName="duration" type="text" class="form-control" placeholder="e.g., 2 hours">
     </div>
     <div class="col-md-6">
-      <label for="distance" class="form-label fw-bold">Distance:</label>
+      <label for="distance" class="form-label fw-bold">Distance:(KM)</label>
       <input id="distance" formControlName="distanceInKM" type="text" class="form-control" placeholder="e.g., 10 km">
     </div>
   </div>
@@ -56,11 +56,6 @@
   <div class="mb-3">
     <label for="description" class="form-label fw-bold">Description:</label>
     <textarea id="description" formControlName="description" class="form-control" rows="4" placeholder="Provide a detailed description"></textarea>
-  </div>
-
-  <div class="mb-3">
-    <label for="organiser" class="form-label fw-bold">Organiser:</label>
-    <input id="organiser" formControlName="organiser" type="text" class="form-control" readonly>
   </div>
 
   <div class="text-center">
