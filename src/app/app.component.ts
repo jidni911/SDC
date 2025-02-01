@@ -1,3 +1,5 @@
+import { RolesService } from './service/roles.service';
+import { UsersService } from 'src/app/service/users.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,21 +8,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  constructor(private rolesService: RolesService) { }
   static user:any = null
+  static roles = []
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
     AppComponent.user = userData ? JSON.parse(userData) : null;
+    if(AppComponent.user && AppComponent.user.id){
+
+      this.rolesService.getRolesOfUser(AppComponent.user.id).subscribe((v: any) => {        
+        AppComponent.roles = v
+      })
+    }
   }
   static getUser(){
     return AppComponent.user
   }
-  static setUser(user:any){
-    AppComponent.user = user
-    localStorage.setItem('user', JSON.stringify(user));
+  static getRoles(){
+    return AppComponent.roles
   }
   static removeUser(){
     AppComponent.user = null;
     localStorage.removeItem('user')
+    localStorage.removeItem('token')
   }
 
 

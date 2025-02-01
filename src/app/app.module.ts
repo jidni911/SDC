@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -17,6 +17,8 @@ import { DashboardSellerComponent } from './components/dashboard-seller/dashboar
 import { BugReportComponent } from './components/bug-report/bug-report.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoComponent } from './components/demo/demo.component';
+import { AuthInterceptor } from './interceptors/auth-interceptor.service';
+import { BikeMessengerComponent } from './bike-messenger/bike-messenger/bike-messenger.component';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { DemoComponent } from './components/demo/demo.component';
     DashboardUserComponent,
     DashboardSellerComponent,
     BugReportComponent,
-    DemoComponent
+    DemoComponent,
+    BikeMessengerComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,9 @@ import { DemoComponent } from './components/demo/demo.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
