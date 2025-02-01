@@ -66,7 +66,7 @@ export class SigninComponent implements OnInit {
               }
               // AppComponent.setUser(JSON.parse(json))
               window.location.href="/intro";
-            
+
           },
           error: (e) => {
             // console.log(e.error.message);
@@ -84,7 +84,7 @@ export class SigninComponent implements OnInit {
     this.signinForm.setValue({
       email: 'demo@example.com',
       username: 'jidni',
-      password: '123123',
+      password: 'Onetwothree12@',
       rememberMe: 'true'
     })
   }
