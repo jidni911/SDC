@@ -9,25 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   constructor(private rolesService: RolesService) { }
-  static user:any = null
+  static user: any = null
   static roles = []
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
     AppComponent.user = userData ? JSON.parse(userData) : null;
-    if(AppComponent.user && AppComponent.user.id){
+    if (AppComponent.user && AppComponent.user.id) {
 
-      this.rolesService.getRolesOfUser(AppComponent.user.id).subscribe((v: any) => {        
+      this.rolesService.getRolesOfUser(AppComponent.user.id).subscribe((v: any) => {
+        console.log(v);
+
         AppComponent.roles = v
       })
     }
   }
-  static getUser(){
+  static getUser() {
     return AppComponent.user
   }
-  static getRoles(){
+  static getRoles() {
     return AppComponent.roles
   }
-  static removeUser(){
+  static removeUser() {
     AppComponent.user = null;
     localStorage.removeItem('user')
     localStorage.removeItem('token')
@@ -38,5 +40,5 @@ export class AppComponent implements OnInit {
   public static projectName = "South Dhaka Cyclists"
   appComponent = AppComponent;
 
- 
+
 }

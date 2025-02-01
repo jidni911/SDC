@@ -24,9 +24,9 @@ const routes: Routes = [
   {
     path: 'dashboard', component: DashboardComponent,
     children: [
-      { path: 'dashboardadmin', component: DashboardAdminComponent },
+      { path: 'ROLE_ADMIN', component: DashboardAdminComponent },
       { path: 'ROLE_DEV', component: DashboardDeveloperComponent },
-      { path: 'dashboardseller', component: DashboardSellerComponent },
+      { path: 'ROLE_SELLER', component: DashboardSellerComponent },
       { path: 'ROLE_USER', component: DashboardUserComponent },
     ]
   },
