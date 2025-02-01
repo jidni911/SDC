@@ -11,32 +11,37 @@ import { DashboardSellerComponent } from './components/dashboard-seller/dashboar
 import { DashboardUserComponent } from './components/dashboard-user/dashboard-user.component';
 import { BugReportComponent } from './components/bug-report/bug-report.component';
 import { DemoComponent } from './components/demo/demo.component';
-import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/intro', pathMatch: 'full' },
+
+  { path: 'home', component: DashboardUserComponent },
   { path: 'demo', component: DemoComponent },
   { path: 'intro', component: IntroComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'resetpass', component: ResetpassComponent },
   {
-    path: 'dashboard', component: DashboardComponent,  canActivate: [AuthGuard],
+    path: 'dashboard', component: DashboardComponent,
     children: [
       { path: 'dashboardadmin', component: DashboardAdminComponent },
-      { path: 'dashboarddev', component: DashboardDeveloperComponent },
+      { path: 'ROLE_DEV', component: DashboardDeveloperComponent },
       { path: 'dashboardseller', component: DashboardSellerComponent },
-      { path: 'dashboarduser', component: DashboardUserComponent },
+      { path: 'ROLE_USER', component: DashboardUserComponent },
     ]
   },
+  { path: 'messges', loadChildren: () => import('./messges/messges.module').then(m => m.MessgesModule) },
   {
-    path: 'events', canActivate: [AuthGuard], loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
+    path: 'events', loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
   },
   {
-    path: 'products', canActivate: [AuthGuard], loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
+    path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
   },
   {
-    path: 'people', canActivate: [AuthGuard], loadChildren: () => import('./people/people.module').then(m => m.PeopleModule)
+    path: 'bikeMessenger', loadChildren: () => import('./bike-messenger/bike-messenger.module').then(m => m.BikeMessengerModule)
+  },
+  {
+    path: 'people', loadChildren: () => import('./people/people.module').then(m => m.PeopleModule)
   },
   // otherwise redirect to intro,
   { path: '**', component: BugReportComponent }

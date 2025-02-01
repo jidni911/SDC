@@ -1,45 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg bg-info sticky-top py-0">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/intro"><img src="assets/logo/logo2.png" height="30px"> {{appComponent.getUser()?.username || 'SDC'}}</a>
+    <a class="navbar-brand" routerLink="/intro"><img src="assets/logo/logo2.png" height="30px" class="me-2">South Dhaka Cyclists</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav nav nav-tabs me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/messges">Messege</a>
+          <a class="nav-link" routerLink="/home" data-bs-toggle="tab">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/events">Events</a>
+          <a class="nav-link" routerLink="/dashboard" data-bs-toggle="tab">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/products">Products</a>
+          <a class="nav-link" routerLink="/messges" data-bs-toggle="tab">Messege</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/bikeMessenger">Bike Messenger</a>
+          <a class="nav-link" routerLink="/people" data-bs-toggle="tab">People</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/intro#contact">Contact</a>
+          <a class="nav-link" routerLink="/events" data-bs-toggle="tab">Events</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/intro#aboutus">About</a>
+          <a class="nav-link" routerLink="/products" data-bs-toggle="tab">Products</a>
         </li>
-        <li class="nav-item dropdown">
-          <button class="nav-link dropdown-toggle btn btn-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Role : {{appComponent.getUser()?.role || 'nothing'}}
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><button class="dropdown-item" (click)="changerole('user')">User</button></li>
-            <li><button class="dropdown-item" (click)="changerole('seller')">Seller</button></li>
-            <li><button class="dropdown-item" (click)="changerole('admin')">Admin</button></li>
-            <li><button class="dropdown-item" (click)="changerole('dev')">Dev</button></li>
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/bikeMessenger" data-bs-toggle="tab">Bike Messenger</a>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/demo" data-bs-toggle="tab">Demo</a>
+        </li>
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

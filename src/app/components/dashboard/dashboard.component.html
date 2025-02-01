@@ -1,4 +1,8 @@
-
+<nav class="navbar navbar-expand navbar-light  nav-tabs pb-0" *ngIf="roles().length>1">
+    <div class="nav navbar-nav ms-auto">
+        <a class="nav-item nav-link" [ngClass]="{active: roles()[0]==role}" data-bs-toggle="tab" *ngFor="let role of roles()" routerLink="/dashboard/{{role.name}}" >{{role.name}} </a>
+    </div>
+</nav>
 
 
 <router-outlet></router-outlet>
