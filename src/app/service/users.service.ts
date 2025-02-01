@@ -7,17 +7,18 @@ import * as bcrypt from 'bcryptjs';
   providedIn: 'root'
 })
 export class UsersService {
-
+  
   constructor(private http: HttpClient) { }
-  private url = 'http://localhost:3000/users';
-
+  private url = 'http://localhost:3000/user';
+  
   getUsers() {
     return this.http.get(this.url);
   }
-
+  
   getUser(id: string) {
     return this.http.get(this.url + '/' + id);
   }
+  
 
   createUser(user: any) {
     let modifiedUser = {

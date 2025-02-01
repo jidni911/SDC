@@ -1,57 +1,96 @@
+import { AuthService } from 'src/app/service/auth.service';
 import { UsersService } from './../../service/users.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as bcrypt from 'bcryptjs';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit{
-  constructor(private usersService: UsersService, private router:Router) { }
+export class SignupComponent implements OnInit {
+
+
+  constructor(private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
     this.signupForm.setValue({
+      fullName: '',
       username: '',
-      contact: '',
       email: '',
-      address: '',
-      dob: '',
-      gender: '',
       password: '',
-      retypePassword: ''
+      retypePassword: '',
+      gender: '',
+      dob: '',
+      phoneNumber: '',
+      address: '',
+      profilePicture: ''
     })
+    this.fullNameState = "";
     this.usernameState = "";
-    this.contactState = "";
     this.emailState = "";
-    this.addressState = "";
-    this.dobState = "";
-    this.genderState = "";
     this.passwordState = "";
     this.retypePasswordState = "";
+    this.genderState = "";
+    this.dobState = "";
+    this.phoneNumberState = "";
+    this.addressState = "";
+    this.profilePictureState = "";
+    this.messege = "Waiting for submit button click";
   }
   signupForm: FormGroup = new FormGroup({
+    fullName: new FormControl(''),
     username: new FormControl(''),
-    contact: new FormControl(''),
     email: new FormControl(''),
-    address: new FormControl(''),
-    dob: new FormControl(''),
-    gender: new FormControl(''),
     password: new FormControl(''),
     retypePassword: new FormControl(''),
+    gender: new FormControl(''),
+    dob: new FormControl(''),
+    phoneNumber: new FormControl(''),
+    address: new FormControl(''),
+    profilePicture: new FormControl()
   });
+  fullNameState = "";
   usernameState = "";
-  contactState = "";
   emailState = "";
-  addressState = "";
-  dobState = "";
-  genderState = "";
   passwordState = "";
   retypePasswordState = "";
+  genderState = "";
+  dobState = "";
+  phoneNumberState = "";
+  addressState = "";
+  profilePictureState = "";
   messege = "Waiting for submit button click"
+
+  checkUsernameAvailability() {
+    if (this.signupForm.value.username.length >= 5) {
+      this.authService.checkUsernameAvailability(this.signupForm.value.username).subscribe((r: any) => {
+        if (r) {
+          this.usernameState = "is-valid"
+        } else {
+          this.usernameState = "is-invalid"
+        }
+      })
+    } else {
+      this.usernameState = "is-invalid"
+    }
+  }
+
+  checkEmailAvailability() {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (emailPattern.test(this.signupForm.value.email)) {
+      this.authService.checkEmailAvailability(this.signupForm.value.email).subscribe((r: any) => {
+        if (r) {
+          this.emailState = "is-valid"
+        } else {
+          this.emailState = "is-invalid"
+        }
+      })
+    }
+  }
+
   onSubmit() {
-    this.messege="checking input, please wait..."
+    this.messege = "checking input, please wait..."
     let flag = true;
     if (this.signupForm.value.username.length < 3) {
       flag = false;
@@ -59,11 +98,11 @@ export class SignupComponent implements OnInit{
     } else {
       this.usernameState = "is-valid"
     }
-    if (!/^\d{10,}$/.test(this.signupForm.value.contact)) {
+    if (!/^\d{10,}$/.test(this.signupForm.value.phoneNumber)) {
       flag = false;
-      this.contactState = "is-invalid"
+      this.phoneNumberState = "is-invalid"
     } else {
-      this.contactState = "is-valid"
+      this.phoneNumberState = "is-valid"
     }
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailPattern.test(this.signupForm.value.email)) {
@@ -91,7 +130,7 @@ export class SignupComponent implements OnInit{
     } else {
       this.dobState = "is-valid";
     }
-    const validGenders = ['M', 'F', 'N'];
+    const validGenders = ['MALE', 'FEMALE', 'NOT_SPECIFIED'];
     if (!validGenders.includes(this.signupForm.value.gender)) {
       flag = false;
       this.genderState = "is-invalid";
@@ -113,10 +152,10 @@ export class SignupComponent implements OnInit{
       this.retypePasswordState = "is-valid"
     }
 
-    if(flag){
+    if (flag) {
       this.messege = "all data looks valid. trying to modify and submit"
-      this.usersService.createUser(this.signupForm.value).subscribe((data: any) => {
-        this.messege="submitted successfully redirecting to log in page"
+      this.authService.signup(this.signupForm.value).subscribe((data: any) => {
+        this.messege = "submitted successfully redirecting to log in page"
         this.router.navigateByUrl('/signin')
       });
     } else {
@@ -125,29 +164,22 @@ export class SignupComponent implements OnInit{
   }
 
 
-  onReset(){
+  onReset() {
     this.ngOnInit()
   }
-  fillDemoData(){
+  fillDemoData() {
     this.signupForm.setValue({
+      fullName: 'Demo User',
       username: 'demoUser',
-      contact: '1234567890',
       email: 'demo@example.com',
-      address: '123 Demo Street, Demo City',
-      dob: '2000-01-01',
-      gender: 'M',
       password: 'Demo@1234',
-      retypePassword: 'Demo@1234'
+      retypePassword: 'Demo@1234',
+      gender: 'MALE',
+      dob: '2000-01-01',
+      phoneNumber: '1234567890',
+      address: '123 Demo Street, Demo City',
+      profilePicture: ''
     });
-  }
-
-  hashPassword(pass: string): string {
-    const salt = bcrypt.genSaltSync(10); // Generate salt with cost factor of 10
-    return bcrypt.hashSync(pass, salt);
-  }
-
-  comparePassword(plain:string,hash:string): boolean {
-    return bcrypt.compareSync(plain, hash);
   }
 
 

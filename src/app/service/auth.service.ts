@@ -7,9 +7,12 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3000/auth';
-
+  
   constructor(private http: HttpClient) {}
-
+  
+  signup(value: any) {
+    return this.http.post(`${this.apiUrl}/signup`, value);
+  }
   login(credentials: { username: string, password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials);
   }
@@ -27,4 +30,11 @@ export class AuthService {
   //   const token = this.getToken();
   //   return token && !this.jwtHelper.isTokenExpired(token);
   // }
+
+  checkEmailAvailability(email: any) {
+    return this.http.get(this.apiUrl + '/checkEmailAvailability?email=' + email);
+  }
+  checkUsernameAvailability(username: any) {
+    return this.http.get(this.apiUrl + '/checkUsernameAvailability?username=' + username);
+  }
 }
