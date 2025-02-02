@@ -1,0 +1,201 @@
+<div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+  
+        <p class=" d-flex justify-content-between">
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#newPostForm"
+            aria-expanded="false" aria-controls="newPostForm">
+            New Post
+          </button>
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#myProfile"
+            aria-expanded="false" aria-controls="newPostForm">
+            My Profile
+          </button>
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#setting"
+            aria-expanded="false" aria-controls="newPostForm">
+            Settings
+          </button>
+        </p>
+        <div class="collapse" id="newPostForm">
+          <!-- HTML Form -->
+          <div class="container mt-5">
+            <h2>Create a Post</h2>
+            <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="content" class="form-label">Post Content</label>
+                <textarea id="content" class="form-control" formControlName="content" rows="4"
+                  placeholder="What's on your mind?"></textarea>
+              </div>
+  
+              <div class="mb-3">
+                <label for="media" class="form-label">Media</label>
+                <div formArrayName="media">
+                  <div *ngFor="let media of mediaControls.controls; let i = index" class="input-group mb-2">
+                    <select class="form-select w-25" [formControlName]="i" [name]="'mediaType' + i">
+                      <option value="image">Image</option>
+                      <option value="video">Video</option>
+                    </select>
+                    <input type="text" class="form-control" formControlName="url" placeholder="Enter media URL" />
+                    <button type="button" class="btn btn-danger" (click)="removeMedia(i)">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-secondary" (click)="addMedia()">
+                  Add Media
+                </button>
+              </div>
+  
+              <div class="mb-3">
+                <label for="privacy" class="form-label">Privacy</label>
+                <select class="form-select" formControlName="privacy">
+                  <option value="public">Public</option>
+                  <option value="private">Private</option>
+                  <option value="friends">Friends</option>
+                </select>
+              </div>
+  
+              <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" id="location" class="form-control" formControlName="location"
+                  placeholder="Enter location" />
+              </div>
+  
+              <div class="form-check mb-3">
+                <input type="checkbox" id="poll" class="form-check-input" formControlName="isPoll" />
+                <label for="poll" class="form-check-label">Add Poll</label>
+              </div>
+  
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+  
+  
+        </div>
+        <div class="collapse" id="myProfile">
+          <div class="container mt-5">
+            <h2>My Profile</h2>
+            <div class="card">
+              <div class="card-header">
+                <img [src]="user.profilePicture" class="rounded-circle me-3" width="50" height="50" alt="Profile picture">
+                <h5 class="d-inline">{{ user.name }}</h5>
+              </div>
+              <div class="card-body">
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Joined:</strong> {{ user.joinedDate | date }}</p>
+                <p><strong>Bio:</strong> {{ user.bio }}</p>
+              </div>
+            </div>
+          </div>
+  
+  
+  
+        </div>
+        <div class="collapse" id="setting">
+          <div class="container mt-5">
+            <h2>Settings</h2>
+            <form >
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" class="form-control" formControlName="username" placeholder="Enter username" />
+              </div>
+  
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" formControlName="email" placeholder="Enter email" />
+              </div>
+  
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class="form-control" formControlName="password" placeholder="Enter password" />
+              </div>
+  
+              <div class="mb-3">
+                <label for="profilePicture" class="form-label">Profile Picture</label>
+                <input type="text" id="profilePicture" class="form-control" formControlName="profilePicture" placeholder="Enter profile picture URL" />
+              </div>
+  
+              <div class="mb-3">
+                <label for="bio" class="form-label">Bio</label>
+                <textarea id="bio" class="form-control" formControlName="bio" rows="3" placeholder="Enter bio"></textarea>
+              </div>
+  
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
+  
+  
+  
+        </div>
+  
+  
+  
+  
+  
+        <div class="card my-4 shadow-sm" *ngFor="let post of posts">
+          <!-- Card Header -->
+          <div class="card-header d-flex align-items-center">
+            <img [src]="post.user.profilePicture" class="rounded-circle me-3" width="50" height="50"
+              alt="User profile picture">
+            <div>
+              <h5 class="mb-0">{{ post.user.name }}</h5>
+              <small class="text-muted">Posted 2 hours ago</small>
+            </div>
+          </div>
+  
+          <!-- Card Body -->
+          <div class="card-body">
+            <p class="mb-3">{{ post.content }}</p>
+            <img *ngIf="post.image" [src]="post.image" class="img-fluid rounded" alt="Post image">
+          </div>
+  
+          <!-- Card Footer -->
+          <div class="card-footer align-items-center">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <button class="btn btn-outline-primary btn-sm me-2">
+                  <i class="bi bi-hand-thumbs-up"></i> Like
+                </button>
+                <button class="btn btn-outline-secondary btn-sm me-2">
+                  <i class="bi bi-chat"></i> Comment
+                </button>
+                <button class="btn btn-outline-secondary btn-sm">
+                  <i class="bi bi-share"></i> Share
+                </button>
+              </div>
+              <small class="text-muted">15 Likes • 5 Comments</small>
+            </div>
+            <div class="input-group my-3">
+              <input type="text" class="form-control" placeholder="Write a comment...">
+              <button class="btn btn-primary" type="button" >Post</button>
+            </div>
+          </div>
+  
+          <div class="card-footer  align-items-center">
+  
+            <div *ngFor="let comment of post.comments" class="mb-2">
+              <strong>{{ comment.user.name }}:</strong> {{ comment.text }}
+            </div>
+            <div class="mb-2">
+              <strong>John Doe:</strong> This is a great post!
+            </div>
+            <div class="mb-2">
+              <strong>Jane Smith:</strong> I totally agree with you.
+            </div>
+          </div>
+  
+          <h5 *ngIf="post.relatedProducts.length>0" class="card-footer">Suggested products : </h5>
+          <div *ngIf="post.relatedProducts.length>0" class="d-flex justify-content-around">
+            <div *ngFor="let itemid of post.relatedProducts">
+              <div [routerLink]="'/products/productDetails/' + itemid">
+                <img [src]="getProductById(itemid).mainImage" class="img-thumbnail me-2 mb-2"
+                  style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                <!-- <img [src]="(getProductById(itemid) | async)?.mainImage" alt=""> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

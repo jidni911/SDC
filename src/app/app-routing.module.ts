@@ -15,7 +15,7 @@ import { DemoComponent } from './components/demo/demo.component';
 const routes: Routes = [
   { path: '', redirectTo: '/intro', pathMatch: 'full' },
 
-  { path: 'home', component: DashboardUserComponent },
+  // { path: 'home', component: DashboardUserComponent },
   { path: 'demo', component: DemoComponent },
   { path: 'intro', component: IntroComponent },
   { path: 'signin', component: SigninComponent },
@@ -30,7 +30,12 @@ const routes: Routes = [
       { path: 'ROLE_USER', component: DashboardUserComponent },
     ]
   },
-  { path: 'messges', loadChildren: () => import('./messges/messges.module').then(m => m.MessgesModule) },
+  { 
+    path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) 
+  },
+  { 
+    path: 'messges', loadChildren: () => import('./messges/messges.module').then(m => m.MessgesModule) 
+  },
   {
     path: 'events', loadChildren: () => import('./events/events.module').then(m => m.EventsModule)
   },

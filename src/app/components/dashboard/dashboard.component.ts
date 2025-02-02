@@ -12,8 +12,9 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router) { }
   ngOnInit(): void {
     this.user = AppComponent.getUser()
-    if(this.user){
-    }else{
+    if (this.user) {
+      this.router.navigateByUrl('/dashboard/'+this.roles()[0].name);
+    } else {
       this.router.navigateByUrl('/signin');
     }
   }

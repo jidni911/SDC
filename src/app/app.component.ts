@@ -1,5 +1,4 @@
 import { RolesService } from './service/roles.service';
-import { UsersService } from 'src/app/service/users.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -15,12 +14,7 @@ export class AppComponent implements OnInit {
     const userData = localStorage.getItem('user');
     AppComponent.user = userData ? JSON.parse(userData) : null;
     if (AppComponent.user && AppComponent.user.id) {
-
-      this.rolesService.getRolesOfUser(AppComponent.user.id).subscribe((v: any) => {
-        console.log(v);
-
-        AppComponent.roles = v
-      })
+      AppComponent.roles = AppComponent.user.roles;
     }
   }
   static getUser() {
