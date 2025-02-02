@@ -18,58 +18,8 @@
         </p>
         <div class="collapse" id="newPostForm">
           <!-- HTML Form -->
-          <div class="container mt-5">
-            <h2>Create a Post</h2>
-            <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-              <div class="mb-3">
-                <label for="content" class="form-label">Post Content</label>
-                <textarea id="content" class="form-control" formControlName="content" rows="4"
-                  placeholder="What's on your mind?"></textarea>
-              </div>
-  
-              <div class="mb-3">
-                <label for="media" class="form-label">Media</label>
-                <div formArrayName="media">
-                  <div *ngFor="let media of mediaControls.controls; let i = index" class="input-group mb-2">
-                    <select class="form-select w-25" [formControlName]="i" [name]="'mediaType' + i">
-                      <option value="image">Image</option>
-                      <option value="video">Video</option>
-                    </select>
-                    <input type="text" class="form-control" formControlName="url" placeholder="Enter media URL" />
-                    <button type="button" class="btn btn-danger" (click)="removeMedia(i)">
-                      Remove
-                    </button>
-                  </div>
-                </div>
-                <button type="button" class="btn btn-secondary" (click)="addMedia()">
-                  Add Media
-                </button>
-              </div>
-  
-              <div class="mb-3">
-                <label for="privacy" class="form-label">Privacy</label>
-                <select class="form-select" formControlName="privacy">
-                  <option value="public">Public</option>
-                  <option value="private">Private</option>
-                  <option value="friends">Friends</option>
-                </select>
-              </div>
-  
-              <div class="mb-3">
-                <label for="location" class="form-label">Location</label>
-                <input type="text" id="location" class="form-control" formControlName="location"
-                  placeholder="Enter location" />
-              </div>
-  
-              <div class="form-check mb-3">
-                <input type="checkbox" id="poll" class="form-check-input" formControlName="isPoll" />
-                <label for="poll" class="form-check-label">Add Poll</label>
-              </div>
-  
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
-  
+          
+          <app-create-post></app-create-post>
   
         </div>
         <div class="collapse" id="myProfile">

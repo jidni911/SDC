@@ -48,6 +48,9 @@ const routes: Routes = [
   {
     path: 'people', loadChildren: () => import('./people/people.module').then(m => m.PeopleModule)
   },
+  {
+    path: 'storage', loadChildren: () => import('./storage/storage.module').then(m => m.StorageModule)
+  },
   // otherwise redirect to intro,
   { path: '**', component: BugReportComponent }
 

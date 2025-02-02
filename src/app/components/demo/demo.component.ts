@@ -11,7 +11,7 @@ export class DemoComponent implements OnInit{
   constructor(private httpClient: HttpClient) { }
   messege = "no messege";
   ngOnInit(): void {
-      let url = "http://localhost:3000/bugs/test";
+      let url = "http://localhost:3000/auth/test";
       this.httpClient.get(url).subscribe({
         next: (v: any) => {
           this.messege =JSON.stringify(v);
