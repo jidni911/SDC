@@ -9,10 +9,11 @@ import { AuthService } from 'src/app/service/auth.service';
   styleUrls: ['./web.component.scss']
 })
 export class WebComponent {
+
   constructor(private router: Router, private authService: AuthService) { }
   sign() {
     if (AppComponent.getUser()) {
-      this.authService.logout().subscribe((v:any) => {
+      this.authService.logout().subscribe((v: any) => {
         console.log(v);
       });
       AppComponent.removeUser();
@@ -22,4 +23,8 @@ export class WebComponent {
     }
   }
   appComponent = AppComponent;
+
+  isDev(): any {
+    return AppComponent.getRoles().find((v: any) => v.name == "ROLE_DEV")
+  }
 }

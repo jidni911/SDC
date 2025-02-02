@@ -83,8 +83,8 @@ export class SigninComponent implements OnInit {
   loadDemo() {
     this.signinForm.setValue({
       email: 'demo@example.com',
-      username: 'jidni',
-      password: 'Onetwothree12@',
+      username: 'demoUser',
+      password: 'Demo@1234',
       rememberMe: 'true'
     })
   }
