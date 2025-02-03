@@ -7,22 +7,29 @@ import { catchError, retry, throwError } from 'rxjs';
 })
 export class FilesService {
   private apiURL = 'http://localhost:3000/file'; // Update with your actual API URL
-  
-  getImageUrl(imageId: number) {
-    
+
+
+  constructor(private httpClient: HttpClient) { }
+  uploadVideo(video: File) {
+    const formData: FormData = new FormData();
+    formData.append('video', video, video.name);  // Ensure 'image' matches @RequestParam name
+
+    return this.httpClient.post<{ id: number, url: string }>(this.apiURL + '/uploadVideo', formData).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
   }
-  constructor(private httpClient: HttpClient) {}
 
   uploadImage(img: File) {
     const formData: FormData = new FormData();
     formData.append('image', img, img.name);  // Ensure 'image' matches @RequestParam name
-  
+
     return this.httpClient.post<{ id: number, url: string }>(this.apiURL + '/uploadImage', formData).pipe(
       retry(1),
       catchError(this.handleError)
     );
   }
-  
+
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
