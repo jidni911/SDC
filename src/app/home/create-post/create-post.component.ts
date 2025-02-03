@@ -10,7 +10,7 @@ import { ProductsService } from 'src/app/service/products.service';
   styleUrls: ['./create-post.component.scss']
 })
 export class CreatePostComponent implements OnInit {
-  
+
   postForm: FormGroup;
   constructor(
     private postService: PostsService,
@@ -33,18 +33,7 @@ export class CreatePostComponent implements OnInit {
     return this.postForm.get('media') as FormArray;
   }
 
-  addMedia() {
-    this.mediaControls.push(
-      this.fb.group({
-        mediaType: ['image', Validators.required],
-        url: ['', Validators.required],
-      })
-    );
-  }
 
-  removeMedia(index: number) {
-    this.mediaControls.removeAt(index);
-  }
 
   onSubmit() {
     if (this.postForm.valid) {
@@ -57,27 +46,22 @@ export class CreatePostComponent implements OnInit {
 
 
   imageList: { id: number, url: string }[] = [];
+  videoList: { id: number, url: string }[] = [];
 
-  // handleFileInput() {
-  //   const inputElement = document.getElementById('image') as HTMLInputElement;
-  //   if (inputElement.files && inputElement.files.length > 0) {
-  //     this.selectedFile = inputElement.files[0];
-  //     this.uploadImage();
-  //   }
-  // }
 
-  handleFileInput() {
+  handleImageInput() {
     const fileInput =document.getElementById('image') as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
-  
+
       this.filesService.uploadImage(file).subscribe(
         (response) => {
           console.log('Image uploaded successfully:', response);
           console.log('Image ID:', response.id);
           console.log('Image URL:', response.url);
-  
+
           this.imageList.push({ id: response.id, url: response.url });
+          fileInput.value = '';
         },
         (error) => {
           console.error('Error uploading image:', error);
@@ -85,8 +69,29 @@ export class CreatePostComponent implements OnInit {
       );
     }
   }
-  
 
-  
+  handleVideoInput() {
+    const fileInput =document.getElementById('video') as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+
+      this.filesService.uploadVideo(file).subscribe(
+        (response) => {
+          console.log('Video uploaded successfully:', response);
+          console.log('Video ID:', response.id);
+          console.log('Video URL:', response.url);
+
+          this.videoList.push({ id: response.id, url: response.url });
+          fileInput.value = '';
+        },
+        (error) => {
+          console.error('Error uploading Video:', error);
+        }
+      );
+    }
+  }
+
+
+
 
 }

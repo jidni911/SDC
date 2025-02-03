@@ -30,6 +30,9 @@ export class AllProductsComponent implements OnInit {
         })
       }
     })
+    for (let i = 0; i < 10; i++) {
+      this.products.push(this.generateRandomProduct())
+    }
   }
   products: any[] = []
   cart: any = null
@@ -91,10 +94,10 @@ export class AllProductsComponent implements OnInit {
       currency: "USD",
       stockStatus: stockStatus,
       quantityAvailable: quantityAvailable,
-      mainImage: `https://via.placeholder.com/600x400?text=${id}`,
+      mainImage: `https://placehold.co/600x400?text=${id}`,//https://placehold.co/600x400?text=Hello+World
       galleryImages: [
-        `https://via.placeholder.com/600x400?text=${id}-1`,
-        `https://via.placeholder.com/600x400?text=${id}-2`
+        `https://placehold.co/600x400?text=${id}-1`,
+        `https://placehold.co/600x400?text=${id}-2`
       ],
       dimensions: {
         height: `${Math.floor(Math.random() * 100) + 10} cm`,
