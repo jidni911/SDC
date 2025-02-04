@@ -6,6 +6,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UsersService {
+  getProfilePictureOf(userId: any) {
+    return this.http.get(this.url +  '/getProfilePictureOf' + '/' + userId );
+  }
   
   constructor(private http: HttpClient) { }
   private url = 'http://localhost:3000/user';

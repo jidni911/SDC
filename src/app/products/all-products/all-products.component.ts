@@ -13,6 +13,11 @@ import { ProductsService } from 'src/app/service/products.service';
 
 
 export class AllProductsComponent implements OnInit {
+  geturlof(path: any) {
+    return "http://localhost:3000/" + path.replace("main/resources/", "");
+    // return "https://www.google.com/imgres?q=cycle%20parts%20image%20square&imgurl=https%3A%2F%2Fthumbs.dreamstime.com%2Fb%2Fset-icons-bicycle-%25C3%25A2%25E2%2582%25AC-parts-accessories-isolated-white-47662698.jpg&imgrefurl=https%3A%2F%2Fwww.dreamstime.com%2Fillustration%2Faccessories-bicycle-parts.html&docid=xw0LhTSlNgvPJM&tbnid=GTgasba4TXz5TM&vet=12ahUKEwi8hdWWl6mLAxXpSGwGHQATB74QM3oFCIgBEAA..i&w=800&h=800&hcb=2&ved=2ahUKEwi8hdWWl6mLAxXpSGwGHQATB74QM3oFCIgBEAA"
+    
+  }
 
   constructor(
     private productService: ProductsService,
@@ -22,7 +27,9 @@ export class AllProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe((r: any) => {
-      this.products = r;
+      console.log(r);
+
+      this.products = r.content;
       if (AppComponent.getUser()) {
         this.cartService.getCart(AppComponent.getUser().id).subscribe((res: any) => {
           this.cart = res;
@@ -60,8 +67,8 @@ export class AllProductsComponent implements OnInit {
     }
   }
 
-  loadMore(){
-    this.products.forEach(p=>{
+  loadMore() {
+    this.products.forEach(p => {
       this.products.push(p)
     })
   }
