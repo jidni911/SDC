@@ -1,12 +1,52 @@
-import { Component } from '@angular/core';
+import { ProductsService } from './../../service/products.service';
+import { FilesService } from './../../service/files.service';
+import { UsersService } from './../../service/users.service';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-add-products',
   templateUrl: './add-products.component.html',
   styleUrls: ['./add-products.component.scss']
 })
-export class AddProductsComponent {
+export class AddProductsComponent implements OnInit {
+  name = '';
+  description = '';
+  category = '';
+  brand = '';
+  price = 0;
+  discountPrice = 0;
+  stockStatus = '';
+  quantity = 0;
+  mainImage = '';
+  mainImageUrl = 'https://placehold.co/300x300?text=Main+Image';
+  galleryImages: any[] = [];
+  dimensions = '';
+  weight = 0;
+  tags = '';
+  origin = '';
+  features = '';
+
+  fillDemoData() {
+    this.name = "Demo Product";
+    this.description = "Demo Product Description";
+    this.category = "Electronics";
+    this.brand = "Demo Brand";
+    this.price = 1000;
+    this.discountPrice = 900;
+    this.stockStatus = "In Stock";
+    this.quantity = 1000;
+    this.mainImage = "";
+    this.mainImageUrl = "https://placehold.co/300x300?text=Main+Image";
+    this.galleryImages = [];
+    this.dimensions = "90x90x90";
+    this.weight = 10;
+    this.tags = 'demo, product';
+    this.origin = "Jinjira";
+    this.features = 'demo f, product d';
+  }
 
   categories = [
     'Electronics',
@@ -29,47 +69,86 @@ export class AddProductsComponent {
     'Backorder',
   ];
 
-  sellers = [
-    { id: 1, name: 'John Doe' },
-    { id: 2, name: 'Jane Doe' },
-  ];
+  logo = "assets/logo/logo1.png";
 
-  addProductForm: FormGroup;
+  constructor(
+    private productsService: ProductsService,
+    private usersService: UsersService,
+    private router: Router,
+    private filesService: FilesService
+  ) { }
+  ngOnInit(): void {
+    if (!AppComponent.getUser()) {
+      this.router.navigateByUrl('/signin');
+    }
+    let userId = AppComponent.getUser().id;
+    this.usersService.getProfilePictureOf(userId).subscribe((res: any) => {
+      console.log(res);
+      //TODO Complete later
 
-  constructor(private formBuilder: FormBuilder) {
-    this.addProductForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      category: ['', Validators.required],
-      brand: ['', Validators.required],
-      price: ['', Validators.required],
-      discountPrice: [''],
-      stockStatus: ['', Validators.required],
-      quantity: ['', Validators.required],
-      mainImage: [''],
-      galleryImages: [''],
-      dimensions: [''],
-      weight: [''],
-      seller: ['', Validators.required],
-      tags: [''],
-      origin: [''],
-      features: [''],
-    });
+    })
   }
 
   handleMainImage(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
-    this.addProductForm.get('mainImage')?.setValue(file);
+
+    if (file) {
+      this.filesService.uploadImage(file).subscribe((res: any) => {
+
+        const newUrl = "http://localhost:3000" + res.url;
+
+        setTimeout(() => {
+          this.mainImageUrl = newUrl; // Assign new reference
+        }, 1000); // Short delay to force UI refresh
+
+        this.mainImage = res.id;
+        input.value = '';
+      });
+    }
   }
 
   handleGalleryImages(event: Event): void {
     const input = event.target as HTMLInputElement;
     const files = input.files;
-    this.addProductForm.get('galleryImages')!.setValue(files);
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        this.filesService.uploadImage(files[i]).subscribe((res: any) => {
+          setTimeout(() => {
+            this.galleryImages.push(res);
+          }, 1000);
+        });
+      }
+      input.value = '';
+    }
+
+    // this.addProductForm.get('galleryImages')!.setValue(files);
   }
 
   onSubmit() {
-    console.log(this.addProductForm.value);
+    const productData = {
+      name: this.name,
+      description: this.description,
+      category: this.category,
+      brand: this.brand,
+      price: this.price,
+      discountPrice: this.discountPrice,
+      stockStatus: this.stockStatus,
+      quantity: this.quantity,
+      mainImageId: this.mainImage, // Ensure this is an ID, not a file
+      galleryImagesId: this.galleryImages.map((img: any) => img.id), // Convert gallery images to IDs
+      dimensions: this.dimensions,
+      weight: this.weight.toString(), // Ensure weight is sent as a string if needed
+      tags: this.tags.split(',').map(tag => tag.trim()), // Convert tags from string to array
+      origin: this.origin,
+      features: this.features.split(',').map(feature => feature.trim()) // Convert features from string to array
+    };
+  
+    this.productsService.createProduct(productData).subscribe((res: any) => {
+      console.log(res);
+
+      this.router.navigateByUrl('/products'); // Uncomment if you want to navigate after adding the product
+    });
   }
+  
 }
