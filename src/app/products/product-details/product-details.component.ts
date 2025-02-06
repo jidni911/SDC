@@ -10,6 +10,7 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
+
   productId: any = null
   product: any = null
   cart: any = null
@@ -26,6 +27,8 @@ export class ProductDetailsComponent implements OnInit {
     this.productId = this.route.snapshot.paramMap.get('id');
     this.productService.getProduct(this.productId).subscribe((r: any) => {
       this.product = r;
+      console.log(this.product);
+
       if (AppComponent.getUser()) {
         this.cartService.getCart(AppComponent.getUser().id).subscribe((res: any) => {
           this.cart = res;
@@ -61,5 +64,8 @@ export class ProductDetailsComponent implements OnInit {
     return '★'.repeat(fullStars) + (halfStar ? '☆' : '') + '★'.repeat(emptyStars);
   }
 
+  getUrl(url: any) {
+    return "http://localhost:3000" + url
+  }
 
 }

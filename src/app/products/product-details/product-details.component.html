@@ -8,7 +8,7 @@
         <div class="card-header bg-info text-white text-center">
           <h4>Main Image</h4>
         </div>
-        <img [src]="product.mainImage" class="card-img-top img-fluid rounded" alt="{{ product.name }}" />
+        <img [src]="getUrl(product.mainImage.url)" class="card-img-top img-fluid rounded" alt="{{ product.name }}" />
       </div>
       <!-- Gallery Images -->
       <div class="mt-3">

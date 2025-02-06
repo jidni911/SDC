@@ -14,9 +14,9 @@ import { ProductsService } from 'src/app/service/products.service';
 
 export class AllProductsComponent implements OnInit {
   geturlof(path: any) {
-    return "http://localhost:3000/" + path.replace("main/resources/", "");
+    return "http://localhost:3000" + path;
     // return "https://www.google.com/imgres?q=cycle%20parts%20image%20square&imgurl=https%3A%2F%2Fthumbs.dreamstime.com%2Fb%2Fset-icons-bicycle-%25C3%25A2%25E2%2582%25AC-parts-accessories-isolated-white-47662698.jpg&imgrefurl=https%3A%2F%2Fwww.dreamstime.com%2Fillustration%2Faccessories-bicycle-parts.html&docid=xw0LhTSlNgvPJM&tbnid=GTgasba4TXz5TM&vet=12ahUKEwi8hdWWl6mLAxXpSGwGHQATB74QM3oFCIgBEAA..i&w=800&h=800&hcb=2&ved=2ahUKEwi8hdWWl6mLAxXpSGwGHQATB74QM3oFCIgBEAA"
-    
+
   }
 
   constructor(
@@ -37,9 +37,9 @@ export class AllProductsComponent implements OnInit {
         })
       }
     })
-    for (let i = 0; i < 10; i++) {
-      this.products.push(this.generateRandomProduct())
-    }
+    // for (let i = 0; i < 10; i++) {
+    //   this.products.push(this.generateRandomProduct())
+    // }
   }
   products: any[] = []
   cart: any = null
