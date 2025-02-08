@@ -142,7 +142,7 @@
                   </div>
                   <div class="d-flex justify-content-around my-3">
                     
-                    <img src="{{'http://localhost:3000'+galleryImage.url}}" class="rounded" id="previewImage{{galleryImage.id}}"
+                    <img src="{{ apiUrl + galleryImage.url }}" class="rounded" id="previewImage{{galleryImage.id}}"
                       height="125px" alt="" *ngFor="let galleryImage of galleryImages">
                     
 

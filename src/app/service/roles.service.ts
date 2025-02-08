@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RolesService {
+  
 
-  private rolesUrl = 'http://localhost:3000/role';
+  private rolesUrl = environment.apiUrl + '/role';
 
   constructor(private http: HttpClient) { }
 
@@ -24,6 +26,10 @@ export class RolesService {
 
   removeRole(roleName: string, id: number) {
     return this.http.post(`${this.rolesUrl}/remove/${roleName}/from/${id}`, null);
+  }
+
+  getRoles() {
+    return this.http.get(this.rolesUrl);
   }
 
 }

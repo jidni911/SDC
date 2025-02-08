@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { CartService } from 'src/app/service/cart.service';
 import { ProductsService } from 'src/app/service/products.service';
+import { environment } from 'src/environment';
 
 @Component({
   selector: 'app-all-products',
@@ -14,7 +15,7 @@ import { ProductsService } from 'src/app/service/products.service';
 
 export class AllProductsComponent implements OnInit {
   geturlof(path: any) {
-    return "http://localhost:3000" + path;
+    return environment.apiUrl + path;
     // return "https://www.google.com/imgres?q=cycle%20parts%20image%20square&imgurl=https%3A%2F%2Fthumbs.dreamstime.com%2Fb%2Fset-icons-bicycle-%25C3%25A2%25E2%2582%25AC-parts-accessories-isolated-white-47662698.jpg&imgrefurl=https%3A%2F%2Fwww.dreamstime.com%2Fillustration%2Faccessories-bicycle-parts.html&docid=xw0LhTSlNgvPJM&tbnid=GTgasba4TXz5TM&vet=12ahUKEwi8hdWWl6mLAxXpSGwGHQATB74QM3oFCIgBEAA..i&w=800&h=800&hcb=2&ved=2ahUKEwi8hdWWl6mLAxXpSGwGHQATB74QM3oFCIgBEAA"
 
   }
@@ -27,13 +28,14 @@ export class AllProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe((r: any) => {
-      console.log(r);
+      // console.log(r);
 
       this.products = r.content;
       if (AppComponent.getUser()) {
-        this.cartService.getCart(AppComponent.getUser().id).subscribe((res: any) => {
+        this.cartService.getCart().subscribe((res: any) => {
           this.cart = res;
-          this.cartItemIds = res.items.map((v: any) => { return v.product_id });
+          
+          this.cartItemIds = res.items.map((v: any) => { return v.product.id });
         })
       }
     })
@@ -51,17 +53,11 @@ export class AllProductsComponent implements OnInit {
 
   addToCart(product: any) {
     if (AppComponent.getUser()) {
-      const userId = AppComponent.getUser().id;
-      this.cart.items.push({
-        product_id: product.id,
-        name: product.name,
-        quantity: 1,
-        price: product.price
-      })
-      this.cartService.updateCart(userId, this.cart).subscribe((res: any) => {
+      this.cartService.addToCart(product.id).subscribe((res: any) => {
         this.cart = res;
-        this.ngOnInit()
-      });
+        this.cartItemIds = res.items.map((v: any) => { return v.product.id });
+        
+      })
     } else {
       this.router.navigateByUrl('/signin');
     }

@@ -11,8 +11,10 @@ import { DashboardSellerComponent } from './components/dashboard-seller/dashboar
 import { DashboardUserComponent } from './components/dashboard-user/dashboard-user.component';
 import { BugReportComponent } from './components/bug-report/bug-report.component';
 import { DemoComponent } from './components/demo/demo.component';
+import { environment } from 'src/environment';
 
 const routes: Routes = [
+  // {path: 'images/**', redirectTo: environment.apiUrl + '/images/**'},
   { path: '', redirectTo: '/intro', pathMatch: 'full' },
 
   // { path: 'home', component: DashboardUserComponent },
@@ -30,11 +32,11 @@ const routes: Routes = [
       { path: 'ROLE_USER', component: DashboardUserComponent },
     ]
   },
-  { 
-    path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) 
+  {
+    path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
-  { 
-    path: 'messges', loadChildren: () => import('./messges/messges.module').then(m => m.MessgesModule) 
+  {
+    path: 'messges', loadChildren: () => import('./messges/messges.module').then(m => m.MessgesModule)
   },
   {
     path: 'events', loadChildren: () => import('./events/events.module').then(m => m.EventsModule)

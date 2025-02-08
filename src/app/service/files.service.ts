@@ -1,12 +1,13 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, retry, throwError } from 'rxjs';
+import { environment } from 'src/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FilesService {
-  private apiURL = 'http://localhost:3000/file'; // Update with your actual API URL
+  private apiURL = environment.apiUrl + '/file'; // Update with your actual API URL
 
 
   constructor(private httpClient: HttpClient) { }

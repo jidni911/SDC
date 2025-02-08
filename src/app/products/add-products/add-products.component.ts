@@ -1,10 +1,10 @@
 import { ProductsService } from './../../service/products.service';
 import { FilesService } from './../../service/files.service';
 import { UsersService } from './../../service/users.service';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { environment } from 'src/environment';
 
 @Component({
   selector: 'app-add-products',
@@ -28,6 +28,7 @@ export class AddProductsComponent implements OnInit {
   tags = '';
   origin = '';
   features = '';
+apiUrl = environment.apiUrl;
 
   fillDemoData() {
     this.name = "Demo Product";
@@ -69,7 +70,7 @@ export class AddProductsComponent implements OnInit {
     'Backorder',
   ];
 
-  logo = "assets/logo/logo1.png";
+  logo = "/assets/logo/logo1.png";
 
   constructor(
     private productsService: ProductsService,
@@ -81,12 +82,9 @@ export class AddProductsComponent implements OnInit {
     if (!AppComponent.getUser()) {
       this.router.navigateByUrl('/signin');
     }
-    let userId = AppComponent.getUser().id;
-    this.usersService.getProfilePictureOf(userId).subscribe((res: any) => {
-      console.log(res);
-      //TODO Complete later
+    let user = AppComponent.getUser();
+    this.logo = environment.apiUrl + user.profilePicture.url;//TODO sometimes, data is late
 
-    })
   }
 
   handleMainImage(event: Event): void {
@@ -96,7 +94,7 @@ export class AddProductsComponent implements OnInit {
     if (file) {
       this.filesService.uploadImage(file).subscribe((res: any) => {
 
-        const newUrl = "http://localhost:3000" + res.url;
+        const newUrl = environment.apiUrl + res.url;
 
         setTimeout(() => {
           this.mainImageUrl = newUrl; // Assign new reference

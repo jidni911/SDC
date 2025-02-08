@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <!-- Sidebar -->
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block  sidebar collapse">
       <div class="position-sticky pt-3 sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
@@ -73,6 +73,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a [className]="currentTab=='roles' ? 'nav-link active' : 'nav-link'" (click)="currentTab='roles'">
+              <span data-feather="help-circle" class="align-text-bottom"></span>
+              Roles
+            </a>
+          </li>
+          <li class="nav-item">
             <a [className]="currentTab=='reports' ? 'nav-link active' : 'nav-link'" (click)="currentTab='reports'">
               <span data-feather="help-circle" class="align-text-bottom"></span>
               Reports
@@ -135,7 +141,7 @@
         <div>
           <div data-bs-spy="scroll" data-bs-target="#nav-example" data-bs-smooth-scroll="true" tabindex="0">
             <h2 id="unconfirmed-orders">Unconfirmed Orders</h2>
-            <div >
+            <div>
               <div class="table-responsive">
                 <table class="table table-striped table-hover">
                   <thead>
@@ -180,7 +186,7 @@
               </div>
             </div>
             <h2 id="confirmed-orders">Confirmed Orders</h2>
-            <div >
+            <div>
               <div class="table-responsive">
                 <table class="table table-striped table-hover">
                   <thead>
@@ -225,7 +231,7 @@
               </div>
             </div>
             <h2 id="shipped-orders">Shipped Orders</h2>
-            <div >
+            <div>
               <div class="table-responsive">
                 <table class="table table-striped table-hover">
                   <thead>
@@ -270,7 +276,7 @@
               </div>
             </div>
             <h2 id="completed-orders">Completed Orders</h2>
-            <div >
+            <div>
               <div class="table-responsive">
                 <table class="table table-striped table-hover">
                   <thead>
@@ -315,7 +321,7 @@
               </div>
             </div>
             <h2 id="rejected-orders">Rejected Orders</h2>
-            <div >
+            <div>
               <div class="table-responsive">
                 <table class="table table-striped table-hover">
                   <thead>
@@ -359,7 +365,7 @@
               </div>
             </div>
             <h2 id="cancelled-orders">Cancelled Orders</h2>
-            <div >
+            <div>
               <div class="table-responsive">
                 <table class="table table-striped table-hover">
                   <thead>
@@ -833,7 +839,8 @@
               </div>
               <div class="mb-3">
                 <label for="siteDescription" class="form-label">Site Description</label>
-                <textarea class="form-control" id="siteDescription" rows="3" placeholder="Enter site description"></textarea>
+                <textarea class="form-control" id="siteDescription" rows="3"
+                  placeholder="Enter site description"></textarea>
               </div>
               <div class="mb-3">
                 <label for="timezone" class="form-label">Timezone</label>
@@ -1112,6 +1119,81 @@
             </table>
           </div>
         </div>
+      </div>
+
+      <div id="roles" *ngIf="currentTab === 'roles'">
+        <h2>Roles</h2>
+        <div *ngFor="let role of allRoles" class="card mb-3">
+          <h5 class="text-center card-header">{{ role.name }}</h5>
+          <div class="table-responsive card-body">
+            <table class="table table-striped table-hover table-borderless align-middle">
+              <thead class="">
+                <tr>
+                  <th>User</th>
+                  <th>User Name</th>
+                  <th>Email</th>
+                  <th>Image</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="table-group-divider">
+                <tr *ngFor="let user of getUsersOfRole(role)">
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.email }}</td>
+                  <td><img src="{{ getUrl(user.profilePicture) }}" alt="User Image" class="rounded-circle" width="40"
+                      height="40"></td>
+                  <td>
+                    <button class="btn btn-danger btn-sm" (click)="removeUserFromRole(user, role)">Remove</button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+
+              </tfoot>
+            </table>
+          </div>
+
+        </div>
+        <h2>Users</h2>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-borderless align-middle">
+            <thead class="">
+              <tr>
+                <th>Id</th>
+                <th>UserName</th>
+                <th>Email</th>
+                <th>Image</th>
+                <th *ngFor="let role of allRoles">{{role.name}}</th>
+
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr class="" *ngFor="let user of users">
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td><img src="{{ getUrl(user.profilePicture) }}" alt="User Image" class="rounded-circle" width="40"
+                    height="40">
+                </td>
+                <td *ngFor="let role of allRoles; let i = index">
+                  <div  class="d-flex">
+                  <button type="button" class="btn btn-danger btn-sm" (click)="permitRoleToUser(role,user,false)" *ngIf="hasUserRole(user,role)">
+                    Revoke {{role.name}}
+                  </button>
+                  <button type="button" class="btn btn-success btn-sm" (click)="permitRoleToUser(role,user,true)" *ngIf="!hasUserRole(user,role)">
+                    Grant {{role.name}}
+                  </button>
+                </div>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+          </table>
+        </div>
+
       </div>
     </main>
   </div>
