@@ -1,9 +1,9 @@
 <div class=" m-5 shadow p-5">
   <h2>Create a Post</h2>
-  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+  <div >
     <div class="mb-3">
       <label for="content" class="form-label">Post Content</label>
-      <textarea id="content" class="form-control" formControlName="postText" rows="4"
+      <textarea id="content" class="form-control" [(ngModel)]="postText" rows="4"
         placeholder="What's on your mind?"></textarea>
     </div>
 
@@ -12,26 +12,26 @@
         <div class="mb-3">
           <label for="imageList" class="form-label">Image List</label>
           <div *ngFor="let image of imageList; let i = index" class="mb-2">
-            <img [src]="'http://localhost:3000'+image.url" class="img-fluid rounded" alt="Image {{i + 1}}">
+            <img [src]="apiURL+image.url" class="img-fluid rounded" alt="Image {{i + 1}}">
           </div>
         </div>
 
         <div class="mb-3">
           <label for="image" class="form-label">Image</label>
-          <input type="file" class="form-control" id="image" accept="image/*" (change)="handleImageInput()">
+          <input type="file" class="form-control" id="image" accept="image/*" (change)="handleImageInput()" multiple>
         </div>
       </div>
       <div class="col">
         <div class="mb-3">
           <label for="videoList" class="form-label">Video List</label>
           <div *ngFor="let video of videoList; let i = index" class="mb-2">
-            <video [src]="'http://localhost:3000'+video.url" class="img-fluid rounded" controls></video>
+            <video [src]="apiURL+video.url" class="img-fluid rounded" controls></video>
           </div>
         </div>
 
         <div class="mb-3">
           <label for="video" class="form-label">Video</label>
-          <input type="file" class="form-control" id="video" accept="video/*" (change)="handleVideoInput()">
+          <input type="file" class="form-control" id="video" accept="video/*" (change)="handleVideoInput()" multiple>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
             <h6>Product 1</h6>
           </div>
           <div class="card-body">
-            <input type="text" class="form-control mb-2" placeholder="Enter product details" id="">
+            <input type="text" class="form-control mb-2" placeholder="Enter product details">
             <div class="border rounded p-2 text-center bg-light">
               <p>Product View</p>
             </div>
@@ -57,7 +57,7 @@
             <h6>Product 2</h6>
           </div>
           <div class="card-body">
-            <input type="text" class="form-control mb-2" placeholder="Enter product details" id="">
+            <input type="text" class="form-control mb-2" placeholder="Enter product details" >
             <div class="border rounded p-2 text-center bg-light">
               <p>Product View</p>
             </div>
@@ -70,7 +70,7 @@
             <h6>Product 3</h6>
           </div>
           <div class="card-body">
-            <input type="text" class="form-control mb-2" placeholder="Enter product details" id="">
+            <input type="text" class="form-control mb-2" placeholder="Enter product details" >
             <div class="border rounded p-2 text-center bg-light">
               <p>Product View</p>
             </div>
@@ -82,7 +82,7 @@
 
     <div class="mb-3">
       <label for="privacy" class="form-label">Privacy</label>
-      <select class="form-select" formControlName="privacy">
+      <select class="form-select" [(ngModel)]="privacy">
         <option value="public">Public</option>
         <option value="private">Private</option>
       </select>
@@ -90,14 +90,14 @@
 
     <div class="mb-3">
       <label for="location" class="form-label">Location</label>
-      <input type="text" id="location" class="form-control" formControlName="location" placeholder="Enter location" />
+      <input type="text" id="location" class="form-control" [(ngModel)]="location" placeholder="Enter location" />
     </div>
 
     <div class="mb-3 d-flex align-items-center">
       <span class="me-2">Tag another post:</span>
-      <input type="text" class="form-control" placeholder="Enter post tag" aria-label="Post Tag">
+      <input type="text" class="form-control" placeholder="Enter post tag" aria-label="Post Tag" [(ngModel)]="postTag">
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  </div>
 </div>

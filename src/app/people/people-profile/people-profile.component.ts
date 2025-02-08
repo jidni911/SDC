@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 import { UsersService } from 'src/app/service/users.service';
 
 @Component({
@@ -9,13 +10,16 @@ import { UsersService } from 'src/app/service/users.service';
 })
 export class PeopleProfileComponent implements OnInit {
   peopleId!: any;
-  constructor(private route: ActivatedRoute, private us : UsersService) { }
+  constructor(private route: ActivatedRoute,private router: Router, private us : UsersService) { }
   ngOnInit(): void {
-    this.peopleId = this.route.snapshot.params['id'];
-    this.us.getUser(this.peopleId).subscribe((r: any) => {
-
-      this.person = r;
-    })
+    if(AppComponent.getUser()) {
+      this.peopleId = this.route.snapshot.params['id'];
+      this.us.getUser(this.peopleId).subscribe((r: any) => {
+        this.person = r;
+      })
+    } else {
+      this.router.navigateByUrl('/signin')
+    }
   }
   person: any = null;
 

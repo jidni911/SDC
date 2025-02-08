@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class OrdersService {
 
 
     constructor(private http: HttpClient) { }
-    private url = 'http://localhost:3000/orders';
+    private url = environment.apiUrl + '/orders';
 
     getOrders() {
       return this.http.get(this.url);

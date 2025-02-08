@@ -1,31 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  
 
- constructor(private http: HttpClient) { }
-   private url = 'http://localhost:3000/carts';
 
-   getCarts() {
-     return this.http.get(this.url);
-   }
+  constructor(private http: HttpClient) { }
+  private url = environment.apiUrl + '/carts';
 
-   getCart(id: any) {
-     return this.http.get(`${this.url}/${id}`);
-   }
+  getCarts() {
+    return this.http.get(this.url);
+  }
 
-   createCart(cart: any) {
-     return this.http.post(this.url, cart);
-   }
+  getCart() {
+    return this.http.get(`${this.url}`);
+  }
 
-   updateCart(id: any, cart: any) {
-     return this.http.put(`${this.url}/${id}`, cart);
-   }
+  addToCart(id: any) {
+    return this.http.post(`${this.url}/add/${id}`,"");
+  }
 
-   deleteCart(id: any) {
-     return this.http.delete(`${this.url}/${id}`);
-   }
- }
+  setQuantity(itemId: any, quantity: any) {
+    return this.http.get(`${this.url}/setQuantity/${itemId}/${quantity}`);
+  }
+
+  removeFromCart(id: any) {
+    return this.http.delete(`${this.url}/remove`, { params: { productId: id } });
+  }
+}

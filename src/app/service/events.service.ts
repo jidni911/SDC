@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class EventsService {
 
   constructor(private http: HttpClient) { }
-    private url = 'http://localhost:3000/event';
+    private url = environment.apiUrl + '/event';
 
     getEvents() {
       return this.http.get(this.url);

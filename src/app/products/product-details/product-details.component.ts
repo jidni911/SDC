@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from 'src/app/service/products.service';
 import { AppComponent } from 'src/app/app.component';
+import { environment } from 'src/environment';
 
 @Component({
   selector: 'app-product-details',
@@ -27,13 +28,12 @@ export class ProductDetailsComponent implements OnInit {
     this.productId = this.route.snapshot.paramMap.get('id');
     this.productService.getProduct(this.productId).subscribe((r: any) => {
       this.product = r;
-      console.log(this.product);
-
       if (AppComponent.getUser()) {
-        this.cartService.getCart(AppComponent.getUser().id).subscribe((res: any) => {
+        this.cartService.getCart().subscribe((res: any) => {
           this.cart = res;
-          let cardIds: any[] = this.cart.items.map((v: any) => { return v.product_id })
-          if (cardIds.includes(this.productId)) {
+          let cardIds: any[] = this.cart.items.map((v: any) => { return v.product.id })
+
+          if (cardIds.includes(Number(this.productId))) {
             this.inCart = true
           }
         })
@@ -42,17 +42,14 @@ export class ProductDetailsComponent implements OnInit {
   }
   addToCart() {
     if (AppComponent.getUser()) {
-      const userId = AppComponent.getUser().id;
-      this.cart.items.push({
-        product_id: this.productId,
-        name: this.product.name,
-        quantity: 1,
-        price: this.product.price
-      })
-      this.cartService.updateCart(userId, this.cart).subscribe((res: any) => {
+      this.cartService.addToCart(this.product.id).subscribe((res: any) => {
         this.cart = res;
-        this.ngOnInit()
-      });
+        let cardIds: any[] = this.cart.items.map((v: any) => { return v.product.id })
+
+        if (cardIds.includes(Number(this.productId))) {
+          this.inCart = true
+        }
+      })
     } else {
       this.router.navigateByUrl('/signin');
     }
@@ -65,7 +62,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getUrl(url: any) {
-    return "http://localhost:3000" + url
+    return environment.apiUrl + url
   }
 
 }

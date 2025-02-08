@@ -1,5 +1,5 @@
-import { RolesService } from './service/roles.service';
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from './service/users.service';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private rolesService: RolesService) { }
+  constructor(private usersService: UsersService) { }
   static user: any = null
   static roles = []
   ngOnInit(): void {
-    const userData = localStorage.getItem('user');
-    AppComponent.user = userData ? JSON.parse(userData) : null;
-    if (AppComponent.user && AppComponent.user.id) {
+    AppComponent.user = this.usersService.getMySelf().subscribe((res: any) => {
+      AppComponent.user = res
       AppComponent.roles = AppComponent.user.roles;
-    }
+    })
   }
   static getUser() {
     return AppComponent.user

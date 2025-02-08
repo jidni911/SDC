@@ -16,7 +16,7 @@ export class CheckoutComponent implements OnInit{
 private router: Router
     ){}
   ngOnInit(): void {
-    this.cs.getCart(AppComponent.getUser().id).subscribe((s:any)=>{
+    this.cs.getCart().subscribe((s:any)=>{
       this.cart = s;
     })
   }
@@ -39,11 +39,11 @@ private router: Router
       })
     });
 
-    setTimeout(() => {
-      this.cart.items = [];
-      this.cs.updateCart(this.cart.id,this.cart).subscribe();
-      this.router.navigateByUrl('/products/cart');
-    }, 500);
+    // setTimeout(() => {
+    //   this.cart.items = [];
+    //   this.cs.updateCart(this.cart.id,this.cart).subscribe();
+    //   this.router.navigateByUrl('/products/cart');
+    // }, 500);
 
   }
 }
