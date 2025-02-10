@@ -18,12 +18,12 @@ export class PostsService {
       return this.http.get(`${this.url}/${id}`);
     }
 
-    createPost(product: any) {
-      return this.http.post(this.url, product);
+    createPost(post: any) {
+      return this.http.post(this.url, post);
     }
 
-    updatePost(id: any, product: any) {
-      return this.http.put(`${this.url}/${id}`, product);
+    updatePost(id: any, post: any) {
+      return this.http.put(`${this.url}/${id}`, post);
     }
 
 }

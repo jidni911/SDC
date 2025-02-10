@@ -7,6 +7,7 @@ import { environment } from 'src/environment';
 })
 export class ProductsService {
 
+
   constructor(private http: HttpClient) { }
   private url = environment.apiUrl + '/product';
 
@@ -26,6 +27,8 @@ export class ProductsService {
     return this.http.put(`${this.url}/${id}`, product);
   }
 
-
+  searchProducts(productText: string) {
+    return this.http.get(`${this.url}/search/${productText}`);
+  }
 
 }
