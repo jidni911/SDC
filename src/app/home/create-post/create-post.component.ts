@@ -1,7 +1,7 @@
 import { environment } from 'src/environment';
 import { FilesService } from './../../service/files.service';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostsService } from 'src/app/service/posts.service';
 import { ProductsService } from 'src/app/service/products.service';
 
@@ -11,20 +11,25 @@ import { ProductsService } from 'src/app/service/products.service';
   styleUrls: ['./create-post.component.scss']
 })
 export class CreatePostComponent implements OnInit {
+
   apiURL = environment.apiUrl;
-  postText="";
+  postText = "";
   imageList: { id: number, url: string }[] = [];
   videoList: { id: number, url: string }[] = [];
+  productList: any[] = [];
   privacy = 'public'
   location = ''
   postTag = ''
-  
+
+
+  productSuggestionnList: any[] = [];
+
   constructor(
     private postService: PostsService,
     private productService: ProductsService,
     private filesService: FilesService,
     private fb: FormBuilder
-  ) {}
+  ) { }
   ngOnInit(): void {
 
   }
@@ -35,12 +40,20 @@ export class CreatePostComponent implements OnInit {
 
 
   onSubmit() {
-    // if (this.postForm.valid) {
-    //   console.log(this.postForm.value);
-    //   alert('Post submitted successfully!');
-    // } else {
-    //   alert('Please fill in all required fields.');
-    // }
+    let formGroup : FormGroup = new FormGroup({
+      postText: new FormControl(this.postText),
+      location: new FormControl(this.location),
+      isPublic: new FormControl(this.privacy == 'public'),
+      sharedPostId: new FormControl(this.postTag),
+      postImage: new FormControl(this.imageList.map( v => v.id)),
+      postVideo: new FormControl(this.videoList.map( v => v.id)),
+      products: new FormControl(this.productList.map( v => v.id)),
+    })
+
+    this.postService.createPost(formGroup.value).subscribe((response) => {
+      console.log('Post created successfully', response);
+      this.ngOnInit();
+    });
   }
 
 
@@ -82,6 +95,25 @@ export class CreatePostComponent implements OnInit {
   }
 
 
+  handleProductInput($event: Event) {
+    const productInput = $event.target as HTMLInputElement;
+    let productText = productInput.value;
+    if (productText == '') {
+      this.productSuggestionnList = [];
+      return;
+    }
+    this.productService.searchProducts(productText).subscribe((res: any) => {
+      this.productSuggestionnList = res.content
+      console.log(this.productSuggestionnList);
 
+    })
+  }
 
+  addProductToList(product:any){
+    this.productList.push(product)
+    const input = document.getElementById('productInput') as HTMLInputElement;
+    input.value = '';
+    this.productSuggestionnList = []
+    
+  }
 }

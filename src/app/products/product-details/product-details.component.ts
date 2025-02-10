@@ -64,5 +64,4 @@ export class ProductDetailsComponent implements OnInit {
   getUrl(url: any) {
     return environment.apiUrl + url
   }
-
 }

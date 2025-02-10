@@ -12,7 +12,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(
     private postService: PostsService,
-     private productService: ProductsService,
+    private productService: ProductsService,
     ) {  }
   ngOnInit(): void {
     this.productService.getProducts().subscribe((s:any)=>{
