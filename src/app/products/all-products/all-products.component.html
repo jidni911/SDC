@@ -18,9 +18,9 @@
           <p class="card-text">
             <span>Price: </span>
             <span *ngIf="product.discountPrice" class="text-decoration-line-through text-danger">
-              {{ product.price | currency }}
+              {{ product.price  }}
             </span>
-            <span>{{ product.discountPrice || product.price | currency }}</span>
+            <span>{{ product.discountPrice || product.price  }}</span>
           </p>
         </div>
 

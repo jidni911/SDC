@@ -13,32 +13,30 @@ import { environment } from 'src/environment';
 export class CartComponent implements OnInit {
 
 
+
   constructor(private router: Router, private cartService: CartService, private ps: ProductsService) { }
   ngOnInit(): void {
 
     if (!AppComponent.getUser()) {
       this.router.navigateByUrl('/signin')
     }
-    this.ps.getProducts().subscribe((s: any) => {
-      this.products = s;
-
-      this.cartService.getCart().subscribe((r: any) => {
-        this.cart = r;
-      })
+    this.cartService.getCart().subscribe((r: any) => {
+      this.cart = r;
     })
   }
 
   cart: any = null
-  products: any[] = []
 
   getTotal(): number {
     return this.cart.items.reduce((acc: number, item: any) => acc + (item.product.discountPrice * item.quantity), 0);
   }
 
-  removeItem(productId: any) {
-    this.cartService.removeFromCart(productId).subscribe((r: any) => {
+  removeItem(itemid: any) {
+    this.cartService.removeFromCart(itemid).subscribe((r: any) => {
       this.ngOnInit()
     })
+    // console.log(itemid);
+
 
   }
 
@@ -47,7 +45,7 @@ export class CartComponent implements OnInit {
   }
 
   increaseQuantity(item: any) {
-    if(item.product.quantity<=item.quantity){
+    if (item.product.quantity <= item.quantity) {
       return
     }
     this.setQuantity(item.id, item.quantity + 1)
@@ -59,19 +57,45 @@ export class CartComponent implements OnInit {
   }
 
   setQuantity(itemId: any, quantity: any) {
-    this.cartService.setQuantity(itemId,quantity).subscribe((r:any)=>{
+    this.cartService.setQuantity(itemId, quantity).subscribe((r: any) => {
       this.cart = r
     })
   }
 
   removeSelectedItems() {
-    throw new Error('Method not implemented.');
-    }
-    
+    let ids : any[]= [];
+    document.querySelectorAll('input[type="checkbox"]').forEach((v) => {
+      if((v as HTMLInputElement).checked){
+        ids.push((v as HTMLInputElement).id)
+      }
+    });
+    this.cartService.removeFromCart(ids).subscribe(()=>{
+      this.ngOnInit()
+    })
+
+  }
+
 
   checkout() {
+    let ids : any[]= [];
+    document.querySelectorAll('input[type="checkbox"]').forEach((v) => {
+      if((v as HTMLInputElement).checked){
+        ids.push((v as HTMLInputElement).id)
+      }
+    });
+    this.router.navigate(['/products/checkout'], { queryParams: { ids: ids.join(',') } })
+  }
 
-    //TODO work from here
-    this.router.navigateByUrl('/products/checkout')
+
+  markAll() {
+    document.querySelectorAll('input[type="checkbox"]').forEach((v) => {
+      (v as HTMLInputElement).checked = true;
+    });
+  }
+
+  markNone() {
+    document.querySelectorAll('input[type="checkbox"]').forEach((v) => {
+      (v as HTMLInputElement).checked = false;
+    });
   }
 }

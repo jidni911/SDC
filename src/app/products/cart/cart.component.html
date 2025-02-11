@@ -9,7 +9,7 @@
       <div class="row align-items-center">
         <!-- Checkbox for Selection -->
         <div class="col-1 text-center">
-          <input type="checkbox" />
+          <input type="checkbox" id="{{item.id}}" >
         </div>
         <!-- Product Image (optional) -->
         <div class="col-3 col-md-2">
@@ -40,18 +40,16 @@
         <div class="col-12 col-md-4 text-md-right mt-2 mt-md-0">
           <p class="mb-1 font-weight-bold">Subtotal: {{ item.product.discountPrice * item.quantity }}</p>
           <!-- <button class="btn btn-outline-danger btn-sm" (click)="removeItem(item)">Remove</button> -->
-          <button class="btn btn-outline-danger btn-sm" (click)="removeItem(item.product.id)">Remove</button>
+          <button class="btn btn-outline-danger btn-sm" (click)="removeItem(item.id)">Remove</button>
         </div>
       </div>
     </div>
     <div class="d-grid gap-2">
     </div>
-    <button type="button" name="" id="" class="btn btn-primary">
-      Mark All 
-      <!-- TODO Work -->
+    <button type="button"class="btn btn-primary" (click)="markAll()">
+      Mark All
     </button>
-    <button type="button" name="" id="" class="btn btn-primary">
-      <!-- TODO Work -->
+    <button type="button" class="btn btn-primary" (click)="markNone()">
       Mark None
     </button>
 

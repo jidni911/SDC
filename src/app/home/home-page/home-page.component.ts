@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { PostsService } from 'src/app/service/posts.service';
-import { ProductsService } from 'src/app/service/products.service';
+import { environment } from 'src/environment';
 
 @Component({
   selector: 'app-home-page',
@@ -9,18 +9,15 @@ import { ProductsService } from 'src/app/service/products.service';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-
+  apiUrl = environment.apiUrl
   constructor(
     private postService: PostsService,
-    private productService: ProductsService,
     ) {  }
   ngOnInit(): void {
-    this.productService.getProducts().subscribe((s:any)=>{
-      this.products = s;
-      this.postService.getPosts().subscribe((r:any) => {
-        let r1 : any[] =r;
-        this.posts = r1;
-      })
+    this.postService.getPosts().subscribe((r:any) => {
+      let r1 : any[] =r.content;
+      console.log(r1);
+      this.posts = r1;
     })
   }
 

@@ -44,7 +44,7 @@
       <div class="collapse" id="setting">
         <div class="container mt-5">
           <h2>Settings</h2>
-          <form>
+          <!-- <form>
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
               <input type="text" id="username" class="form-control" formControlName="username"
@@ -74,7 +74,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Save Changes</button>
-          </form>
+          </form> -->
         </div>
 
 
@@ -88,18 +88,26 @@
       <div class="card my-4 shadow-sm" *ngFor="let post of posts">
         <!-- Card Header -->
         <div class="card-header d-flex align-items-center">
-          <img [src]="post.user.profilePicture" class="rounded-circle me-3" width="50" height="50"
+          <img [src]="apiUrl + post.creator.profilePicture.url" class="rounded-circle me-3" width="50" height="50"
             alt="User profile picture">
           <div>
-            <h5 class="mb-0">{{ post.user.name }}</h5>
-            <small class="text-muted">Posted 2 hours ago</small>
+            <h5 class="mb-0">{{ post.creator.fullName }}</h5>
+            <!-- <small class="text-muted">{{ post.createdAt }}</small> -->
+            <small class="text-muted">{{ post.createdAt | timeAgo }}</small>
+
           </div>
         </div>
 
         <!-- Card Body -->
         <div class="card-body">
-          <p class="mb-3">{{ post.content }}</p>
-          <img *ngIf="post.image" [src]="post.image" class="img-fluid rounded" alt="Post image">
+          <p class="mb-3">{{ post.postText }}</p>
+          <div *ngIf="post.postImage.length>0">
+            <img *ngFor="let image of post.postImage" [src]="apiUrl + image.url" class="img-fluid rounded"
+              alt="Post image">
+          </div>
+          <div *ngIf="post.postVideo.length>0">
+              <video *ngFor="let video of post.postVideo" [src]="apiUrl + video.url" class="img-fluid rounded" controls></video>
+          </div>
         </div>
 
         <!-- Card Footer -->
@@ -125,25 +133,29 @@
         </div>
 
         <div class="card-footer  align-items-center">
+          <div *ngIf="post.comments.length>0; else loginPrompt">
+            <div *ngFor="let comment of post.comments" class="mb-2">
+              <strong>{{ comment.user.name }}:</strong> {{ comment.text }}
+            </div>
+          </div>
+          <ng-template #loginPrompt>
+            <p>No comments yet.</p>
+          </ng-template>
 
-          <div *ngFor="let comment of post.comments" class="mb-2">
-            <strong>{{ comment.user.name }}:</strong> {{ comment.text }}
-          </div>
-          <div class="mb-2">
-            <strong>John Doe:</strong> This is a great post!
-          </div>
-          <div class="mb-2">
-            <strong>Jane Smith:</strong> I totally agree with you.
-          </div>
         </div>
 
-        <h5 *ngIf="post.relatedProducts.length>0" class="card-footer">Suggested products : </h5>
-        <div *ngIf="post.relatedProducts.length>0" class="d-flex justify-content-around">
-          <div *ngFor="let itemid of post.relatedProducts">
-            <div [routerLink]="'/products/productDetails/' + itemid">
-              <img [src]="getProductById(itemid).mainImage" class="img-thumbnail me-2 mb-2"
-                style="width: 100px; height: 100px; object-fit: cover;" alt="">
-              <!-- <img [src]="(getProductById(itemid) | async)?.mainImage" alt=""> -->
+        <h5 *ngIf="post.products.length>0" class="card-footer">Suggested products : </h5>
+        <div *ngIf="post.products.length>0" class="d-flex justify-content-around">
+          <div *ngFor="let product of post.products">
+            <div class="card shadow-sm m-2" >
+              <div [routerLink]="'/products/productDetails/' + product.id">
+                <img [src]="apiUrl + product.mainImage.url" class="card-img-top" style="height: 100px; object-fit: content;"
+                  alt="">
+              </div>
+              <div class="card-body p-2">
+                <p class="card-text">{{product.name}}</p>
+                <p class="card-text">by {{product.seller.fullName}}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -158,4 +170,3 @@
   </a>
 
 </div>
-
