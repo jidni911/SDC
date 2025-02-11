@@ -6,7 +6,7 @@ import { environment } from 'src/environment';
   providedIn: 'root'
 })
 export class CartService {
-  
+
 
 
   constructor(private http: HttpClient) { }
@@ -29,6 +29,10 @@ export class CartService {
   }
 
   removeFromCart(id: any) {
-    return this.http.delete(`${this.url}/remove`, { params: { productId: id } });
+    return this.http.delete(`${this.url}/remove`, { params: { itemid: id } });
+  }
+
+  getCartItems(itemIds: any) {
+    return this.http.get(`${this.url}/items`, { params: { itemIds } });
   }
 }

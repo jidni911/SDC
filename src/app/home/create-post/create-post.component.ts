@@ -40,14 +40,14 @@ export class CreatePostComponent implements OnInit {
 
 
   onSubmit() {
-    let formGroup : FormGroup = new FormGroup({
+    let formGroup: FormGroup = new FormGroup({
       postText: new FormControl(this.postText),
       location: new FormControl(this.location),
       isPublic: new FormControl(this.privacy == 'public'),
       sharedPostId: new FormControl(this.postTag),
-      postImage: new FormControl(this.imageList.map( v => v.id)),
-      postVideo: new FormControl(this.videoList.map( v => v.id)),
-      products: new FormControl(this.productList.map( v => v.id)),
+      postImage: new FormControl(this.imageList.map(v => v.id)),
+      postVideo: new FormControl(this.videoList.map(v => v.id)),
+      products: new FormControl(this.productList.map(v => v.id)),
     })
 
     this.postService.createPost(formGroup.value).subscribe((response) => {
@@ -81,16 +81,19 @@ export class CreatePostComponent implements OnInit {
   handleVideoInput() {
     const fileInput = document.getElementById('video') as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
-      const file = fileInput.files[0];
 
-      this.filesService.uploadVideo(file).subscribe(
-        (response) => {
-          setTimeout(() => {
-            this.videoList.push({ id: response.id, url: response.url });
-            fileInput.value = '';
-          }, 1000);
-        }
-      );
+      for (let i = 0; i < fileInput.files.length; i++) {
+        const file = fileInput.files[i];
+
+        this.filesService.uploadVideo(file).subscribe(
+          (response) => {
+            setTimeout(() => {
+              this.videoList.push({ id: response.id, url: response.url });
+              fileInput.value = '';
+            }, 1000);
+          }
+        );
+      }
     }
   }
 
@@ -109,11 +112,11 @@ export class CreatePostComponent implements OnInit {
     })
   }
 
-  addProductToList(product:any){
+  addProductToList(product: any) {
     this.productList.push(product)
     const input = document.getElementById('productInput') as HTMLInputElement;
     input.value = '';
     this.productSuggestionnList = []
-    
+
   }
 }

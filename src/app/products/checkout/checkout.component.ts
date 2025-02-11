@@ -9,32 +9,43 @@ import { OrdersService } from 'src/app/service/orders.service';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
 })
-export class CheckoutComponent implements OnInit{
+export class CheckoutComponent implements OnInit {
   constructor(
-    private cs : CartService,
-     private orderS: OrdersService,
-private router: Router
-    ){}
+    private cs: CartService,
+    private orderS: OrdersService,
+    private router: Router
+  ) { }
+  list : any[] = []
+  cartItems : any[] = []
   ngOnInit(): void {
-    this.cs.getCart().subscribe((s:any)=>{
-      this.cart = s;
+
+    this.router.url.split('?')[1].split('&').forEach((v)=>{
+      if(v.split('=')[0] === 'ids'){
+        this.list = v.split('=')[1].split(',');
+      }
     })
+
+    this.cs.getCartItems(this.list).subscribe((r: any) => {
+      this.cartItems = r;
+      console.log(r);
+
+    })
+
   }
-  cart : any = null
   getTotal(): number {
 
-    return this.cart.items.reduce((acc: number, item: any) => acc + (item.price * item.quantity), 0);
+    return this.cartItems.reduce((acc: number, item: any) => acc + (item.price * item.quantity), 0);
 
   }
 
-  onSubmit(){
+  onSubmit() {
     // "product_id": "prod003",
     //       "name": "Bike Pump",
     //       "quantity": 1,
     //       "price": 25.99
     //cid, pid ,price, quantity, date, status
-    this.cart.items.forEach((i:any) => {
-      this.orderS.createOrder({cid: AppComponent.getUser().id,pid:i.product_id,price:i.price,quantity:i.quantity,date:Date.now(),status:'pending'}).subscribe((s:any)=>{
+    this.cartItems.forEach((i: any) => {
+      this.orderS.createOrder({ cid: AppComponent.getUser().id, pid: i.product_id, price: i.price, quantity: i.quantity, date: Date.now(), status: 'pending' }).subscribe((s: any) => {
 
       })
     });
