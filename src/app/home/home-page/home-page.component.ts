@@ -16,7 +16,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getPosts().subscribe((r:any) => {
       let r1 : any[] =r.content;
-      console.log(r1);
+      // console.log(r1);
       this.posts = r1;
     })
   }
