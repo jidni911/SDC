@@ -49,33 +49,30 @@ export class CheckoutComponent implements OnInit {
     })
 
 
-    console.log(this.user);
-
-
   }
   getTotal(): number {
-
-    return this.cartItems.reduce((acc: number, item: any) => acc + (item.price * item.quantity), 0);
+    
+    return this.cartItems.reduce((acc: number, item: any) => acc + ((item.product.discountPrice || item.product.price) * item.quantity), 0);
 
   }
 
   onSubmit() {
-    // "product_id": "prod003",
-    //       "name": "Bike Pump",
-    //       "quantity": 1,
-    //       "price": 25.99
-    //cid, pid ,price, quantity, date, status
-    this.cartItems.forEach((i: any) => {
-      this.orderS.createOrder({ cid: AppComponent.getUser().id, pid: i.product_id, price: i.price, quantity: i.quantity, date: Date.now(), status: 'pending' }).subscribe((s: any) => {
+    let orderData = {
+      name: this.name,
+      phoneNumber: this.phoneNumber,
+      userName: this.userName,
+      email: this.email,
+      phone: this.phone,
+      address: this.address,
+      paymentMethod: this.paymentMethod,
+      paymentNumber: this.paymentNumber,
+      transactionId: this.transactionId,
+      orderItemIds: this.list.map(v => +v)
+    }
 
-      })
-    });
-
-    // setTimeout(() => {
-    //   this.cart.items = [];
-    //   this.cs.updateCart(this.cart.id,this.cart).subscribe();
-    //   this.router.navigateByUrl('/products/cart');
-    // }, 500);
+    this.orderS.createOrder(orderData).subscribe((res: any) => {
+      this.router.navigateByUrl('/products/orders');
+    })
 
   }
 }

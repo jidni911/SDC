@@ -11,7 +11,7 @@ import { environment } from 'src/environment';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-
+  selectedTotal: number = 0
 
 
   constructor(private router: Router, private cartService: CartService, private ps: ProductsService) { }
@@ -30,12 +30,16 @@ export class CartComponent implements OnInit {
   getTotal(): number {
     return this.cart.items.reduce((acc: number, item: any) => acc + (item.product.discountPrice * item.quantity), 0);
   }
+  updateSelectedTotal() {
+    let selectedItems = document.querySelectorAll('input[type="checkbox"]:checked');
+    let seletedItemIds = Array.from(selectedItems).map((v) => { return Number((v as HTMLInputElement).id) });    
+    this.selectedTotal = this.cart.items.reduce((acc: number, item: any) => seletedItemIds.includes(item.id) ? acc + (item.product.discountPrice * item.quantity) : acc, 0);
+  }
 
   removeItem(itemid: any) {
     this.cartService.removeFromCart(itemid).subscribe((r: any) => {
       this.ngOnInit()
     })
-    // console.log(itemid);
 
 
   }
@@ -91,11 +95,13 @@ export class CartComponent implements OnInit {
     document.querySelectorAll('input[type="checkbox"]').forEach((v) => {
       (v as HTMLInputElement).checked = true;
     });
+    this.updateSelectedTotal()
   }
 
   markNone() {
     document.querySelectorAll('input[type="checkbox"]').forEach((v) => {
       (v as HTMLInputElement).checked = false;
     });
+    this.updateSelectedTotal()
   }
 }
