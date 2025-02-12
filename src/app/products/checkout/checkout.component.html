@@ -1,9 +1,9 @@
-<body class="bg-light">
+<body class="">
 
   <div class="container">
     <main>
       <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="assets/logo/logo1.png" alt="" width="100" height="100">
+        <img class="d-block mx-auto mb-4 bg-light rounded-pill" src="assets/logo/logo1.png" alt="" width="100" height="100">
         <h2>Checkout form</h2>
         <p class="lead">Please fill out the form below to complete your purchase. All fields marked with an asterisk (*)
           are required.</p>
@@ -26,12 +26,12 @@
               </div>
               <span class="text-muted">$ {{(item.product.discountPrice || item.product.price) * item.quantity}}</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between bg-light">
+            <li class="list-group-item d-flex justify-content-between ">
               <div class="text-success">
                 <h6 class="my-0">Promo code</h6>
-                <small>EXAMPLECODE</small>
+                <small>Coming Soon</small>
               </div>
-              <span class="text-success">−$5</span>
+              <span class="text-success">−$0</span>
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (USD)</span>
@@ -41,8 +41,9 @@
 
           <form class="card p-2">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Promo code">
-              <button type="submit" class="btn btn-secondary">Redeem</button>
+              <input type="text" class="form-control" placeholder="Promo code" disabled>
+              <button type="submit" class="btn btn-secondary" disabled>Redeem</button>
+              <!-- TODO  -->
             </div>
           </form>
         </div>
@@ -159,8 +160,7 @@
 
             <hr class="my-4">
 
-            <button class="w-100 btn btn-primary btn-lg" type="button" (click)="onSubmit()">Continue to
-              checkout</button>
+            <button class="w-100 btn btn-primary btn-lg" type="button" (click)="onSubmit()"> Place Order </button>
           </div>
         </div>
       </div>

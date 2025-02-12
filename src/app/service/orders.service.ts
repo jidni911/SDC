@@ -9,7 +9,7 @@ export class OrdersService {
 
 
     constructor(private http: HttpClient) { }
-    private url = environment.apiUrl + '/orders';
+    private url = environment.apiUrl + '/order';
 
     getOrders() {
       return this.http.get(this.url);

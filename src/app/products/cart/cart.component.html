@@ -9,7 +9,7 @@
       <div class="row align-items-center">
         <!-- Checkbox for Selection -->
         <div class="col-1 text-center">
-          <input type="checkbox" id="{{item.id}}" >
+          <input type="checkbox" id="{{item.id}}" (input)="updateSelectedTotal()">
         </div>
         <!-- Product Image (optional) -->
         <div class="col-3 col-md-2">
@@ -18,7 +18,11 @@
 
         <!-- Product Details -->
         <div class="col-8 col-md-5">
-          <h5 class="mb-1">{{ item.product.name }}</h5>
+          <div class="d-flex align-items-center">
+            <h5 class="mb-1">{{ item.product.name }} </h5> 
+            <small class="text-muted ms-2"> by</small>
+            <a class="text-muted ms-2" routerLink="/products/seller/{{ item.product.seller.id }}"> {{ item.product.seller.fullName }} </a>
+          </div>
           <div class="mb-1 text-muted">
             Quantity:
             <div class="input-group input-group-sm">
@@ -74,9 +78,10 @@
   </div>
   <!-- Cart Total -->
   <div class="cart-total mt-4 text-right">
-    <h4 class="font-weight-bold border-top pt-3" *ngIf="cart && cart.items && cart.items.length>0 ">
-      Total: {{ getTotal() }}
-    </h4>
+    <div class="d-flex justify-content-between border-top pt-3" *ngIf="cart && cart.items && cart.items.length>0 ">
+      <h4 class="font-weight-bold">Selected Total: {{ selectedTotal }}</h4>
+      <h4 class="font-weight-bold">Cart Total: {{ getTotal() }}</h4>
+    </div>
     <button class="btn btn-success btn-lg mt-2" (click)="checkout()"
       *ngIf="cart && cart.items && cart.items.length>0 ">Checkout</button>
   </div>

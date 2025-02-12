@@ -6,6 +6,7 @@ import { environment } from 'src/environment';
   providedIn: 'root'
 })
 export class PostsService {
+    
 
     constructor(private http: HttpClient) { }
     private url = environment.apiUrl + '/post';
@@ -26,4 +27,9 @@ export class PostsService {
       return this.http.put(`${this.url}/${id}`, post);
     }
 
+    likePost(postId: any) {
+      return this.http.post(`${this.url}/like/${postId}`, "");
+
+      //TODO watch backend
+    }
 }
