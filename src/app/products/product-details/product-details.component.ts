@@ -64,4 +64,14 @@ export class ProductDetailsComponent implements OnInit {
   getUrl(url: any) {
     return environment.apiUrl + url
   }
+
+  canEdit() {
+    let user = AppComponent.getUser();
+    if (user) {
+      if (user.role == 'dev' || this.product.seller.id == user.id) {
+        return true
+      }
+    }
+    return false
+  }
 }
