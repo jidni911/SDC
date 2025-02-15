@@ -7,8 +7,7 @@ import { OrderStatus } from '../model/orderStatus';
   providedIn: 'root'
 })
 export class OrdersService {
-
-
+ 
 
   constructor(private http: HttpClient) { }
   private url = environment.apiUrl + '/order';
@@ -35,5 +34,10 @@ export class OrdersService {
   updateOrder(orderitemid: any, currentStatus: OrderStatus, continuation: boolean) {
     return this.http.post(`${this.url}/updateStatus`, { id: orderitemid, currentStatus: currentStatus, continuation: continuation });
   }
+
+  confirmOrder(orderItems: any[], serviceCharge: number, deliveryCharge: number, discount: number) {
+    return this.http.post(`${this.url}/confirm`, { orderItems, serviceCharge, deliveryCharge, discount }, { responseType: 'text' });
+  }
+
 
 }

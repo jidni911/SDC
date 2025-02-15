@@ -1,1 +1,84 @@
+<div class="container mt-4" *ngIf="order && orderItems">
+    <h2>Order Memo</h2>
+    <div class="card p-3">
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <h4>Customer Details</h4>
+        <p><strong>Name:</strong> {{ order.name }}</p>
+        <p><strong>Phone:</strong> {{ order.phoneNumber }}</p>
+        <p><strong>Email:</strong> {{ order.email }}</p>
+        <p><strong>Address:</strong> {{ order.address }}</p>
+        <p><strong>Payment Method:</strong> {{ order.paymentMethod }}</p>
+        <p><strong>Transaction ID:</strong> {{ order.transactionId }}</p>
+    </div>
 
+    <div class="mt-4">
+        <h4>Order Items</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of orderItems">
+
+                    <td style="display:flex; align-items:center;">
+                        <a class="d-flex align-items-center text-decoration-none" routerLink="/products/productDetails/{{ item.product.id }}">
+                            <img src="{{ apiUrl + item.product.mainImage.url }}" alt="" width="60" height="60"
+                            style="margin-right:10px;">
+                        <ul class="list-unstyled mb-0">
+                            <li><strong class="text-primary">Product Name:</strong>
+                                <span class="text-success">{{ item.product.name }}</span></li>
+                            <li><strong class="text-primary">Brand:</strong>
+                                <span class="text-warning">{{ item.product.brand }}</span></li>
+                            <li><strong class="text-primary">Origin:</strong>
+                                <span class="text-danger">{{ item.product.origin }}</span></li>
+                        </ul>
+                        </a>
+                    </td>
+                    <td>
+                        <input type="number" [(ngModel)]="item.price" class="form-control" />
+                        discount Price:<span class="text-danger">{{ item.product.discountPrice }}</span>
+                        regular Price:<span class="text-success"> {{ item.product.price  }} </span>
+                    </td>
+                    <td><input type="number" [(ngModel)]="item.quantity" class="form-control" />
+                        Available Quantity:<span class="text-success"> {{ item.product.quantity }} </span></td>
+                    <td>{{ item.price * item.quantity | currency }}</td>
+                    <td><button class="btn btn-danger btn-sm" (click)="removeItem(item)">Remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
+        <h4>Add Product</h4>
+        <input type="text" class="form-control" placeholder="Search product..." (input)="suggestProduct($event)" />
+        <ul class="list-group mt-2" *ngIf="suggestedProducts.length>0">
+            <li class="list-group-item" *ngFor="let product of suggestedProducts" (click)="addProduct(product)">
+                <img src="{{ apiUrl + product.mainImage.url }}" alt="" width="50" height="50">
+                {{ product.name }}, brand : {{ product.brand }}, origin: {{ product.origin }}, price: {{ product.price
+                }} discount Price: {{ product.discountPrice }} , Quantity: {{
+                product.quantity }}
+            </li>
+        </ul>
+    </div>
+
+    <div class="mt-4 card p-3">
+        <h4>Billing Summary</h4>
+        <p><strong>Subtotal:</strong> {{ getSubtotal() | currency }}</p>
+        <p><strong>Service Charge:</strong> <input type="number" [(ngModel)]="serviceCharge" class="form-control" /></p>
+        <p><strong>Delivery Charge:</strong> <input type="number" [(ngModel)]="deliveryCharge" class="form-control" />
+        </p>
+        <p><strong>Discount:</strong> <input type="number" [(ngModel)]="discount" class="form-control" /></p>
+        <h4><strong>Total: </strong> {{ getTotal() | currency }}</h4>
+    </div>
+
+    <div class="mt-4 text-end">
+        <button class="btn btn-success me-2" (click)="confirmOrderAndPrint()">Confirm And Print Order</button>
+    </div>
+
+</div>

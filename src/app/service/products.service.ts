@@ -30,5 +30,7 @@ export class ProductsService {
   searchProducts(productText: string) {
     return this.http.get(`${this.url}/search/${productText}`);
   }
-
+  searchSellerProducts(productText: string) {
+    return this.http.get(`${this.url}/sellerSearch/${productText}`);
+  }
 }

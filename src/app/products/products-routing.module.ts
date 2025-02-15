@@ -7,6 +7,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { AddProductsComponent } from './add-products/add-products.component';
 import { SellerComponent } from './seller/seller.component';
 import { MemoComponent } from './memo/memo.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'allProducts', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   { path: 'seller/:id', component: SellerComponent },
   { path: 'memo/:id', component: MemoComponent },
+  { path: "card/:id", component: ProductCardComponent },
 ];
 
 @NgModule({
