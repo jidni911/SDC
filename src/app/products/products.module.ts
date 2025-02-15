@@ -10,7 +10,6 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SellerComponent } from './seller/seller.component';
-import { OrdersComponent } from './orders/orders.component';
 
 
 @NgModule({
@@ -21,8 +20,7 @@ import { OrdersComponent } from './orders/orders.component';
     ProductDetailsComponent,
     CartComponent,
     CheckoutComponent,
-    SellerComponent,
-    OrdersComponent
+    SellerComponent
   ],
   imports: [
     CommonModule,

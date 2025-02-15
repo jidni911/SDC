@@ -19,6 +19,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoComponent } from './components/demo/demo.component';
 import { AuthInterceptor } from './interceptors/auth-interceptor.service';
 import { BikeMessengerComponent } from './bike-messenger/bike-messenger/bike-messenger.component';
+import { OrdersComponent } from './components/dashboard-seller/orders/orders.component';
+import { SharedModule } from './shared/shared.module';
+import { OrderListComponent } from './components/dashboard-seller/orders/order-list/order-list.component';
 
 
 @NgModule({
@@ -36,14 +39,17 @@ import { BikeMessengerComponent } from './bike-messenger/bike-messenger/bike-mes
     DashboardSellerComponent,
     BugReportComponent,
     DemoComponent,
-    BikeMessengerComponent
+    BikeMessengerComponent,
+    OrdersComponent,
+    OrderListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

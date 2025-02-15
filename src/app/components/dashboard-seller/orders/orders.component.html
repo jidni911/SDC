@@ -1,0 +1,20 @@
+<div>
+    <div data-bs-spy="scroll" data-bs-target="#nav-example" data-bs-smooth-scroll="true" tabindex="0">
+        
+        <app-order-list [status]="orderStatus.PENDING" title="Pending Orders" ></app-order-list>
+        <app-order-list [status]="orderStatus.PROCESSING" title="Processing Orders" ></app-order-list>
+        <app-order-list [status]="orderStatus.OUT_FOR_DELIVERY" title="Delivered Orders" ></app-order-list>
+        <app-order-list [status]="orderStatus.COMPLETED" title="Completed Orders" ></app-order-list>
+        <app-order-list [status]="orderStatus.REJECTED" title="Rejected Orders"></app-order-list>
+        <app-order-list [status]="orderStatus.CANCELLED" title="Cancelled Orders" ></app-order-list>
+        
+    </div>
+</div>
+<nav id="nav-example" class="nav nav-pills justify-content-center sticky-bottom border rounded">
+    <a class="nav-link" href="/dashboard/dashboarddev#pending-orders">Pending Orders</a>
+    <a class="nav-link" href="/dashboard/dashboarddev#processing-orders">Processing Orders</a>
+    <a class="nav-link" href="/dashboard/dashboarddev#delivered-orders">Delivered Orders</a>
+    <a class="nav-link" href="/dashboard/dashboarddev#completed-orders">Completed Orders</a>
+    <a class="nav-link" href="/dashboard/dashboarddev#rejected-orders">Rejected Orders</a>
+    <a class="nav-link" href="/dashboard/dashboarddev#cancelled-orders">Cancelled Orders</a>
+</nav>
