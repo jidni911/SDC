@@ -10,18 +10,7 @@ import { UsersService } from 'src/app/service/users.service';
   styleUrls: ['./dashboard-seller.component.scss']
 })
 export class DashboardSellerComponent implements OnInit {
-  unix2Normal(unixTimestamp: number): string {
-      const date = new Date(unixTimestamp); // Convert UNIX timestamp to a Date object
-
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-      const day = String(date.getDate()).padStart(2, '0');
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      const seconds = String(date.getSeconds()).padStart(2, '0');
-
-      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
+  
 
 
     constructor(
@@ -42,7 +31,7 @@ export class DashboardSellerComponent implements OnInit {
 
     }
 
-    currentTab = "dashboard";
+    currentTab = "orders";//dashboard
     orders: any[] = [];
     products: any[] = [];
     users: any[] = [];
@@ -89,12 +78,5 @@ export class DashboardSellerComponent implements OnInit {
 
     }
 
-    getUserFromId(id: any) {
-
-      return this.users.find((v) => { return v.id == id })
-    }
-    getProductFromId(id: any) {
-
-      return this.products.find((v) => { return v.id == id })
-    }
+   
   }
