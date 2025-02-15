@@ -7,30 +7,33 @@ import { OrderStatus } from '../model/orderStatus';
   providedIn: 'root'
 })
 export class OrdersService {
-    
 
 
-    constructor(private http: HttpClient) { }
-    private url = environment.apiUrl + '/order';
 
-    getOrders() {
-      return this.http.get(this.url);
-    }
+  constructor(private http: HttpClient) { }
+  private url = environment.apiUrl + '/order';
 
-    getOrdersForSeller( status: OrderStatus, page: number = 0, size: number=10) {
-      return this.http.get(`${this.url}/seller?page=${page}&size=${size}&status=${status}`);
-    }
+  getMemo(orderitemId: any) {
+    return this.http.get(`${this.url}/memo/${orderitemId}`);
+  }
+  getOrders() {
+    return this.http.get(this.url);
+  }
 
-    getOrder(id: any) {
-      return this.http.get(`${this.url}/${id}`);
-    }
+  getOrdersForSeller(status: OrderStatus, page: number = 0, size: number = 10) {
+    return this.http.get(`${this.url}/seller?page=${page}&size=${size}&status=${status}`);
+  }
 
-    createOrder(order: any) {
-      return this.http.post(this.url, order);
-    }
+  getOrder(id: any) {
+    return this.http.get(`${this.url}/${id}`);
+  }
 
-    updateOrder(id: any, order: any) {
-      return this.http.put(`${this.url}/${id}`, order);
-    }
+  createOrder(order: any) {
+    return this.http.post(this.url, order);
+  }
+
+  updateOrder(orderitemid: any, currentStatus: OrderStatus, continuation: boolean) {
+    return this.http.post(`${this.url}/updateStatus`, { id: orderitemid, currentStatus: currentStatus, continuation: continuation });
+  }
 
 }

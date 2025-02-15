@@ -25,14 +25,10 @@ export class DashboardSellerComponent implements OnInit {
       this.productsService.getProducts().subscribe((r: any) => {
         this.products = r;
       })
-      this.ordersService.getOrders().subscribe((r: any) => {
-        this.orders = r;
-      })
 
     }
 
     currentTab = "orders";//dashboard
-    orders: any[] = [];
     products: any[] = [];
     users: any[] = [];
     reviews: any[] = [];
