@@ -51,7 +51,7 @@ export class CheckoutComponent implements OnInit {
 
   }
   getTotal(): number {
-    
+
     return this.cartItems.reduce((acc: number, item: any) => acc + ((item.product.discountPrice || item.product.price) * item.quantity), 0);
 
   }
@@ -71,7 +71,7 @@ export class CheckoutComponent implements OnInit {
     }
 
     this.orderS.createOrder(orderData).subscribe((res: any) => {
-      this.router.navigateByUrl('/products/orders');
+      this.router.navigateByUrl('/products');//TODO navigate to order page
     })
 
   }
