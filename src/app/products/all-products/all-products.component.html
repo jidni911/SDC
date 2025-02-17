@@ -1,6 +1,7 @@
 <div class="container my-3">
 
   <div class="d-flex justify-content-end mb-3">
+    <input class="form-control me-2" type="search" (input)="search($event)" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success" routerLink="/products/addProduct">Add Product</button>
   </div>
 
@@ -9,7 +10,8 @@
       <div class="card h-100">
         <!-- Product Image -->
         <!-- <img [src]="product.mainImage" class="card-img-top" alt="{{ product.name }}" width="300px" height="200px"/> -->
-        <img [src]="geturlof(product.mainImage.url)" class="card-img-top" alt="{{ product.name }}" width="300px" height="200px"/>
+        <img [src]="geturlof(product.mainImage.url)" class="card-img-top" alt="{{ product.name }}" width="300px"
+          height="200px" />
 
         <!-- Card Body -->
         <div class="card-body">
@@ -18,9 +20,9 @@
           <p class="card-text">
             <span>Price: </span>
             <span *ngIf="product.discountPrice" class="text-decoration-line-through text-danger">
-              {{ product.price  }}
+              {{ product.price }}
             </span>
-            <span>{{ product.discountPrice || product.price  }}</span>
+            <span>{{ product.discountPrice || product.price }}</span>
           </p>
         </div>
 
@@ -43,7 +45,8 @@
             [disabled]="product.quantityAvailable == 0 || inCart(product.id)" (click)="addToCart(product)">
             Add to Cart
           </button>
-          <a *ngIf="inCart(product.id)" class="btn btn-outline-info btn-sm" routerLink="/products/cart" role="button">View
+          <a *ngIf="inCart(product.id)" class="btn btn-outline-info btn-sm" routerLink="/products/cart"
+            role="button">View
             cart </a>
           <button class="btn btn-secondary btn-sm ms-5" [routerLink]="['/products/productDetails', product.id]">View
             Details</button>
@@ -53,6 +56,20 @@
   </div>
 </div>
 
+
+<div class="d-flex justify-content-center mt-2" *ngIf="page">
+  <div class="btn-group" role="group">
+      <button type="button" class="btn btn-outline-success" [disabled]="page.pageable.pageNumber === 0"
+          (click)="onPageChange(page.pageable.pageNumber - 1)">Previous</button>
+      <span *ngFor="let p of [].constructor(page.totalPages); let i = index">
+          <button type="button" class="btn btn-outline-success" (click)="onPageChange(i)" *ngIf="page.pageable.pageNumber !== i">{{ i + 1 }}</button>
+          <button type="button" class="btn btn-success" disabled *ngIf="page.pageable.pageNumber === i">{{ i + 1 }}</button>
+      </span>
+      <button type="button" class="btn btn-outline-success"
+          [disabled]="page.pageable.pageNumber === page.totalPages - 1"
+          (click)="onPageChange(page.pageable.pageNumber + 1)">Next</button>
+  </div>
+</div>
 <div class="text-center mt-4">
   <button class="btn btn-primary" (click)="loadMore()">Load More</button>
 </div>

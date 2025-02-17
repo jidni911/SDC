@@ -15,7 +15,7 @@ export class OrderListComponent implements OnInit {
 
   @Output() reloadParent = new EventEmitter<void>(); // Notify parent
 
-  
+
   onReload(): void {
     this.loadOrders(0);
   }
@@ -41,7 +41,7 @@ export class OrderListComponent implements OnInit {
   onPageChange(pageNumber: number): void {
     this.loadOrders(pageNumber);
   }
-  onConfirm(id: any): void {  
+  onConfirm(id: any): void {
     if(this.status === OrderStatus.PROCESSING) {
       this.router.navigate([`/products/memo/${id}`]);
     } else{
@@ -54,7 +54,7 @@ export class OrderListComponent implements OnInit {
         }
       });
     }
-    
+
   }
   onReject(id: any): void {
     this.orderService.updateOrder(id, this.status, false).subscribe((r: any) => {

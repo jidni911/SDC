@@ -7,7 +7,7 @@ import { OrderStatus } from '../model/orderStatus';
   providedIn: 'root'
 })
 export class OrdersService {
- 
+
 
   constructor(private http: HttpClient) { }
   private url = environment.apiUrl + '/order';
@@ -28,7 +28,7 @@ export class OrdersService {
   }
 
   createOrder(order: any) {
-    return this.http.post(this.url, order);
+    return this.http.post(this.url, order, { responseType: 'text' });
   }
 
   updateOrder(orderitemid: any, currentStatus: OrderStatus, continuation: boolean) {

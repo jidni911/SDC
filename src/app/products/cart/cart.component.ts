@@ -32,7 +32,7 @@ export class CartComponent implements OnInit {
   }
   updateSelectedTotal() {
     let selectedItems = document.querySelectorAll('input[type="checkbox"]:checked');
-    let seletedItemIds = Array.from(selectedItems).map((v) => { return Number((v as HTMLInputElement).id) });    
+    let seletedItemIds = Array.from(selectedItems).map((v) => { return Number((v as HTMLInputElement).id) });
     this.selectedTotal = this.cart.items.reduce((acc: number, item: any) => seletedItemIds.includes(item.id) ? acc + (item.product.discountPrice * item.quantity) : acc, 0);
   }
 
@@ -87,7 +87,9 @@ export class CartComponent implements OnInit {
         ids.push((v as HTMLInputElement).id)
       }
     });
-    this.router.navigate(['/products/checkout'], { queryParams: { ids: ids.join(',') } })
+    if(ids.length>0){
+      this.router.navigate(['/products/checkout'], { queryParams: { ids: ids.join(',') } })
+    }
   }
 
 

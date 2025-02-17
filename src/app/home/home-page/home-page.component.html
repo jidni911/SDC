@@ -82,7 +82,19 @@
       </div>
 
 
-
+      <div class="d-flex justify-content-center mt-2" *ngIf="page">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-success" [disabled]="page.pageable.pageNumber === 0"
+                (click)="onPageChange(page.pageable.pageNumber - 1)">Previous</button>
+            <span *ngFor="let p of [].constructor(page.totalPages); let i = index">
+                <button type="button" class="btn btn-outline-success" (click)="onPageChange(i)" *ngIf="page.pageable.pageNumber !== i">{{ i + 1 }}</button>
+                <button type="button" class="btn btn-success" disabled *ngIf="page.pageable.pageNumber === i">{{ i + 1 }}</button>
+            </span>
+            <button type="button" class="btn btn-outline-success"
+                [disabled]="page.pageable.pageNumber === page.totalPages - 1"
+                (click)="onPageChange(page.pageable.pageNumber + 1)">Next</button>
+        </div>
+    </div>
 
 
       <div class="card my-4 shadow-sm" *ngFor="let post of posts">
@@ -114,13 +126,19 @@
         <div class="card-footer align-items-center">
           <div class="d-flex justify-content-between align-items-center">
             <div>
-              <button class="btn btn-outline-primary btn-sm me-2">
+              <button class="btn btn-outline-primary btn-sm me-2" (click)="likePost(post.id)" *ngIf="!isLiked(post.id)">
                 <i class="bi bi-hand-thumbs-up"></i> Like
               </button>
+
+              <button class="btn btn-primary btn-sm me-2" (click)="likePost(post.id)" *ngIf="isLiked(post.id)">
+                <i class="bi bi-hand-thumbs-up"></i> Liked
+              </button>
+
+              <!-- TODO liked button -->
               <button class="btn btn-outline-secondary btn-sm me-2" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#commentCollapse' + post.id" aria-expanded="false" [attr.aria-controls]="'commentCollapse' + post.id">
                 <i class="bi bi-chat"></i> Comment
               </button>
-              
+
               <button class="btn btn-outline-secondary btn-sm" (click)="sharePsot(post.id)">
                 <i class="bi bi-share"></i> Share
               </button>
@@ -177,10 +195,10 @@
             <ng-template #noComment>
               <p>No comments yet.</p>
             </ng-template>
-  
+
           </div>
         </div>
-        
+
 
         <h5 *ngIf="post.products.length>0" class="card-footer">Suggested products : </h5>
         <div *ngIf="post.products.length>0" class="d-flex justify-content-around">
@@ -197,7 +215,22 @@
             </div>
           </div>
         </div>
+
+
       </div>
+      <div class="d-flex justify-content-center mt-2" *ngIf="page">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-success" [disabled]="page.pageable.pageNumber === 0"
+                (click)="onPageChange(page.pageable.pageNumber - 1)">Previous</button>
+            <span *ngFor="let p of [].constructor(page.totalPages); let i = index">
+                <button type="button" class="btn btn-outline-success" (click)="onPageChange(i)" *ngIf="page.pageable.pageNumber !== i">{{ i + 1 }}</button>
+                <button type="button" class="btn btn-success" disabled *ngIf="page.pageable.pageNumber === i">{{ i + 1 }}</button>
+            </span>
+            <button type="button" class="btn btn-outline-success"
+                [disabled]="page.pageable.pageNumber === page.totalPages - 1"
+                (click)="onPageChange(page.pageable.pageNumber + 1)">Next</button>
+        </div>
+    </div>
     </div>
   </div>
 </div>
