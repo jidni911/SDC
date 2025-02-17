@@ -2,110 +2,51 @@
   <div class="row justify-content-center">
     <div class="col-md-10">
 
-      <p class=" d-flex justify-content-between">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#newPostForm"
-          aria-expanded="false" aria-controls="newPostForm">
-          New Post
-        </button>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#myProfile"
-          aria-expanded="false" aria-controls="newPostForm">
-          My Profile
-        </button>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#setting"
-          aria-expanded="false" aria-controls="newPostForm">
-          Settings
-        </button>
-      </p>
-      <div class="collapse" id="newPostForm">
-        <!-- HTML Form -->
 
-        <app-create-post></app-create-post>
-
-      </div>
-      <div class="collapse" id="myProfile">
-        <div class="container mt-5">
-          <h2>My Profile</h2>
-          <div class="card">
-            <div class="card-header">
-              <img [src]="user.profilePicture" class="rounded-circle me-3" width="50" height="50" alt="Profile picture">
-              <h5 class="d-inline">{{ user.name }}</h5>
-            </div>
-            <div class="card-body">
-              <p><strong>Email:</strong> {{ user.email }}</p>
-              <p><strong>Joined:</strong> {{ user.joinedDate | date }}</p>
-              <p><strong>Bio:</strong> {{ user.bio }}</p>
-            </div>
-          </div>
-        </div>
-
-
-
-      </div>
-      <div class="collapse" id="setting">
-        <div class="container mt-5">
-          <h2>Settings</h2>
-          <!-- <form>
-            <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" id="username" class="form-control" formControlName="username"
-                placeholder="Enter username" />
-            </div>
-
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" id="email" class="form-control" formControlName="email" placeholder="Enter email" />
-            </div>
-
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input type="password" id="password" class="form-control" formControlName="password"
-                placeholder="Enter password" />
-            </div>
-
-            <div class="mb-3">
-              <label for="profilePicture" class="form-label">Profile Picture</label>
-              <input type="text" id="profilePicture" class="form-control" formControlName="profilePicture"
-                placeholder="Enter profile picture URL" />
-            </div>
-
-            <div class="mb-3">
-              <label for="bio" class="form-label">Bio</label>
-              <textarea id="bio" class="form-control" formControlName="bio" rows="3" placeholder="Enter bio"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-          </form> -->
-        </div>
-
-
-
-      </div>
 
 
       <div class="d-flex justify-content-center mt-2" *ngIf="page">
         <div class="btn-group" role="group">
-            <button type="button" class="btn btn-outline-success" [disabled]="page.pageable.pageNumber === 0"
-                (click)="onPageChange(page.pageable.pageNumber - 1)">Previous</button>
-            <span *ngFor="let p of [].constructor(page.totalPages); let i = index">
+          <button type="button" class="btn btn-outline-success" [disabled]="page.pageable.pageNumber === 0"
+            (click)="onPageChange(page.pageable.pageNumber - 1)">Previous</button>
+          <span *ngFor="let p of [].constructor(page.totalPages); let i = index">
                 <button type="button" class="btn btn-outline-success" (click)="onPageChange(i)" *ngIf="page.pageable.pageNumber !== i">{{ i + 1 }}</button>
                 <button type="button" class="btn btn-success" disabled *ngIf="page.pageable.pageNumber === i">{{ i + 1 }}</button>
             </span>
-            <button type="button" class="btn btn-outline-success"
-                [disabled]="page.pageable.pageNumber === page.totalPages - 1"
-                (click)="onPageChange(page.pageable.pageNumber + 1)">Next</button>
+          <button type="button" class="btn btn-outline-success"
+            [disabled]="page.pageable.pageNumber === page.totalPages - 1"
+            (click)="onPageChange(page.pageable.pageNumber + 1)">Next</button>
         </div>
-    </div>
+      </div>
 
 
       <div class="card my-4 shadow-sm" *ngFor="let post of posts">
         <!-- Card Header -->
-        <div class="card-header d-flex align-items-center">
-          <img [src]="apiUrl + post.creator.profilePicture.url" class="rounded-circle me-3" width="50" height="50"
+        <div class="card-header d-flex ">
+          <img [src]="apiUrl + post.creator.profilePicture?.url" class="rounded-circle me-3" width="50" height="50"
             alt="User profile picture">
           <div>
             <h5 class="mb-0">{{ post.creator.fullName }}</h5>
             <!-- <small class="text-muted">{{ post.createdAt }}</small> -->
             <small class="text-muted">{{ post.createdAt | timeAgo }}</small>
+
+          </div>
+          <div class="ms-auto">
+            Report Count : {{post.reporter.length}}
+            <ng-container *ngIf="post.creator.id == user.id; else elseBlock">
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-danger" (click)="delete(post.id)">
+                  Delete 
+                </button>
+              </div>
+            </ng-container>
+            <ng-template #elseBlock>
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-warning" (click)="report(post.id)">
+                  Report
+                </button>
+              </div>
+            </ng-template>
 
           </div>
         </div>
@@ -118,7 +59,8 @@
               alt="Post image">
           </div>
           <div *ngIf="post.postVideo.length>0" class="d-flex justify-content-around row mb-3">
-              <video *ngFor="let video of post.postVideo" [src]="apiUrl + video.url" class="img-fluid rounded col-3 h-100" controls></video>
+            <video *ngFor="let video of post.postVideo" [src]="apiUrl + video.url" class="img-fluid rounded col-3 h-100"
+              controls></video>
           </div>
         </div>
 
@@ -135,7 +77,9 @@
               </button>
 
               <!-- TODO liked button -->
-              <button class="btn btn-outline-secondary btn-sm me-2" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#commentCollapse' + post.id" aria-expanded="false" [attr.aria-controls]="'commentCollapse' + post.id">
+              <button class="btn btn-outline-secondary btn-sm me-2" type="button" data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#commentCollapse' + post.id" aria-expanded="false"
+                [attr.aria-controls]="'commentCollapse' + post.id">
                 <i class="bi bi-chat"></i> Comment
               </button>
 
@@ -156,7 +100,8 @@
             <div *ngIf="post.comments.length>0; else noComment">
               <div *ngFor="let comment of post.comments" class="mb-2">
                 <div class="d-flex align-items-center">
-                  <img src="{{ apiUrl + comment.user.profilePicture.url }}" class="rounded-circle me-2" height="30" alt="">
+                  <img src="{{ apiUrl + comment.user.profilePicture.url }}" class="rounded-circle me-2" height="30"
+                    alt="">
                   <div>
                     <strong>{{ comment.user.fullName }}:</strong>
                     <p class="mb-1">{{ comment.commentText }}</p>
@@ -173,7 +118,8 @@
                   <div class="ms-5">
                     <div *ngFor="let reply of comment.replies">
                       <div class="d-flex align-items-center">
-                        <img src="{{ apiUrl + reply.user.profilePicture.url }}" class="rounded-circle me-2" height="30" alt="">
+                        <img src="{{ apiUrl + reply.user.profilePicture.url }}" class="rounded-circle me-2" height="30"
+                          alt="">
                         <div>
                           <strong>{{ reply.user.fullName }}:</strong>
                           <p class="mb-1">{{ reply.commentText }}</p>
@@ -185,8 +131,10 @@
                     </div>
                   </div>
                   <div class="input-group my-2">
-                    <input type="text" placeholder="Write a reply..." id="{{'commentReply'+comment.id}}" class="form-control" aria-label="Reply input">
-                    <button type="button" class="btn btn-outline-primary" (click)="addCommentReply(comment.id)">Reply</button>
+                    <input type="text" placeholder="Write a reply..." id="{{'commentReply'+comment.id}}"
+                      class="form-control" aria-label="Reply input">
+                    <button type="button" class="btn btn-outline-primary"
+                      (click)="addCommentReply(comment.id)">Reply</button>
                   </div>
                 </div>
                 <hr>
@@ -203,10 +151,10 @@
         <h5 *ngIf="post.products.length>0" class="card-footer">Suggested products : </h5>
         <div *ngIf="post.products.length>0" class="d-flex justify-content-around">
           <div *ngFor="let product of post.products">
-            <div class="card shadow-sm m-2" >
+            <div class="card shadow-sm m-2">
               <div [routerLink]="'/products/productDetails/' + product.id">
-                <img [src]="apiUrl + product.mainImage.url" class="card-img-top" style="height: 100px; object-fit: content;"
-                  alt="">
+                <img [src]="apiUrl + product.mainImage.url" class="card-img-top"
+                  style="height: 100px; object-fit: content;" alt="">
               </div>
               <div class="card-body p-2">
                 <p class="card-text">{{product.name}}</p>
@@ -220,17 +168,17 @@
       </div>
       <div class="d-flex justify-content-center mt-2" *ngIf="page">
         <div class="btn-group" role="group">
-            <button type="button" class="btn btn-outline-success" [disabled]="page.pageable.pageNumber === 0"
-                (click)="onPageChange(page.pageable.pageNumber - 1)">Previous</button>
-            <span *ngFor="let p of [].constructor(page.totalPages); let i = index">
+          <button type="button" class="btn btn-outline-success" [disabled]="page.pageable.pageNumber === 0"
+            (click)="onPageChange(page.pageable.pageNumber - 1)">Previous</button>
+          <span *ngFor="let p of [].constructor(page.totalPages); let i = index">
                 <button type="button" class="btn btn-outline-success" (click)="onPageChange(i)" *ngIf="page.pageable.pageNumber !== i">{{ i + 1 }}</button>
                 <button type="button" class="btn btn-success" disabled *ngIf="page.pageable.pageNumber === i">{{ i + 1 }}</button>
             </span>
-            <button type="button" class="btn btn-outline-success"
-                [disabled]="page.pageable.pageNumber === page.totalPages - 1"
-                (click)="onPageChange(page.pageable.pageNumber + 1)">Next</button>
+          <button type="button" class="btn btn-outline-success"
+            [disabled]="page.pageable.pageNumber === page.totalPages - 1"
+            (click)="onPageChange(page.pageable.pageNumber + 1)">Next</button>
         </div>
-    </div>
+      </div>
     </div>
   </div>
 </div>

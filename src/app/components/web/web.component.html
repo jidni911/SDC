@@ -43,10 +43,10 @@
         <button class="btn btn-outline-success d-lg-inline d-none" type="submit"><i class="bi bi-search"></i></button>
         <div class="btn-group">
           <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-fill">{{appComponent.getUser()?.username || 'More'}}</i>
+            <i class="bi bi-person-fill">{{getUser()?.username || 'More'}}</i>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><button class="dropdown-item" type="button" (click)="sign()">Sign {{appComponent.getUser() ? 'out' : 'in'}}</button></li>
+            <li><button class="dropdown-item" type="button" (click)="sign()">Sign {{getUser() ? 'out' : 'in'}}</button></li>
             <li><button class="dropdown-item" type="button" routerLink="/products/cart" ><i class="bi bi-cart3"></i></button></li>
             <li><button class="dropdown-item" type="button" routerLink="/**" ><i class="bi bi-bug"></i></button></li>
           </ul>

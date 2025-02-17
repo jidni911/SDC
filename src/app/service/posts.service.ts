@@ -29,7 +29,12 @@ export class PostsService {
 
     likePost(postId: any) {
       return this.http.post(`${this.url}/like/${postId}`, "");
+    }
+    delete(postId: any){
+      return this.http.get(this.url + "/delete/"+postId)
+    }
 
-      //TODO watch backend
+    report(postId: any){
+      return this.http.get(this.url + "/report/"+postId)
     }
 }

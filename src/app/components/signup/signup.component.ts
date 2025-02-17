@@ -1,3 +1,4 @@
+import { User } from './../../../../dummy datas/users';
 import { AuthService } from 'src/app/service/auth.service';
 import { UsersService } from './../../service/users.service';
 import { Component, OnInit } from '@angular/core';
@@ -168,6 +169,7 @@ export class SignupComponent implements OnInit {
     this.ngOnInit()
   }
   fillDemoData() {
+    // this.populateDatabase()
     this.signupForm.setValue({
       fullName: 'Demo User',
       username: 'demoUser',
@@ -181,6 +183,15 @@ export class SignupComponent implements OnInit {
       profilePicture: ''
     });
   }
+
+  // populateDatabase() {
+  //    let users = new User().data
+  //    console.log(users.length);
+  //    users.forEach(user => {
+  //     // this.authService.signup(user).subscribe()
+  //    });
+     
+  // }
 
 
 }
