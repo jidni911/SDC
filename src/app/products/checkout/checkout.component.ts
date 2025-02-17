@@ -70,7 +70,15 @@ export class CheckoutComponent implements OnInit {
       orderItemIds: this.list.map(v => +v)
     }
 
-    this.orderS.createOrder(orderData).subscribe((res: any) => {
+    this.orderS.createOrder(orderData).subscribe((r: any) => {
+      const blob = new Blob([r], { type: 'text/html' });
+      const url = window.URL.createObjectURL(blob);
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = url;
+      document.body.appendChild(iframe);
+      iframe.contentWindow?.print();
+      window.URL.revokeObjectURL(url);
       this.router.navigateByUrl('/products');//TODO navigate to order page
     })
 

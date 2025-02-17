@@ -11,8 +11,8 @@ export class ProductsService {
   constructor(private http: HttpClient) { }
   private url = environment.apiUrl + '/product';
 
-  getProducts() {
-    return this.http.get(this.url);
+  getProducts( page : number = 0, size : number = 10) {
+    return this.http.get(this.url + `?page=${page}&size=${size}`);
   }
 
   getProduct(id: any) {

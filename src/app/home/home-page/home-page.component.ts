@@ -10,28 +10,27 @@ import { environment } from 'src/environment';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
+
   apiUrl = environment.apiUrl
   constructor(
     private postService: PostsService,
     private commentService: CommentService
   ) { }
   ngOnInit(): void {
-    this.postService.getPosts().subscribe((r: any) => {
-      let r1: any[] = r.content;
-      this.posts = r1;
-    })
+    this.loadPosts(0);
   }
 
   user: any = AppComponent.getUser()
   posts: any[] = [];
   products: any[] = []
+  page: any;
 
   getProductById(id: string) {
     return this.products.filter((v) => v.id == id)[0]
   }
 
   addComment(postId: any) {
-    let input = document.getElementById('comment'+postId) as HTMLInputElement;
+    let input = document.getElementById('comment' + postId) as HTMLInputElement;
     if (input.value) {
       let comment = {
         commentText: input.value,
@@ -47,7 +46,7 @@ export class HomePageComponent implements OnInit {
     }
   }
   addCommentReply(commentId: any) {
-    let input = document.getElementById('commentReply'+commentId) as HTMLInputElement;
+    let input = document.getElementById('commentReply' + commentId) as HTMLInputElement;
     if (input.value) {
       let comment = {
         commentText: input.value,
@@ -76,7 +75,23 @@ export class HomePageComponent implements OnInit {
     })
   }
 
-  sharePsot(postId: any){
+  sharePsot(postId: any) {
     //TODO no server, navigate to create post
+  }
+
+  onPageChange(pageNumber: number): void {
+    this.loadPosts(pageNumber);
+  }
+
+  loadPosts(pageNumber: number): void {
+    this.postService.getPosts(pageNumber).subscribe((r: any) => {
+      this.page = r;
+      this.posts = this.page.content;
+    })
+  }
+
+  isLiked(postId: any) {
+
+    return this.posts.filter((v) => v.id == postId)[0].likers.map((v: any) => { return v.id }).includes(this.user.id)
   }
 }

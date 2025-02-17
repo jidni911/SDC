@@ -6,13 +6,13 @@ import { environment } from 'src/environment';
   providedIn: 'root'
 })
 export class PostsService {
-    
+
 
     constructor(private http: HttpClient) { }
     private url = environment.apiUrl + '/post';
 
-    getPosts() {
-      return this.http.get(this.url);
+    getPosts(page: number = 0, size: number = 10) {
+      return this.http.get(this.url + `?page=${page}&size=${size}`);
     }
 
     getPost(id: any) {
