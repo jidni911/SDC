@@ -91,7 +91,20 @@ export class HomePageComponent implements OnInit {
   }
 
   isLiked(postId: any) {
-
+    if (!this.user) {
+      return false;
+    }
     return this.posts.filter((v) => v.id == postId)[0].likers.map((v: any) => { return v.id }).includes(this.user.id)
+  }
+
+  delete(postId: any){
+    this.postService.delete(postId).subscribe((r:any)=>{
+      this.ngOnInit()
+    })
+  }
+  report(postId: any){
+    this.postService.report(postId).subscribe((r:any)=>{
+      this.ngOnInit()
+    })
   }
 }

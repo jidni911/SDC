@@ -56,6 +56,7 @@ export class AllEventsComponent implements OnInit {
     return eventEndTime;
   }
   filterMyEvents(v: any[]) {
+    if(AppComponent.getUser() == null) return []
     return v.filter((value: any) => {
       return value.organiser.id == AppComponent.getUser().id
     })

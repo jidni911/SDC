@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class WebComponent {
 
+
   constructor(private router: Router, private authService: AuthService) { }
   sign() {
     if (AppComponent.getUser()) {
@@ -26,5 +27,8 @@ export class WebComponent {
 
   isDev(): any {
     return AppComponent.getRoles().find((v: any) => v.name == "ROLE_DEV")
+  }
+  getUser() {
+    return AppComponent.getUser()
   }
 }

@@ -117,26 +117,26 @@
 
             <h4 class="mb-3">Payment</h4>
 
-            <div class="my-3">
+            <div class="my-3 d-flex justify-content-around">
               <div class="form-check">
                 <input id="bkash" name="paymentMethod" type="radio" class="form-check-input" [(ngModel)]="paymentMethod"
                   value="bkash">
-                <label class="form-check-label" for="bkash">bKash</label>
+                <label class="form-check-label" for="bkash"> <img [src]="'assets/icons/bkash.png'" alt="" height="30"> </label>
               </div>
               <div class="form-check">
                 <input id="nagad" name="paymentMethod" type="radio" class="form-check-input" [(ngModel)]="paymentMethod"
                   value="nagad">
-                <label class="form-check-label" for="nagad">Nagad</label>
+                <label class="form-check-label" for="nagad"> <img [src]="'assets/icons/nagad.png'" alt="" height="30"></label>
               </div>
               <div class="form-check">
                 <input id="rocket" name="paymentMethod" type="radio" class="form-check-input"
                   [(ngModel)]="paymentMethod" value="rocket">
-                <label class="form-check-label" for="rocket">Rocket</label>
+                <label class="form-check-label" for="rocket"> <img [src]="'assets/icons/rocket.png'" alt="" height="30"></label>
               </div>
               <div class="form-check">
                 <input id="cashOnDelivery" name="paymentMethod" type="radio" class="form-check-input"
                   [(ngModel)]="paymentMethod" value="cashOnDelivery">
-                <label class="form-check-label" for="cashOnDelivery">Cash on Delivery</label>
+                <label class="form-check-label" for="cashOnDelivery"><img [src]="'assets/icons/cod.png'" alt="" height="30"></label>
               </div>
             </div>
 

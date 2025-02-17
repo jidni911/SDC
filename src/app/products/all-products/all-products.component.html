@@ -24,6 +24,7 @@
             </span>
             <span>{{ product.discountPrice || product.price }}</span>
           </p>
+          <p class="text-end text-info"><a [routerLink]="'/products/seller/'+product.seller.id"> by {{product.seller.fullName}}</a></p>
         </div>
 
         <!-- Stock Status Badge -->
