@@ -1,6 +1,5 @@
 import { UsersService } from 'src/app/service/users.service';
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
 import { environment } from 'src/environment';
 
 @Component({
@@ -43,6 +42,7 @@ export class MyProfileComponent implements OnInit {
       this.usersService.changeCoverPicture(file).subscribe((res: any) => {
         setTimeout(() => {
           this.person.coverPicture = res
+          target.value=''
         },1000)
       })
     }

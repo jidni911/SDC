@@ -1,8 +1,6 @@
 import { FormControl, FormGroup } from '@angular/forms';
-import { UsersService } from './../../service/users.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
 import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
@@ -11,8 +9,13 @@ import { AuthService } from 'src/app/service/auth.service';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
+  usernames : any[] = []
   messege = "Waiting for submit button click";
   ngOnInit(): void {
+    this.authService.getAllUsernames().subscribe((r:any)=>{
+      this.usernames = r;
+    })
+
     this.signinForm.setValue({
       email: '',
       username: '',
@@ -80,13 +83,22 @@ export class SigninComponent implements OnInit {
 
   }
 
-  loadDemo() {
-    this.signinForm.setValue({
-      email: 'demo@example.com',
-      username: 'demoUser',
-      password: 'Demo@1234',
-      rememberMe: 'true'
-    })
+  loadDemo(userName: string) {
+    if(userName == 'Demo') {
+      this.signinForm.setValue({
+        email: 'demo@example.com',
+        username: 'demoUser',
+        password: 'Demo@1234',
+        rememberMe: 'true'
+      })
+    } else {
+      this.signinForm.setValue({
+        email: 'demo@example.com',
+        username: userName,
+        password: 'Onetwothree12@',
+        rememberMe: 'true'
+      })
+    }
   }
 
 }
