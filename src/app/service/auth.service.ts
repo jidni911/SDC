@@ -8,9 +8,9 @@ import { environment } from 'src/environment';
 })
 export class AuthService {
   private apiUrl = environment.apiUrl + '/auth';
-  
+
   constructor(private http: HttpClient) {}
-  
+
   signup(value: any) {
     return this.http.post(`${this.apiUrl}/signup`, value);
   }
@@ -37,5 +37,9 @@ export class AuthService {
   }
   checkUsernameAvailability(username: any) {
     return this.http.get(this.apiUrl + '/checkUsernameAvailability?username=' + username);
+  }
+
+  getAllUsernames(){
+    return this.http.get(this.apiUrl + '/allUserNames');
   }
 }

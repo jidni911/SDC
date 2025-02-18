@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { UsersService } from 'src/app/service/users.service';
+import { environment } from 'src/environment';
 
 @Component({
   selector: 'app-people-profile',
@@ -22,5 +23,6 @@ export class PeopleProfileComponent implements OnInit {
     }
   }
   person: any = null;
+  apiUrl = environment.apiUrl
 
 }

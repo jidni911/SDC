@@ -54,7 +54,17 @@
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
             <div class="text-center m-3">{{messege}}</div>
-            <button class="w-100 btn btn-lg btn-primary" type="button" (click)="loadDemo()">Demo</button>
+            <div class="btn-group w-100" role="group" aria-label="Button group">
+              <button class="btn btn-primary w-50" type="button" (click)="loadDemo('Demo')">Demo</button>
+              <button class="btn btn-secondary dropdown-toggle w-50" type="button" id="triggerId" data-bs-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Other users
+              </button>
+              <div class="dropdown-menu" aria-labelledby="triggerId">
+                <button class="dropdown-item" *ngFor="let username of usernames" (click)="loadDemo(username)">{{username}}</button>
+              </div>
+            </div>
+
             <p class="mt-5 mb-3 text-muted">&copy; 2017 - 2022</p>
           </form>
         </div>

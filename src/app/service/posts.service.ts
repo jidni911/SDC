@@ -11,7 +11,7 @@ export class PostsService {
     constructor(private http: HttpClient) { }
     private url = environment.apiUrl + '/post';
 
-    getPosts(page: number = 0, size: number = 10) {
+    getPosts(page: number = 0, size: number = 11) {
       return this.http.get(this.url + `?page=${page}&size=${size}`);
     }
 
