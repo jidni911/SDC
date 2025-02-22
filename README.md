@@ -57,3 +57,5 @@ To set up and serve the project, follow these steps:
   npm run server
   ```
 
+ng build --configuration production
+npx angular-cli-ghpages --dir=dist/south-dhaka-cyclists
