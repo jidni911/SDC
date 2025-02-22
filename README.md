@@ -57,3 +57,14 @@ To set up and serve the project, follow these steps:
   npm run server
   ```
 
+
+ng add angular-cli-ghpages
+
+ng deploy --base-href=/SDC/
+
+
+https://jidni911.github.io/SDC
+
+
+
+ng build --configuration=production --base-href=/SDC/
