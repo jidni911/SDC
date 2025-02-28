@@ -22,6 +22,7 @@ import { BikeMessengerComponent } from './bike-messenger/bike-messenger/bike-mes
 import { OrdersComponent } from './components/dashboard-seller/orders/orders.component';
 import { SharedModule } from './shared/shared.module';
 import { OrderListComponent } from './components/dashboard-seller/orders/order-list/order-list.component';
+import { MemoComponent } from './products/memo/memo.component';
 
 
 @NgModule({

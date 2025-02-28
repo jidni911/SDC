@@ -24,11 +24,15 @@ export class MemoComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderitemId = this.route.snapshot.paramMap.get('id');
-    this.orderService.getMemo(this.orderitemId).subscribe((r: any) => {
-      this.orderItems = r;
-      this.order = r[0].order;
-      console.log(r);
-    });
+    console.log(this.orderitemId);
+    
+    if (this.orderitemId) {
+      this.orderService.getMemo(this.orderitemId).subscribe((r: any) => {
+        this.orderItems = r;
+        this.order = r[0].order;
+        console.log(r);
+      });
+    }
   }
 
   getSubtotal(): number {

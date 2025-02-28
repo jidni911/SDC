@@ -12,11 +12,9 @@ export class AppComponent implements OnInit {
   static roles = []
   ngOnInit(): void {
     AppComponent.user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.usersService.getMySelf().subscribe((res: any) => {
-      console.log(res);
-      
+    this.usersService.getMySelf().subscribe((res: any) => {      
       AppComponent.user = res
-      AppComponent.roles = AppComponent.user.roles;
+      AppComponent.roles = AppComponent.user?.roles;
       localStorage.setItem('user', JSON.stringify(AppComponent.user));
     }, (err: any) => {
       AppComponent.removeUser();

@@ -1,0 +1,263 @@
+<h1 *ngIf="!isSeller()">You cant access this page</h1>
+
+
+<div *ngIf="isSeller()">
+    <div class="container mt-5">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col text-center">
+                <h2 class="display-4 text-primary">Create a Sales Memo</h2>
+                <p class="lead text-muted">Fill in the details below to create a memo for the buyer.</p>
+            </div>
+        </div>
+
+        <!-- Memo Info Section -->
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h4>Memo Information</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Memo Number -->
+                    <div class="col-md-6 ">
+                        <span>Memo Number: {{ memoNumber }}</span>
+                    </div>
+                    
+
+                    <!-- Memo Date -->
+                    <div class="col-md-6 text-end">
+                        <span class="">Date: {{ memoDate | date }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Buyer Name -->
+                    <div class="col-md-6 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text">Buyer Name</span>
+                            <input type="text" class="form-control" id="buyerName" placeholder="Enter buyer's name"
+                                [(ngModel)]="buyerName" name="buyerName" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text">Service Charge</span>
+                            <input type="number" class="form-control" id="serviceCharge"
+                                placeholder="Enter service Charge" [(ngModel)]="serviceCharge" name="serviceCharge">
+
+                           
+                                <button class="btn btn-secondary" type="button" (click)="onServiceCharge(20)">20</button>
+                                <button class="btn btn-secondary" type="button" (click)="onServiceCharge(50)">50</button>
+                                <button class="btn btn-secondary" type="button" (click)="onServiceCharge(100)">100</button>
+                                <button class="btn btn-secondary" type="button" (click)="onServiceCharge(200)">200</button>
+                                <button class="btn btn-secondary" type="button" (click)="onServiceCharge(500)">500</button>
+                          
+                        </div>
+                    </div>
+
+
+                    <!-- Buyer Email -->
+                    
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text">Buyer Phone</span>
+                            <input type="tel" class="form-control" id="buyerPhone"
+                                placeholder="Enter buyer's phone number" [(ngModel)]="buyerPhone" name="buyerPhone">
+                        </div>
+                    </div>
+                    <!-- Buyer Phone -->
+                    <div class="col-md-6 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text">Delivery Charge</span>
+                            <input type="number" class="form-control" id="deliveryCharge"
+                                placeholder="Enter delivery charge" [(ngModel)]="deliveryCharge" name="deliveryCharge" required>
+                                <button class="btn btn-secondary" type="button" (click)="onDeliveryCharge(60)">60</button>
+                                <button class="btn btn-secondary" type="button" (click)="onDeliveryCharge(80)">80</button>
+                                <button class="btn btn-secondary" type="button" (click)="onDeliveryCharge(110)">110</button>
+                                <button class="btn btn-secondary" type="button" (click)="onDeliveryCharge(150)">150</button>
+                                <button class="btn btn-secondary" type="button" (click)="onDeliveryCharge(260)">260</button>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text">Buyer Email</span>
+                            <input type="email" class="form-control" id="buyerEmail" placeholder="Enter buyer's email"
+                                [(ngModel)]="buyerEmail" name="buyerEmail" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text">Discount</span>
+                            <input type="number" class="form-control" id="discount" placeholder="Enter discount"
+                                [(ngModel)]="discount" name="discount" required>
+                            <div class="d-grid gap-2 d-md-block">
+                                <button class="btn btn-secondary" type="button" (click)="onRoundUp()">Round Up</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <!-- Buyer Address -->
+                    <div class="col-md-12 mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text">Buyer Address</span>
+                            <input type="text" class="form-control" id="buyerAddress"
+                                placeholder="Enter buyer's address" [(ngModel)]="buyerAddress" name="buyerAddress">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Info Section -->
+        <div class="row mb-4">
+            <!-- Left Side: Product Search & Suggestions -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h4>Product Search</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Search Box -->
+                        <div class="form-group">
+                            <label for="productSearch">Search for Product</label>
+                            <span class="input-group">
+                            <input type="text" class="form-control" id="productSearch" [(ngModel)]="searchQuery"
+                                name="productSearch" (input)="onSearchInput()" placeholder="Search product...">
+                            <button class="btn btn-outline-primary" (click)="clearSearch()"> Clear </button>
+                        </span>
+                        </div>
+
+                        <!-- Suggestions List -->
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex" *ngFor="let product of searchSuggestions"
+                                (click)="selectProduct(product)">
+                                <div>
+                                    <img src="{{ apiUrl + product.mainImage.url }}" alt="" width="50" height="50">
+                                </div>
+                                <div [class]="{'bg-success': isSelected(product)}" >
+                                    {{ product.name }}, brand : {{ product.brand }}, origin: {{ product.origin }},
+                                    price: {{ product.price
+                                    }} discount Price: {{ product.discountPrice }} , Quantity: {{
+                                    product.quantity }}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: List of Items Added -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-warning text-white">
+                        <h4>Items in Memo</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Items List -->
+                        <div class="table-responsive mt-4">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Subtotal</th>
+                                        <th> <button class="btn btn-danger btn-sm" (click)="removeAllItems()">Remove All</button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of items">
+                    
+                                        <td style="display:flex; align-items:center;">
+                                            <a class="d-flex align-items-center text-decoration-none" routerLink="/products/productDetails/{{ item.product.id }}">
+                                                <img src="{{ apiUrl + item.product.mainImage.url }}" alt="" width="60" height="60"
+                                                style="margin-right:10px;">
+                                            <ul class="list-unstyled mb-0">
+                                                <li><strong class="text-primary">Product Name:</strong>
+                                                    <span class="text-success">{{ item.product.name }}</span></li>
+                                                <li><strong class="text-primary">Brand:</strong>
+                                                    <span class="text-warning">{{ item.product.brand }}</span></li>
+                                                <li><strong class="text-primary">Origin:</strong>
+                                                    <span class="text-danger">{{ item.product.origin }}</span></li>
+                                            </ul>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <input type="number" [(ngModel)]="item.price" class="form-control" />
+                                            discount Price:<span class="text-danger">{{ item.product.discountPrice }}</span>
+                                            regular Price:<span class="text-success"> {{ item.product.price  }} </span>
+                                        </td>
+                                        <td><input type="number" [(ngModel)]="item.quantity" class="form-control" />
+                                            Available Quantity:<span class="text-success"> {{ item.product.quantity }} </span></td>
+                                        <td>{{ item.price * item.quantity | currency }}</td>
+                                        <td><button class="btn btn-danger btn-sm" (click)="removeItem(item)">Remove</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Memo Summary Section -->
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h4>Memo Summary</h4>
+            </div>
+            <div class="card-body">
+                <p><strong>Buyer Name:</strong> {{ buyerName }}</p>
+                <p><strong>Email:</strong> {{ buyerEmail }}</p>
+                <p><strong>Phone:</strong> {{ buyerPhone }}</p>
+                <p><strong>Address:</strong> {{ buyerAddress }}</p>
+
+                <h5 class="mt-4">Items Purchased:</h5>
+                <ul>
+                    <li *ngFor="let item of items">{{ item.quantity }} x {{ item.product.name }} at {{ item.price | currency }}
+                    </li>
+                </ul>
+
+                <h5 class="mt-4">Service Charge: {{ serviceCharge | currency }}</h5>
+                <h5 class="mt-4">Delivery Charge: {{ deliveryCharge | currency }}</h5>
+                <h5 class="mt-4">Discount: {{ discount | currency }}</h5>
+
+                <h5 class="mt-4">Total Amount: {{ totalAmount | currency }}</h5>
+            </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="row">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary btn-lg" (click)="saveMemo()">Save Memo</button>
+            </div>
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary btn-lg" (click)="executeMemo()">Execute, Save and Print Memo</button> 
+            </div>
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary btn-lg" (click)="printMemo()">Print Memo</button>
+            </div>
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary btn-lg" (click)="printMemo()">Draft Memo</button>
+            </div>
+            <div class="col text-center">
+                <button type="button" class="btn btn-primary btn-lg" (click)="demo()">Demo Memo</button>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

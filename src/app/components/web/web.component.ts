@@ -26,9 +26,18 @@ export class WebComponent {
   appComponent = AppComponent;
 
   isDev(): any {
-    return AppComponent.getRoles().find((v: any) => v.name == "ROLE_DEV")
+    return AppComponent.getRoles()?.find((v: any) => v.name == "ROLE_DEV")
   }
   getUser() {
     return AppComponent.getUser()
+  }
+
+  toggleTheme(){
+    const currentTheme = document.body.getAttribute('data-bs-theme');
+    if (currentTheme === 'dark') {
+      document.body.setAttribute('data-bs-theme', 'light');
+    } else {
+      document.body.setAttribute('data-bs-theme', 'dark');
+    }
   }
 }

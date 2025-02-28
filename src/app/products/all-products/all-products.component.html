@@ -2,7 +2,11 @@
 
   <div class="d-flex justify-content-end mb-3">
     <input class="form-control me-2" type="search" (input)="search($event)" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success" routerLink="/products/addProduct">Add Product</button>
+    <div class="btn-group" *ngIf="isSeller()">
+      <button class="btn btn-outline-success" routerLink="/products/addProduct">Add Product</button>
+      <button class="btn btn-outline-success" routerLink="/products/shopMemo">Make a Memo</button>
+      <button class="btn btn-outline-success" routerLink="/products/allMemo">All memo</button>
+    </div>
   </div>
 
   <div class="row">

@@ -11,6 +11,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SellerComponent } from './seller/seller.component';
 import { MemoComponent } from './memo/memo.component';
+import { ShopMemoComponent } from './shop-memo/shop-memo.component';
+import { AllMemoComponent } from './all-memo/all-memo.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { MemoComponent } from './memo/memo.component';
     CartComponent,
     CheckoutComponent,
     SellerComponent,
-    MemoComponent
+    MemoComponent,
+    ShopMemoComponent,
+    AllMemoComponent
   ],
   imports: [
     CommonModule,

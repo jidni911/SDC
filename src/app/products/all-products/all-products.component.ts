@@ -19,6 +19,10 @@ export class AllProductsComponent implements OnInit {
     return environment.apiUrl + path;
   }
 
+  isSeller(){
+    return AppComponent.getRoles().map((v : any) => v.name).includes('ROLE_SELLER')
+  }
+
   constructor(
     private productService: ProductsService,
     private cartService: CartService,
