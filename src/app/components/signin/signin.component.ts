@@ -25,7 +25,6 @@ export class SigninComponent implements OnInit {
   }
   constructor(private authService: AuthService, private router: Router) { }
   signinForm: FormGroup = new FormGroup({
-    email: new FormControl(),
     username: new FormControl(),
     password: new FormControl(),
     rememberMe: new FormControl(false)
@@ -35,16 +34,7 @@ export class SigninComponent implements OnInit {
   passwordState = ""
   onSubmit() {
     let flag = true;
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailPattern.test(this.signinForm.value.email)) {
-      flag = false;
-      this.emailState = "is-invalid"
-    } else {
-      flag = true
-      this.emailState = "is-valid"
-
-    }
-    const password = this.signinForm.value.password;
+  
     // const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     // if (!passwordPattern.test(password)) {
     //   flag = false;
@@ -68,12 +58,14 @@ export class SigninComponent implements OnInit {
                 sessionStorage.setItem('token', v.jwtToken);
               }
               // AppComponent.setUser(JSON.parse(json))
-              window.location.href="/intro";
+              // window.location.href="/intro";
+              this.router.navigate(['/intro']);
 
           },
           error: (e) => {
             // console.log(e.error.message);
             this.messege = e.error.message;
+            alert(e.error.message);
           }
         }
 

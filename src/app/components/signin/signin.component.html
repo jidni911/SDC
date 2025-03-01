@@ -12,18 +12,6 @@
               <img class="mb-4" src="assets/logo/logo1.png" alt="" width="72" height="72">
               <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
             </div>
-
-            <div class="form-floating mb-3">
-              <input type="email" class="form-control" [ngClass]="emailState" placeholder="name@example.com"
-                formControlName="email">
-              <label>Email address (required to log in)</label>
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-              <div class="invalid-feedback">
-                Please provide a valid email.
-              </div>
-            </div>
             <div class="form-floating mb-3">
               <input type="text" class="form-control" [ngClass]="usernameState" placeholder="username"
                 formControlName="username">
@@ -54,7 +42,7 @@
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
             <div class="text-center m-3">{{messege}}</div>
-            <div class="btn-group w-100" role="group" aria-label="Button group">
+            <div class="btn-group w-100 d-none" role="group" aria-label="Button group">
               <button class="btn btn-primary w-50" type="button" (click)="loadDemo('Demo')">Demo</button>
               <button class="btn btn-secondary dropdown-toggle w-50" type="button" id="triggerId" data-bs-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">

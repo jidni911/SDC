@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostsService } from 'src/app/service/posts.service';
 import { ProductsService } from 'src/app/service/products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
@@ -28,8 +29,7 @@ export class CreatePostComponent implements OnInit {
     private postService: PostsService,
     private productService: ProductsService,
     private filesService: FilesService,
-    private fb: FormBuilder
-  ) { }
+    private router: Router  ) { }
   ngOnInit(): void {
 
   }
@@ -51,9 +51,10 @@ export class CreatePostComponent implements OnInit {
     })
 
     this.postService.createPost(formGroup.value).subscribe((response) => {
-      console.log('Post created successfully', response);
-      this.ngOnInit();
-    });
+      alert('Post created successfully!');
+
+      this.router.navigate(['/home']);
+      });
   }
 
 

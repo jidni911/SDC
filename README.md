@@ -36,24 +36,21 @@ To set up and serve the project, follow these steps:
   npm install bootstrap
   ```
 
-2. Install bcryptjs:
-  ```sh
-  npm install bcryptjs
-  npm i --save-dev @types/bcryptjs
-  ```
-
-3. Install json-server:
-  ```sh
-  npm install json-server
-  ```
 
 4. Serve the Angular application:
   ```sh
   ng serve
   ```
 
-5. Run the JSON server:
-  ```sh
-  npm run server
-  ```
+npm install -g angular-cli-ghpages
+
+
+
+
+## deployement tutorial:
+
+(Get-Content src/index.html) -replace '<base href="/"', '<base href="/SDC/"' | Set-Content src/index.html
+ng build --base-href /SDC/
+npx angular-cli-ghpages --dir=dist
+(Get-Content src/index.html) -replace '<base href="/SDC/"', '<base href="/"' | Set-Content src/index.html
 

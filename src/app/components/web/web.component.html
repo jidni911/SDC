@@ -9,11 +9,10 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav nav nav-tabs me-auto mb-0 mb-lg-0">
+      <ul class="navbar-nav nav nav-tabs me-auto mb-0 mb-lg-0 d-md-flex flex-row justify-content-between">
         <li class="nav-item">
           <a class="nav-link" routerLink="/home" data-bs-toggle="tab"><i class="bi bi-house-door px-xl-3 p-0 px-sm-1"></i></a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" routerLink="/messges" data-bs-toggle="tab"><i class="bi bi-chat-left-dots px-xl-3 p-0 px-sm-1"></i></a>
         </li>
@@ -35,7 +34,7 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/dashboard" data-bs-toggle="tab"><i class="bi bi-speedometer2 px-xl-3 p-0 px-sm-1"></i></a>
         </li>
-        <li class="nav-item" *ngIf="isDev()">
+        <li class="nav-item" >
           <a class="nav-link" routerLink="/demo" data-bs-toggle="tab"><i class="bi bi-music-note-beamed px-xl-3 p-0 px-sm-1"></i></a>
         </li>
       </ul>

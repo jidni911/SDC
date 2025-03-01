@@ -4,6 +4,7 @@ import { UsersService } from './../../service/users.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-signup',
@@ -157,6 +158,14 @@ export class SignupComponent implements OnInit {
       this.messege = "all data looks valid. trying to modify and submit"
       this.authService.signup(this.signupForm.value).subscribe((data: any) => {
         this.messege = "submitted successfully redirecting to log in page"
+        document.getElementById('modalId')?.addEventListener('hidden.bs.modal', () => {
+          this.router.navigateByUrl('/signin');
+        });
+
+        const modalElement: any = document.getElementById('modalId');
+        const bootstrapModal = bootstrap.Modal.getInstance(modalElement);
+        bootstrapModal?.hide();
+
         this.router.navigateByUrl('/signin')
       });
     } else {
@@ -190,7 +199,7 @@ export class SignupComponent implements OnInit {
   //    users.forEach(user => {
   //     // this.authService.signup(user).subscribe()
   //    });
-     
+
   // }
 
 
