@@ -23,6 +23,7 @@ import { OrdersComponent } from './components/dashboard-seller/orders/orders.com
 import { SharedModule } from './shared/shared.module';
 import { OrderListComponent } from './components/dashboard-seller/orders/order-list/order-list.component';
 import { MemoComponent } from './products/memo/memo.component';
+import { ChatComponent } from './componenets/chat/chat.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { MemoComponent } from './products/memo/memo.component';
     DemoComponent,
     BikeMessengerComponent,
     OrdersComponent,
-    OrderListComponent
+    OrderListComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

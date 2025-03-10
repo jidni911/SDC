@@ -165,6 +165,14 @@ export class SignupComponent implements OnInit {
         const modalElement: any = document.getElementById('modalId');
         const bootstrapModal = bootstrap.Modal.getInstance(modalElement);
         bootstrapModal?.hide();
+        // 🔥 Remove the remaining backdrop manually
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+          backdrop.remove();
+        }
+
+        // 🔥 Also remove "modal-open" class from body to prevent scroll issues
+        document.body.classList.remove('modal-open');
 
         this.router.navigateByUrl('/signin')
       });

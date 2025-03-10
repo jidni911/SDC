@@ -11,6 +11,7 @@ import { DashboardSellerComponent } from './components/dashboard-seller/dashboar
 import { DashboardUserComponent } from './components/dashboard-user/dashboard-user.component';
 import { BugReportComponent } from './components/bug-report/bug-report.component';
 import { DemoComponent } from './components/demo/demo.component';
+import { ChatComponent } from './componenets/chat/chat.component';
 
 const routes: Routes = [
   // {path: 'images/**', redirectTo: environment.apiUrl + '/images/**'},
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'resetpass', component: ResetpassComponent },
+  { path: 'chat', component: ChatComponent },
   {
     path: 'dashboard', component: DashboardComponent,
     children: [

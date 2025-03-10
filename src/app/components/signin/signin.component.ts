@@ -2,6 +2,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-signin',
@@ -53,9 +54,11 @@ export class SigninComponent implements OnInit {
               if (this.signinForm.value.rememberMe) {
                 localStorage.setItem('user', JSON.stringify(v.user));
                 localStorage.setItem('token', v.jwtToken);
+                AppComponent.user = v.user
               } else {
                 sessionStorage.setItem('user', JSON.stringify(v.user));
                 sessionStorage.setItem('token', v.jwtToken);
+                AppComponent.user = v.user
               }
               // AppComponent.setUser(JSON.parse(json))
               // window.location.href="/intro";
@@ -78,14 +81,12 @@ export class SigninComponent implements OnInit {
   loadDemo(userName: string) {
     if(userName == 'Demo') {
       this.signinForm.setValue({
-        email: 'demo@example.com',
         username: 'demoUser',
         password: 'Demo@1234',
         rememberMe: 'true'
       })
     } else {
       this.signinForm.setValue({
-        email: 'demo@example.com',
         username: userName,
         password: 'Onetwothree12@',
         rememberMe: 'true'

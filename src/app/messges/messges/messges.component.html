@@ -1,67 +1,168 @@
 <div class="container-fluid">
-    <div class="row">
-      <!-- Left Sidebar (Inbox) -->
-      <div class="col-md-4 p-3 border shadow" style=" height: 100vh;">
-<div class="mb-3">
-  <input type="text" class="form-control" placeholder="Search chats..." [(ngModel)]="searchText" (input)="filterChats()" />
-</div>
+  <div class="row">
+    <!-- Left Sidebar (Inbox) -->
+    <div class="col-md-4 p-3 border shadow" style=" height: 100vh;">
+      <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Search chats..." [(ngModel)]="searchText"
+          (input)="filterChats()" />
+      </div>
 
-        <h4>Inbox</h4>
+      <div *ngIf="filteredChats.length > 0">
+        <h4>Searched Chats</h4>
         <div class="list-group">
-          <div
-            *ngFor="let chat of chats"
-            class="list-group-item list-group-item-action"
-            (click)="selectChat(chat)"
-          >
-            <div class="d-flex justify-content-between">
+          <div *ngFor="let chat of filteredChats" class="list-group-item list-group-item-action"
+            (click)="selectChat(chat)">
+            <div class="d-flex justify-content-between align-items-center">
+              <img src="{{ getImageUrl(chat) }}" alt="" class="rounded-circle me-2" style="width: 40px; height: 40px;">
               <div>
                 <strong>{{ chat.name }}</strong>
                 <small class="d-block text-muted">{{ chat.lastMessage }}</small>
               </div>
-              <span class="badge bg-info h-100 rounded rounded-circle">{{ chat.unreadCount }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Right Chat Window -->
-      <div class="col-md-8 p-3">
-        <div *ngIf="selectedChat" class="border rounded-3" style="height: 90vh;">
-          <div class="chat-header p-3" >
-            <h5>{{ selectedChat.name }}</h5>
-          </div>
-          <div class="chat-body p-3" style="height: 75%; overflow-y: auto;">
-            <div *ngFor="let message of selectedChat.messages" class="message">
-              <div [ngClass]="{'text-end': message.sender === 'me'}">
-                <div class="d-flex flex-column">
-                  <span class="text-muted small">{{ message.time }}</span>
-                  <span class=" py-2" [ngClass]="{'text-end': message.sender === 'me'}">
-                    <span class="message-text " [ngClass]="{'bg-primary': message.sender === 'me', 'bg-success': message.sender !== 'me'}">
-                        {{ message.text }}
-                      </span>
-                  </span>
-                </div>
+              <div class="ms-auto">
+                <span *ngIf="hasNew(chat)>0"  class="badge bg-info h-100 rounded rounded-circle">{{ hasNew(chat) }}</span>
               </div>
             </div>
           </div>
-          <div class="chat-footer p-3" >
-            <div class="input-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Type a message..."
-                [(ngModel)]="messageText"
-                (keydown.enter)="sendMessage()"
-              />
-              <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+        </div>
+      </div>
+
+      <h4>Inbox <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalId">New</button></h4>
+      <div class="list-group">
+        <div *ngFor="let chat of chats" class="list-group-item list-group-item-action"
+          (click)="selectChat(chat)">
+          <div class="d-flex justify-content-between align-items-center">
+            <img src="{{ getImageUrl(chat) }}" alt="" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+            <div>
+              <strong>{{ chat.name }}</strong>
+              <small class="d-block text-muted">{{ chat.lastMessage }}</small>
+            </div>
+            <div class=" ms-auto">
+              <span *ngIf="hasNew(chat)>0"  class="badge bg-info h-100 rounded rounded-circle">{{ hasNew(chat) }}</span>
             </div>
           </div>
         </div>
-        <div *ngIf="!selectedChat" class="text-center" style="height: 100%;">
-          <h5>Select a chat to start messaging</h5>
+      </div>
+    </div>
+
+    <!-- Right Chat Window -->
+    <div class="col-md-8 p-3">
+      <div *ngIf="selectedChat" class="border rounded-3" style="height: 90vh;">
+        <div class="chat-header p-3">
+          <h5>{{ selectedChat.name }}</h5>
         </div>
+        <div class="chat-body p-3" style="height: 75%; overflow-y: auto;">
+          <div *ngFor="let message of messeges" class="message">
+
+            <ng-container *ngIf="message.sender.id !== currentUserId; else elseBlock" class="w-100">
+              <div class="d-flex align-items-center mb-2">
+                <div class="d-flex bg-success rounded-pill" style="width: fit-content;">
+                  <img src="{{ getImageUrl(message.sender) }}" alt="" class="rounded-circle"
+                    style="width: 40px; height: 40px;">
+                  <span class=" py-2">
+                  <span class="message-text " >
+                    {{ message.message }}
+                  </span>
+                  </span>
+                </div>
+                <span class="text-muted small ms-2">{{ message.createdAt | timeAgo }}</span>
+              </div>
+            </ng-container>
+            <ng-template #elseBlock class="w-100">
+              <div class="d-flex align-items-center mb-2">
+                <span class="text-muted small ms-auto">{{ message.createdAt | timeAgo }}</span>
+                <div class="d-flex bg-primary rounded-pill ms-2" style="width: fit-content;">
+                  <span class=" py-2" >
+                  <span class="message-text" >
+                    {{ message.message }}
+                  </span>
+                  </span>
+                  <img src="{{ getImageUrl(message.sender) }}" alt="" class="rounded-circle ms-2"
+                    style="width: 40px; height: 40px;">
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="chat-footer p-3">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Type a message..." [(ngModel)]="messageText"
+              (keydown.enter)="sendMessage()" />
+            <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!selectedChat" class="text-center" style="height: 100%;">
+        <h5>Select a chat to start messaging</h5>
       </div>
     </div>
   </div>
+</div>
 
-  
+
+
+
+<!-- Modal Body -->
+<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+<div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleId">
+          New Chat
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group my-3">
+          <input type="text" class="form-control" placeholder="Enter chat name" [(ngModel)]="chatName" />
+        </div>
+
+        <ul class="list-group">
+          <li *ngFor="let user of selectedUsers" class="list-group-item">
+            <div class="d-flex align-items-center" (click)="removeUser(user)">
+              <img src="{{ getImageUrl(user) }}" alt="" class="rounded-circle me-2" style="width: 40px;
+                height: 40px;">
+              <div>
+                <strong>{{ user.fullName }}</strong>
+                <small class="d-block text-muted">{{ user.email }}</small>
+              </div>
+              <button type="button" class="btn btn-outline-danger btn-sm ms-auto" >Remove</button>
+            </div>
+          </li>
+        </ul>
+        
+
+        <div class="input-group my-3">
+          <input type="text" class="form-control" placeholder="Search for a user" [(ngModel)]="searchTerm"
+            (input)="searchUsers()" />
+        </div>
+
+        <ul class="list-group">
+          <li *ngFor="let user of suggestedUsers" class="list-group-item">
+            <div class="d-flex align-items-center" (click)="selectUser(user)">
+              <img src="{{ getImageUrl(user) }}" alt="" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+              <div>
+                <strong>{{ user.fullName }}</strong>
+                <small class="d-block text-muted">{{ user.email }}</small>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="createChat()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Optional: Place to the bottom of scripts -->
+<script>
+  const myModal = new bootstrap.Modal(
+    document.getElementById("modalId"),
+    options,
+  );
+</script>

@@ -1,3 +1,5 @@
+
+
 <nav class="navbar navbar-expand-sm bg-info sticky-top py-0">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/intro"><img src="assets/logo/logo2.png" height="30px" class="me-2">
@@ -49,7 +51,7 @@
         </div>
         <!-- <input class="form-control me-2 d-lg-inline d-none" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success d-lg-inline d-none" type="submit"><i class="bi bi-search"></i></button> -->
-        <div class="btn-group btn-group-sm">
+        <div class="dropdown btn-group btn-group-sm">
           <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false">
             <i class="bi bi-person-fill me-2"> {{getUser()?.username || 'More'}}</i>
@@ -62,6 +64,7 @@
             <li><button class="dropdown-item" type="button" routerLink="/**">  <i class="bi bi-bug"> Bugs</i></button></li>
           </ul>
         </div>
+        
       </div>
     </div>
   </div>
