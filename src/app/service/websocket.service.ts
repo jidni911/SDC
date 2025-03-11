@@ -20,7 +20,7 @@ export class WebsocketService {
   // Subscribe to messages
   subscribeToMessages(callback: (message: any) => void) {
     this.stompClient.onConnect = () => {
-      this.stompClient.subscribe('/topic/messages', (message) => {
+      this.stompClient.subscribe('/topic/messages', (message:any) => {
         callback(JSON.parse(message.body));
       });
     };
