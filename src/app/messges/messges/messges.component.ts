@@ -1,6 +1,6 @@
 import { environment } from 'src/environment';
 import { MessegeService } from './../../service/messege.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { Modal } from 'bootstrap';
 
@@ -9,11 +9,15 @@ import { Modal } from 'bootstrap';
   templateUrl: './messges.component.html',
   styleUrls: ['./messges.component.scss']
 })
-export class MessgesComponent implements OnInit {
+export class MessgesComponent implements OnInit , OnDestroy{
   apiUrl = environment.apiUrl;
   currentUserId = AppComponent.getUser().id
   constructor(private messegeService: MessegeService) { }
   messeges: any[] = []
+  interval: any = null;
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
+  }
   ngOnInit(): void {
     this.messegeService.getChats().subscribe((res: any) => {
       this.chats = res.content
@@ -22,25 +26,25 @@ export class MessgesComponent implements OnInit {
     })
   }
 
-  startInterval(){
-    setInterval(() => {
+  startInterval() {
+    this.interval = setInterval(() => {
       this.refreshChats()
-    },2000)
+    }, 2000)
   }
 
   refreshChats() {
     this.messegeService.getChats().subscribe((res: any) => {
       this.chats = res.content
     })
-    if(this.selectedChat){
+    if (this.selectedChat) {
       this.selectChat(this.selectedChat);
     }
   }
-  hasNew(chat: any){
+  hasNew(chat: any) {
     let id = chat.id;
     let old = this.oldChats.find((v) => v.id === id).messegeCount
     let n = chat.messegeCount
-    
+
     return n - old;
   }
 
@@ -73,7 +77,7 @@ export class MessgesComponent implements OnInit {
       chatBody.scrollTop = chatBody.scrollHeight;
     }
   }
-  
+
 
   sendMessage() {
     if (this.messageText.trim() === '') return;
@@ -93,7 +97,7 @@ export class MessgesComponent implements OnInit {
     }
     this.filteredChats = this.chats.filter(chat => chat.name.toLowerCase().includes(this.searchText.toLowerCase()));
   }
-  
+
   getImageUrl(chat: any) {
     if (chat.groupImage) {
       return this.apiUrl + chat.groupImage?.url
