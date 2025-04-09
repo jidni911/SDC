@@ -10,6 +10,12 @@ import { environment } from 'src/environment';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
+getProfilePic(c: any) {
+  if (!c.profilePicture) {
+    return 'assets/logo/logo2.png'
+  }
+  return this.apiUrl + c.profilePicture?.url
+}
 
   apiUrl = environment.apiUrl
   constructor(

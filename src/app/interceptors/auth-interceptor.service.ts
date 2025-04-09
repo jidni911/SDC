@@ -23,8 +23,14 @@ export class AuthInterceptor implements HttpInterceptor {
       // console.log("Request Headers:", cloned);
 
       return next.handle(cloned);
+    } else {
+      const cloned = req.clone({
+        setHeaders: {
+          'ngrok-skip-browser-warning': 'true'
+        }
+      });
+      return next.handle(cloned);
     }
 
-    return next.handle(req);
   }
 }

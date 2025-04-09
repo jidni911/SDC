@@ -15,10 +15,11 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getAllUsernames().subscribe((r:any)=>{
       this.usernames = r;
+      
     })
 
     this.signinForm.setValue({
-      email: '',
+      // email: '',
       username: '',
       password: '',
       rememberMe: false
