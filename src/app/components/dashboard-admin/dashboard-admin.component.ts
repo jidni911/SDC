@@ -16,3 +16,4 @@ export class DashboardAdminComponent implements OnInit {
   users: any[] = []
 
 }
+//TODO intro page controlling, post deletation, user deletation
