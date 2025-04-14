@@ -14,18 +14,22 @@ export class BugReportComponent implements OnInit {
     if (!AppComponent.getUser()) {
       this.bugForm.patchValue({ submittedBy: null })
       this.bugService.getBugs().subscribe((v: any) => {
-        this.bugs = v;
+        console.log(v);
+        
+        this.bugs = v.content;
       })
     } else {
       this.bugForm.patchValue({ submittedBy: AppComponent.getUser().id })
       this.bugService.getBugs().subscribe((v: any) => {
-        this.bugs = v;
+        
+        this.bugs = v.content;
       })
     }
   }
   constructor(private router: Router, private bugService: BugService) { }
   isDeveloper(){
-    return AppComponent.getUser().role == 'dev'
+    
+    return AppComponent.getRoles().find((v : any) => v.name == 'ROLE_DEV')
   }
   bugForm: FormGroup = new FormGroup({
     title: new FormControl(),

@@ -1,4 +1,4 @@
-<div class="container-fluid mt-5" >
+<div class="container-fluid mt-5">
   <div class="row">
     <div class="col-2 d-none d-md-block">
       <div class="" style="position: fixed; width: 15%; max-width: 30%;">
@@ -7,6 +7,7 @@
             <a href="intro#h123" class="list-group-item list-group-item-action">
               <h4>#এই পৃষ্ঠাতে </h4>
             </a>
+            <a href="intro#highlights" class="list-group-item list-group-item-action">High Lights</a>
             <a href="intro#aboutus" class="list-group-item list-group-item-action">About Us</a>
             <a href="intro#mission" class="list-group-item list-group-item-action">Our Mission</a>
             <a href="intro#events" class="list-group-item list-group-item-action">Upcoming Events</a>
@@ -32,8 +33,36 @@
       </header>
       <div style=" animation: fadeIn 2s;" id="h123">
 
-        <img [src]="savegazaevent" alt="" class="img-fluid mb-4 rounded shadow-sm sticky-top w-100" style="z-index: auto;">
+        <img [src]="savegazaevent" alt="" class="img-fluid mb-4 rounded shadow-sm sticky-top w-100"
+          style="z-index: auto;">
       </div>
+
+      <section id="highlights" class="mb-4 p-4  rounded shadow-sm">
+        <h2 class="text-primary"> বিশেষ আকর্ষণ </h2>
+        <h3 class="text-center text-primary mb-4 fw-bold">🌇 এসডিসি এক্সপ্লোর রাইড: ৪৮৫  - ১৪ই এপ্রিল, ২০২৫</h3>
+
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <img [src]="sdcmeetingpoint" alt="SDC Meeting Point" class="img-fluid rounded-4 shadow-sm w-100">
+          </div>
+          <div class="col-lg-6">
+            <ul class="list-group list-group-flush text-start">
+              <li class="list-group-item bg-transparent border-0"><strong>📍 মিটিং পয়েন্ট:</strong> কমলাপুর রেলওয়ে
+                স্টেশন (ভিআইপি প্রবেশপথ)</li>
+              <li class="list-group-item bg-transparent border-0"><strong>🕓 মিটিং টাইম:</strong> বিকেল ৪:৩০ মিনিট</li>
+              <li class="list-group-item bg-transparent border-0"><strong>🚴‍♂️ রাইড শুরু:</strong> বিকেল ৪:৪৫ মিনিট
+              </li>
+              <li class="list-group-item bg-transparent border-0"><strong>✨ রাইডের পরিসীমা:</strong> ৫০ কিমি</li>
+              <li class="list-group-item bg-transparent border-0"><strong>⚠️ গন্তব্য:</strong> কোনো গন্তব্য নেই,
+                এক্সপ্লোর করবো সবাই!</li>
+              <li class="list-group-item bg-transparent border-0"><strong>📍 রুট:</strong> ধোলাইরপাড় - পোস্তগোলা ব্রিজ - আব্দুল্লাহপুর - গ্রামের ভিতর দিয়ে রুহিতপুর বাজার- কলাতিয়া - বছিলা- মানিক মিয়া এভিনিউ
+              </li>
+              <li class="list-group-item bg-transparent border-0"><strong>🌙 রাইড শেষ:</strong> রাত ১০:০০ মিনিট
+                (আনুমানিক) মানিক মিয়া এভিনিউতে</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       <section id="aboutus" class="mb-4 p-4  rounded shadow-sm">
         <h2 class="text-primary"> আমাদের সম্পর্কে</h2>
@@ -210,16 +239,20 @@
 
       <section id="merchandise" class="mb-5 p-4 rounded shadow-sm text-center">
         <h2 class="text-primary fw-bold mb-4">আমাদের সামগ্রী</h2>
-      
-        <div id="merchandiseCarousel" class="carousel slide mx-auto" data-bs-ride="carousel" style="max-width: 100%; width: 90%;">
-          
+
+        <div id="merchandiseCarousel" class="carousel slide mx-auto" data-bs-ride="carousel"
+          style="max-width: 100%; width: 90%;">
+
           <!-- Carousel indicators -->
           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#merchandiseCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#merchandiseCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#merchandiseCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#merchandiseCarousel" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#merchandiseCarousel" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#merchandiseCarousel" data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
           </div>
-      
+
           <!-- Carousel inner -->
           <div class="carousel-inner rounded-4 shadow">
             <div class="carousel-item active">
@@ -232,20 +265,22 @@
               <img [src]="sdcofficialjersey23" class="d-block w-100 img-fluid rounded-4" alt="Third merchandise">
             </div>
           </div>
-      
+
           <!-- Carousel controls -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#merchandiseCarousel" data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#merchandiseCarousel"
+            data-bs-slide="prev">
             <span class="carousel-control-prev-icon bg-primary rounded-circle p-2" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#merchandiseCarousel" data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#merchandiseCarousel"
+            data-bs-slide="next">
             <span class="carousel-control-next-icon bg-primary rounded-circle p-2" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
-      
+
         </div>
       </section>
-      
+
 
       <section id="contact" class="mb-4 p-4  rounded shadow-sm">
         <h2 class="text-primary">যোগাযোগ করুন</h2>
@@ -271,7 +306,7 @@
           <li><a routerLink="/member">Members</a></li>
           <li><a routerLink="/products">Products</a></li>
           <li><a>Our Products</a></li>
-          
+
         </ul>
       </div>
     </div>
@@ -285,4 +320,3 @@
     <i>বাগে ভরা ওয়েবসাইট, <br> রিভিউ দিয়ে সহায়তা করুন </i>
   </button>
 </div>
-

@@ -12,4 +12,5 @@ export class IntroComponent {
  sdcofficialjersey23 = 'assets/photo/sdcofficialjersey23.png';
  savegazaevent = 'assets/photo/savegazaevent.png';
  barishalride = 'assets/photo/barishalride.png'; 
+ sdcmeetingpoint = 'assets/photo/sdcmeetingpoint.png';
 }
