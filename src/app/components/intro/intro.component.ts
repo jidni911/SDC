@@ -13,4 +13,5 @@ export class IntroComponent {
  savegazaevent = 'assets/photo/savegazaevent.png';
  barishalride = 'assets/photo/barishalride.png'; 
  sdcmeetingpoint = 'assets/photo/sdcmeetingpoint.png';
+ sreemangalride = 'assets/photo/sreemangalride.png';
 }
