@@ -12,7 +12,10 @@ import { BugService } from 'src/app/service/bug.service';
 export class BugReportComponent implements OnInit {
   ngOnInit(): void {
     if (!AppComponent.getUser()) {
-      this.router.navigateByUrl('/signin');
+      this.bugForm.patchValue({ submittedBy: null })
+      this.bugService.getBugs().subscribe((v: any) => {
+        this.bugs = v;
+      })
     } else {
       this.bugForm.patchValue({ submittedBy: AppComponent.getUser().id })
       this.bugService.getBugs().subscribe((v: any) => {
@@ -29,8 +32,7 @@ export class BugReportComponent implements OnInit {
     description: new FormControl(),
     severity: new FormControl(),
     steps: new FormControl(),
-    isSolved: new FormControl(false),
-    submittedBy: new FormControl()
+    isSolved: new FormControl(false)
   })
 
   onSubmit() {
@@ -55,8 +57,7 @@ export class BugReportComponent implements OnInit {
     description: "When role is modified, it doesnt change",
     severity: "medium",
     steps: "Click on the nav bar",
-    isSolved: false,
-    submittedBy: "228f"
+    isSolved: false
   }
   load(bug:any){
     this.selectedBug = bug;
