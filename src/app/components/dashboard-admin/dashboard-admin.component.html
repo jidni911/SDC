@@ -2,11 +2,11 @@
   <div class="row">
     <div class="col-md-2 col-lg-1 d-md-block bg-light sidebar collapse">
       <div class="list-group position-sticky pt-3 sidebar-sticky">
-        <a href="/dashboard/dashboardadmin#dashboard"
+        <a href="/dashboard/ROLE_ADMIN#dashboard"
           class="list-group-item list-group-item-action active">Dashboard</a>
-        <a href="/dashboard/dashboardadmin#users" class="list-group-item list-group-item-action">Users</a>
-        <a href="/dashboard/dashboardadmin#settings" class="list-group-item list-group-item-action">Settings</a>
-        <a href="/dashboard/dashboardadmin#reports" class="list-group-item list-group-item-action">Reports</a>
+        <a href="/dashboard/ROLE_ADMIN#users" class="list-group-item list-group-item-action">Users</a>
+        <a href="/dashboard/ROLE_ADMIN#settings" class="list-group-item list-group-item-action">Settings</a>
+        <a href="/dashboard/ROLE_ADMIN#reports" class="list-group-item list-group-item-action">Reports</a>
       </div>
 
     </div>
@@ -102,10 +102,10 @@
                 Setting Dashboard
               </div>
               <div class="card-body">
-                <form>
+                <form [formGroup]="introForm" (ngSubmit)="onSubmit()">
                   <div class="mb-3">
-                    <label for="siteTitle" class="form-label">Site Title</label>
-                    <input type="text" class="form-control" id="siteTitle" placeholder="Enter site title">
+                    <label for="siteTitle" class="form-label">Welcome Text</label>
+                    <input type="text" class="form-control" formControlName="welcomeText" placeholder="Enter site title">
                   </div>
                   <div class="mb-3">
                     <label for="siteDescription" class="form-label">Site Description</label>
