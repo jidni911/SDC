@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HomeServiceService } from './../../service/home-service.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IntroComponent implements OnInit {
 
-  constructor( private homeServiceService: HomeServiceService) { }
+
+  constructor( private homeServiceService: HomeServiceService, private router: Router) { }
   ngOnInit(): void {
     this.homeServiceService.getHome().subscribe((r: any) => {
       this.home = r;
@@ -24,4 +26,8 @@ export class IntroComponent implements OnInit {
  barishalride = 'assets/photo/barishalride.png'; 
  sdcmeetingpoint = 'assets/photo/sdcmeetingpoint.png';
  sreemangalride = 'assets/photo/sreemangalride.png';
+ text() {
+  this.router.navigate(['products/productDetails/52']);
+  
+  }
 }
