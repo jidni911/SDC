@@ -14,5 +14,8 @@ export class HomeServiceService {
   updateHome(value: any) {
     return this.http.post(this.baseUrl+'Update', value)
   }
+  addSpecial(formData: FormData) {
+    return this.http.post(this.baseUrl + 'AddSpecial', formData);
+  }
 
 }

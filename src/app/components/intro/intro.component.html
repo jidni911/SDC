@@ -31,9 +31,11 @@
       <header class="bg-primary text-white text-center p-4 rounded-4 mb-4">
         <h1 [innerHTML]="home==null?welcomeText:home.welcomeText"></h1>
       </header>
+      
       <div style=" animation: fadeIn 2s;" id="h123">
 
-        <img [src]="savegazaevent" alt="" class="img-fluid mb-4 rounded shadow-sm sticky-top w-100"
+        <img *ngIf="previewUrl"
+        [src]="previewUrl" alt="" class="img-fluid mb-4 rounded shadow-sm sticky-top w-100"
           style="z-index: auto;">
       </div>
 
@@ -280,7 +282,7 @@
             <img [src]="bg1" class="img-fluid rounded shadow-sm" alt="Event 1">
           </div>
           <div class="col-md-4 mb-4">
-            <img [src]="savegazaevent" class="img-fluid rounded shadow-sm" alt="Event 2">
+            <img [src]="" class="img-fluid rounded shadow-sm" alt="Event 2">
           </div>
           <div class="col-md-4 mb-4">
             <img [src]="barishalride" class="img-fluid rounded shadow-sm" alt="Event 3">

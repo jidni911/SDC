@@ -13,7 +13,7 @@
     <div class="col-md-10 ms-sm-auto col-lg-11 px-md-5">
       <div>
         <div data-bs-spy="scroll" data-bs-target="#nav-example" data-bs-smooth-scroll="true" tabindex="0">
-          
+
           <div id="dashboard" style="height: 100vh">
             <div class="card">
               <div class="card-header">
@@ -102,32 +102,87 @@
                 Setting Dashboard
               </div>
               <div class="card-body">
-                <form [formGroup]="introForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3" *ngIf="home">
                   <div class="mb-3">
                     <label for="siteTitle" class="form-label">Welcome Text</label>
-                    <input type="text" class="form-control" formControlName="welcomeText" placeholder="Enter site title">
+                    <input type="text" class="form-control" [(ngModel)]="home.welcomeText"
+                      placeholder="Enter site title">
                   </div>
+                  <div>
+                    <img *ngIf="previewUrl" [src]="previewUrl" alt="Welcome Preview" class="img-fluid" />
+                  </div>
+
                   <div class="mb-3">
-                    <label for="siteDescription" class="form-label">Site Description</label>
-                    <textarea class="form-control" id="siteDescription" rows="3" placeholder="Enter site description"></textarea>
+                    <label for="welcomeImage" class="form-label">Welcome Image</label>
+                    <input type="file" class="form-control" id="welcomeImage" (change)="onFileSelected($event)" />
                   </div>
-                  <div class="mb-3">
-                    <label for="timezone" class="form-label">Timezone</label>
-                    <select class="form-select" id="timezone">
-                      <option selected>Select Timezone</option>
-                      <option value="GMT">GMT</option>
-                      <option value="UTC">UTC</option>
-                      <option value="EST">EST</option>
-                      <option value="PST">PST</option>
-                      <option value="CST">CST</option>
-                    </select>
+
+                  <label for="carouselExampleControls" class="form-label">Specials</label>
+                  <div *ngIf="home && home.specials && home.specials.length > 0" id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                      <div *ngFor="let special of home.specials; let i = index" class="carousel-item" [ngClass]="{ 'active': i === 0 }">
+                        <div class="card mb-3">
+                          <div class="card-header text-center">
+                            {{ special.title }}
+                          </div>
+                          <div class="row g-0">
+                            <div class="col-md-4">
+                              <img *ngFor="let image of special.images" [src]="apiUrl+image.url" alt="Special Image" class="img-fluid">
+                            </div>
+                            <div class="col-md-8">
+                              <div class="card-body">
+                                <p class="card-text">{{ special.description }}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                      data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                      data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
                   </div>
-                  <div class="mb-3">
-                    <label for="logoUpload" class="form-label">Upload Logo</label>
-                    <input type="file" class="form-control" id="logoUpload">
+
+                  <!-- Responsive styling -->
+                  <style>
+                    @media (max-width: 767.98px) {
+
+                      .row.g-0 .col-md-4,
+                      .row.g-0 .col-md-8 {
+                        flex: 0 0 100%;
+                        max-width: 100%;
+                      }
+                    }
+                  </style>
+                  <div class="card mb-3">
+                    <div class="card-header text-center">
+                      <input type="text" class="form-control" placeholder="Title" [(ngModel)]="newSpecialTitle">
+                    </div>
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img *ngFor="let item of newSpecialImagesPreviewUrls" [src]="item" class="img-fluid rounded-start" alt="Image 1">
+                        <input type="file" class="form-control" (change)="onFilesSelected($event)" multiple />
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <textarea class="form-control" placeholder="Description" [(ngModel)]="newSpecialDescription"></textarea>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <button type="submit" class="btn btn-primary">Save Changes</button>
-                </form>
+
+                  <button type="button" class="btn btn-primary" (click)="addSpecial()">Add Special</button>
+
+                  <button type="button" class="btn btn-primary" (click)="onSubmit()">Save Changes</button>
+                </div>
               </div>
             </div>
           </div>
