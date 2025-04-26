@@ -9,7 +9,7 @@ import { environment } from 'src/environment';
   styleUrls: ['./intro.component.scss']
 })
 export class IntroComponent implements OnInit {
-
+  apiUrl = environment.apiUrl;
 
   constructor(private homeServiceService: HomeServiceService, private router: Router) { }
   ngOnInit(): void {

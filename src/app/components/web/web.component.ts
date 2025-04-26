@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, HostListener } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { AuthService } from 'src/app/service/auth.service';
 
@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/service/auth.service';
   templateUrl: './web.component.html',
   styleUrls: ['./web.component.scss']
 })
-export class WebComponent {
+export class WebComponent implements AfterViewInit {  
 
 
   constructor(private router: Router, private authService: AuthService) { }
@@ -40,4 +40,80 @@ export class WebComponent {
       document.body.setAttribute('data-bs-theme', 'dark');
     }
   }
+
+
+
+
+  
+
+
+
+
+  lastScrollTop = 0;
+  navbar: HTMLElement | null = null;
+  hideTimeout: any;
+
+  ngAfterViewInit() {
+    this.navbar = document.getElementById('mainNavbar');
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (!this.navbar) return;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  
+    // Add or remove 'scrolled' class
+    if (scrollTop > 30) {
+      this.navbar.classList.add('scrolled');
+    } else {
+      this.navbar.classList.remove('scrolled');
+    }
+  
+    const delta = scrollTop - this.lastScrollTop;
+  
+    if (delta > 10) {
+      // Fast Scroll Down
+      this.navbar.classList.add('hide');
+    } else if (delta < -10) {
+      // Fast Scroll Up
+      this.showNavbar();
+    }
+  
+    this.lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  }
+  
+
+  @HostListener('document:mousemove', ['$event'])
+  @HostListener('document:touchmove', ['$event']) // mobile touch support
+  onMouseMove(event: MouseEvent | TouchEvent) {
+    if (!this.navbar) return;
+
+    let clientY = 0;
+    if (event instanceof TouchEvent && event.touches.length > 0) {
+      clientY = event.touches[0].clientY;
+    } else if (event instanceof MouseEvent) {
+      clientY = event.clientY;
+    }
+
+    if (clientY < 80) {
+      this.showNavbar();
+    }
+  }
+
+  private hideAfterDelay() {
+    if (this.hideTimeout) {
+      clearTimeout(this.hideTimeout);
+    }
+    this.hideTimeout = setTimeout(() => {
+      this.navbar?.classList.add('hide');
+    }, 500);
+  }
+
+  private showNavbar() {
+    if (this.hideTimeout) {
+      clearTimeout(this.hideTimeout);
+    }
+    this.navbar?.classList.remove('hide');
+  }
+
 }

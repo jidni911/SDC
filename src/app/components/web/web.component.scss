@@ -35,4 +35,32 @@
   }
   
   
+  #mainNavbar {
+    transition: all 0.4s ease-in-out;
+    transform: translateY(0);
+    opacity: 1;
+    padding: 1rem;
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+    z-index: 1030;
+  }
+  
+  #mainNavbar.scrolled {
+    background: rgba(23, 162, 184, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  #mainNavbar.hide {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+    
+
+
+
+
+
+
   

@@ -90,5 +90,26 @@ export class DashboardAdminComponent implements OnInit {
     });
   }
 
+  editSpecial(special: any) {
+    this.newSpecialId = special.id;
+    this.newSpecialTitle = special.title;
+    this.newSpecialDescription = special.description;
+    this.newSpecialImagesPreviewUrls = special.images.map((image: any) => environment.apiUrl + image.url);
+    this.newSpecialImages = [];
+    Promise.all(
+      this.newSpecialImagesPreviewUrls.map((url) =>
+        fetch(url).then((res) => res.blob())
+      )
+    ).then((blobs) => {
+      this.newSpecialImages = blobs.map((blob) => new File([blob], 'image', { type: blob.type }));
+    });
+  }
+  deleteSpecial(special: any) {
+    // this.homeService.deleteSpecial(special.id).subscribe({
+    //   next: (res) => console.log('Upload success', res),
+    //   error: (err) => console.error('Upload error', err),
+    // });
+  }
+
 }
 //TODO intro page controlling, post deletation, user deletation

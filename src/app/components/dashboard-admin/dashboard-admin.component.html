@@ -131,9 +131,13 @@
                             </div>
                             <div class="col-md-8">
                               <div class="card-body">
-                                <p class="card-text">{{ special.description }}</p>
+                                <p class="card-text" [innerHTML]="special.description"></p>
                               </div>
                             </div>
+                          </div>
+                          <div class="card-footer text-center">
+                            <button class="btn btn-primary" (click)="editSpecial(special)">Edit</button>
+                            <button class="btn btn-danger" (click)="deleteSpecial(special)">Delete</button>
                           </div>
                         </div>
                       </div>
