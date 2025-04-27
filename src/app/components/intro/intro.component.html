@@ -31,75 +31,83 @@
       <header class="bg-primary text-white text-center p-4 rounded-4 mb-4">
         <h1 [innerHTML]="home==null?welcomeText:home.welcomeText"></h1>
       </header>
-      
+
       <div style=" animation: fadeIn 2s;" id="h123">
 
-        <img *ngIf="previewUrl"
-        [src]="previewUrl" alt="" class="img-fluid mb-4 rounded shadow-sm sticky-top w-100"
+        <img *ngIf="previewUrl" [src]="previewUrl" alt="" class="img-fluid mb-4 rounded shadow-sm sticky-top w-100"
           style="z-index: auto;">
       </div>
 
       <section id="highlights" class="mb-4 p-4  rounded shadow-sm">
         <h2 class="text-primary"> বিশেষ আকর্ষণ </h2>
-        
+
         <div *ngIf="home && home.specials && home.specials.length > 0">
 
-          <div  *ngFor="let special of home.specials">
+          <div *ngFor="let special of home.specials">
             <h3 class="text-center text-primary mb-4 fw-bold" [innerHTML]="special.title"></h3>
-            <img *ngFor="let image of special.images" [src]="apiUrl + image.url" alt="SDC Meeting Point" class="img-fluid rounded-4 shadow-sm w-100">
+            <img *ngFor="let image of special.images" [src]="apiUrl + image.url" alt="SDC Meeting Point"
+              class="img-fluid rounded-4 shadow-sm w-100">
             <div [innerHTML]="special.description"></div>
           </div>
-          
+
         </div>
-         
-       
+
+
       </section>
 
-      <section id="merchandise" class="mb-5 p-4 rounded shadow-sm text-center">
+      <section id="merchandise" class="mb-5 p-4 rounded shadow-sm text-center border">
         <h2 class="text-primary fw-bold mb-4">আমাদের সামগ্রী</h2>
-
-        <div id="merchandiseCarousel" class="carousel slide mx-auto" data-bs-ride="carousel"
-          style="max-width: 100%; width: 90%;">
-
+      
+        <div id="merchandiseCarousel" class="carousel slide mx-auto" data-bs-ride="carousel" style="max-width: 100%; width: 90%;">
+          
           <!-- Carousel indicators -->
           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#merchandiseCarousel" data-bs-slide-to="0" class="active"
-              aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#merchandiseCarousel" data-bs-slide-to="1"
-              aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#merchandiseCarousel" data-bs-slide-to="2"
-              aria-label="Slide 3"></button>
+            <button *ngFor="let item of merchandiseList; let i = index" type="button"
+              [attr.data-bs-target]="'#merchandiseCarousel'"
+              [attr.data-bs-slide-to]="i"
+              [class.active]="i === 0"
+              [attr.aria-current]="i === 0 ? 'true' : null"
+              [attr.aria-label]="'Slide ' + (i + 1)">
+            </button>
           </div>
-
+      
           <!-- Carousel inner -->
-          <div class="carousel-inner rounded-4 shadow">
-            <div class="carousel-item active">
-              <img [src]="sdcbijoyjersey25" (click)="text()" class="d-block w-100 img-fluid rounded-4" alt="First merchandise">
-            </div>
-            <div class="carousel-item">
-              <img [src]="sdcbijoyjersey21" class="d-block w-100 img-fluid rounded-4" alt="Second merchandise">
-            </div>
-            <div class="carousel-item">
-              <img [src]="sdcofficialjersey23" class="d-block w-100 img-fluid rounded-4" alt="Third merchandise">
+          <div class="carousel-inner rounded-4 shadow" style="height: auto;">
+            <div *ngFor="let merch of merchandiseList; let i = index" class="carousel-item" [class.active]="i === 0">
+              
+              <div class="card mx-auto border-0 shadow-sm" style="max-width: 400px;">
+                <img [src]="merch.imgSrc" class="card-img-top img-fluid rounded-top" [alt]="merch.alt" style="height: 300px; object-fit: contain;">
+                
+                <div class="card-body">
+                  <h5 class="card-title fw-bold">{{ merch.title }}</h5>
+                  <p class="card-text small">{{ merch.description }}</p>
+      
+                  <div *ngIf="merch.buttonText">
+                    <a class="btn btn-primary w-100" [href]="merch.buttonLink || '#'" role="button">
+                      {{ merch.buttonText }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+      
             </div>
           </div>
-
+      
           <!-- Carousel controls -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#merchandiseCarousel"
-            data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#merchandiseCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon bg-primary rounded-circle p-2" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#merchandiseCarousel"
-            data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#merchandiseCarousel" data-bs-slide="next">
             <span class="carousel-control-next-icon bg-primary rounded-circle p-2" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
-          
-
+      
         </div>
-
+      
       </section>
+      
+      
 
 
       <section id="aboutus" class="mb-4 p-4  rounded shadow-sm">
@@ -212,84 +220,250 @@
             southdhakacyclists.com</a>.</p>
       </section>
 
-      <section id="gallery" class="mb-4 p-4  rounded shadow-sm">
-        <h2 class="text-primary">ছবি</h2>
-        <p>Check out photos from our recent events and rides. Our gallery showcases the vibrant and diverse community of
+      <section id="gallery" class="mb-4 p-4 rounded shadow-sm">
+        <h2 class="text-primary text-center mb-4 fw-bold">ছবি</h2>
+      
+        <p class="text-center mb-5">
+          Check out photos from our recent events and rides. Our gallery showcases the vibrant and diverse community of
           South Dhaka Cyclists. From group rides to community events, our photos capture the joy and camaraderie of our
-          members.</p>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <img [src]="bg1" class="img-fluid rounded shadow-sm" alt="Event 1">
-          </div>
-          <div class="col-md-4 mb-4">
-            <img [src]="" class="img-fluid rounded shadow-sm" alt="Event 2">
-          </div>
-          <div class="col-md-4 mb-4">
-            <img [src]="barishalride" class="img-fluid rounded shadow-sm" alt="Event 3">
+          members.
+        </p>
+      
+        <div class="row g-4 justify-content-center">
+          <div class="col-6 col-md-4 col-lg-3" *ngFor="let photo of galleryPhotos; let i = index">
+            <div class="position-relative overflow-hidden rounded shadow-sm gallery-card" (click)="openImage(photo)">
+              <img [src]="photo.src" [alt]="photo.alt" class="img-fluid w-100 h-100 object-fit-cover">
+            </div>
           </div>
         </div>
-        <p>For more photos, please visit our website or follow us on social media.</p>
+      
+        <p class="text-center mt-5">
+          For more photos, please visit our website or follow us on social media.
+        </p>
+      
+        <!-- Modal -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content text-dark">
+              <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">{{ selectedImage?.alt }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                <img [src]="selectedImage?.src" class="img-fluid rounded" alt="Selected Image">
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
-
-      <section id="testimonials" class="mb-4 p-4  rounded shadow-sm">
-        <h2 class="text-primary">ধারণা</h2>
-        <p>Hear from our members about their experiences with South Dhaka Cyclists. Our members come from all walks of
-          life and share a common passion for cycling. Here are some of their stories:</p>
-        <blockquote class="blockquote">
-          <p class="mb-0">"Joining South Dhaka Cyclists has been a life-changing experience for me. I've met so many
-            wonderful people and have become a more confident cyclist. The group rides are always fun and
-            well-organized."
-          </p>
-          <footer class="blockquote-footer">John Doe</footer>
-        </blockquote>
-        <blockquote class="blockquote">
-          <p class="mb-0">"I love the sense of community and support that South Dhaka Cyclists provides. The workshops
-            and
-            clinics have helped me improve my cycling skills, and the events are always a great way to meet new people."
-          </p>
-          <footer class="blockquote-footer">Jane Smith</footer>
-        </blockquote>
-        <blockquote class="blockquote">
-          <p class="mb-0">"South Dhaka Cyclists has made a huge difference in my life. I've become more active and have
-            made many new friends. The group's advocacy efforts are also making a positive impact on our city."</p>
-          <footer class="blockquote-footer">Ahmed Khan</footer>
-        </blockquote>
-        <p>For more testimonials, please visit our website or contact us at <a
-            href="mailto:testimonials@southdhakacyclists.com" class="text-decoration-none">testimonials
-            southdhakacyclists.com</a>.</p>
-      </section>
-
-      <section id="sponsors" class="mb-4 p-4  rounded shadow-sm">
-        <h2 class="text-primary">আমাদের উপস্থাপক</h2>
-        <p>We are grateful for the support of our sponsors. Their contributions help us organize events, run programs,
-          and
-          advocate for better cycling infrastructure in South Dhaka. Our sponsors include:</p>
-        <ul class="list-unstyled">
-          <li class="mb-2"><strong>Bike Shop A:</strong> Providing discounts and support for our members.</li>
-          <li class="mb-2"><strong>Local Business B:</strong> Supporting our community events and initiatives.</li>
-          <li class="mb-2"><strong>Organization C:</strong> Partnering with us to promote cycling and improve conditions
-            for cyclists in our city.</li>
-        </ul>
-        <p>If you are interested in becoming a sponsor, please contact us at <a
-            href="mailto:sponsors@southdhakacyclists.com" class="text-decoration-none">sponsors
-            southdhakacyclists.com</a>.</p>
-      </section>
-
+      
       
 
-      <section id="contact" class="mb-4 p-4  rounded shadow-sm">
-        <h2 class="text-primary">যোগাযোগ করুন</h2>
-        <p>Get in touch with us for more information about South Dhaka Cyclists. We are always happy to hear from new
-          and
-          existing members. You can reach us at:</p>
-        <ul class="list-unstyled">
-          <li class="mb-2"><strong>Email:</strong> <a href="mailto:info@southdhakacyclists.com"
-              class="text-decoration-none">info southdhakacyclists.com</a></li>
-          <li class="mb-2"><strong>Phone:</strong> +880 1234 567890</li>
-          <li class="mb-2"><strong>Address:</strong> 123 Cycling Lane, South Dhaka, Bangladesh</li>
-        </ul>
-        <p>For more information, please visit our website or follow us on social media.</p>
+      <section id="testimonials" class="mb-5 p-4 rounded shadow-sm border">
+        <h2 class="text-primary text-center mb-4">ধারণা</h2>
+        <p class="text-center mb-5">Hear from our members about their experiences with South Dhaka Cyclists. Our members
+          come from all walks of life and share a common passion for cycling.</p>
+
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+
+            <!-- Testimonial 1 -->
+            <div class="carousel-item active">
+              <div class="d-flex flex-column align-items-center">
+                <img src="path-to-john-image.jpg" class="rounded-circle mb-3" alt="John Doe"
+                  style="width: 120px; height: 120px; object-fit: cover;">
+                <blockquote class="blockquote text-center">
+                  <p class="mb-3">"Joining South Dhaka Cyclists has been a life-changing experience. I've met wonderful
+                    people and become a more confident cyclist."</p>
+                  <footer class="blockquote-footer">John Doe</footer>
+                </blockquote>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="carousel-item">
+              <div class="d-flex flex-column align-items-center">
+                <img src="path-to-jane-image.jpg" class="rounded-circle mb-3" alt="Jane Smith"
+                  style="width: 120px; height: 120px; object-fit: cover;">
+                <blockquote class="blockquote text-center">
+                  <p class="mb-3">"I love the sense of community and support that South Dhaka Cyclists provides. The
+                    workshops have helped me improve my skills."</p>
+                  <footer class="blockquote-footer">Jane Smith</footer>
+                </blockquote>
+              </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="carousel-item">
+              <div class="d-flex flex-column align-items-center">
+                <img src="path-to-ahmed-image.jpg" class="rounded-circle mb-3" alt="Ahmed Khan"
+                  style="width: 120px; height: 120px; object-fit: cover;">
+                <blockquote class="blockquote text-center">
+                  <p class="mb-3">"South Dhaka Cyclists has made a huge difference in my life. I've become more active
+                    and made many new friends."</p>
+                  <footer class="blockquote-footer">Ahmed Khan</footer>
+                </blockquote>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Controls -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+
+        </div>
+
+        <p class="text-center mt-5">
+          For more testimonials, please visit our website or contact us at
+          <a href="mailto:testimonials@southdhakacyclists.com" class="text-decoration-none text-primary">testimonials southdhakacyclists.com</a>.
+        </p>
       </section>
+
+
+      <section id="sponsors" class="mb-4 p-5 rounded shadow-sm border">
+        <h2 class="text-primary text-center mb-4 sponsor-logo">আমাদের উপস্থাপক</h2>
+      
+        <p class="text-center mb-4">
+          We are grateful for the generous support of our sponsors, whose contributions help us
+          organize events, run programs, and advocate for better cycling infrastructure in South Dhaka.
+        </p>
+      
+        <!-- Desktop View: Grid Wall -->
+        <div class="d-none d-md-flex flex-wrap justify-content-center align-items-center gap-5">
+          <div *ngFor="let sponsor of sponsors" class="text-center">
+            <img [src]="sponsor.logo" [alt]="sponsor.name + ' Logo'" class="img-fluid mb-2 sponsor-logo" 
+              style="max-width: 150px;">
+            <h5 class="text-success sponsor-logo fw-bold">{{ sponsor.name }}</h5>
+            <p class="text-muted small">{{ sponsor.description }}</p>
+          </div>
+        </div>
+      
+        <!-- Mobile View: Carousel -->
+        <div id="sponsorCarousel" class="carousel slide d-md-none" data-bs-ride="carousel">
+      
+          <!-- Indicators -->
+          <div class="carousel-indicators">
+            <button *ngFor="let sponsor of sponsors; let i = index" type="button"
+              [attr.data-bs-target]="'#sponsorCarousel'"
+              [attr.data-bs-slide-to]="i"
+              [class.active]="i === 0"
+              [attr.aria-current]="i === 0 ? 'true' : null"
+              [attr.aria-label]="'Slide ' + (i + 1)">
+            </button>
+          </div>
+      
+          <!-- Items -->
+          <div class="carousel-inner rounded-4 shadow">
+      
+            <div *ngFor="let sponsor of sponsors; let i = index" class="carousel-item" [class.active]="i === 0">
+      
+              <div class="d-flex flex-column align-items-center">
+                <img [src]="sponsor.logo" [alt]="sponsor.name + ' Logo'" class="img-fluid mb-3 sponsor-logo"
+                  style="max-width: 200px;">
+                <h5 class="text-success sponsor-logo fw-bold">{{ sponsor.name }}</h5>
+                <p class="text-muted text-center small">{{ sponsor.description }}</p>
+              </div>
+      
+            </div>
+      
+          </div>
+      
+          <!-- Controls -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#sponsorCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bg-primary rounded-circle p-2" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#sponsorCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon bg-primary rounded-circle p-2" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+      
+        </div>
+      
+        <p class="text-center mt-4">
+          Interested in becoming a sponsor? Contact us at
+          <a href="mailto:southdhakacyclists@gmail.com" class="text-decoration-none text-primary" [innerHTML]="'southdhakacyclists@gmail.com'">
+          </a>.
+        </p>
+      
+      </section>
+      
+      
+
+
+
+
+
+      <section id="contact" class="mb-5 p-4  rounded-3 shadow-sm border">
+        <h2 class="text-primary mb-4">যোগাযোগ করুন</h2>
+        <p class="lead">Feel free to reach out to our Group Admins or the Developer for any queries or support!</p>
+
+        <div class="row">
+          <!-- Group Admin Contact -->
+          <div class="col-md-6 mb-4  group-admin">
+            <div class="p-3 rounded shadow-sm h-100">
+              <h4 class="text-success mb-3">🧑‍💼 Group Admin Contacts</h4>
+              <ul class="list-unstyled">
+                <li class="mb-3 d-flex align-items-start">
+                  <i class="bi bi-envelope-fill text-primary me-2 fs-5"></i>
+                  <span><strong>Email: </strong> 
+                    <a href="mailto:southdhakacyclists@gmail.com" class="text-decoration-none" [innerHTML]="'southdhakacyclists@gmail.com'">
+                      
+                    </a>
+                  </span>
+                </li>
+                <li class="mb-3 d-flex align-items-start">
+                  <i class="bi bi-telephone-fill text-success me-2 fs-5"></i>
+                  <span><strong>Phone:</strong> +880 1621 287 248</span>
+                </li>
+                <li class="mb-3 d-flex align-items-start">
+                  <i class="bi bi-geo-alt-fill text-danger me-2 fs-5"></i>
+                  <span><strong>Address:</strong> SDCBikewala,Provatibagh Society, near Goran Harvanga mor, Khilgaon, Dhaka</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Developer Contact -->
+          <div class="col-md-6 mb-4  developer">
+            <div class="p-3 rounded shadow-sm h-100">
+              <h4 class="text-info mb-3">👨‍💻 Developer Contact</h4>
+              <ul class="list-unstyled">
+                <li class="mb-3 d-flex align-items-start">
+                  <i class="bi bi-envelope-fill text-primary me-2 fs-5"></i>
+                  <span><strong>Email: </strong> 
+                    <a href="mailto:gidni441@gmail.com" class="text-decoration-none" [innerHTML]="'gidni441@gmail.com'">
+                      
+                    </a>
+                  </span>
+                </li>
+                <li class="mb-3 d-flex align-items-start">
+                  <i class="bi bi-telephone-fill text-success me-2 fs-5"></i>
+                  <span><strong>Phone:</strong> +880 1719 987 447</span>
+                </li>
+                <li class="mb-3 d-flex align-items-start">
+                  <i class="bi bi-globe2 text-warning me-2 fs-5"></i>
+                  <span><strong>Website:</strong> 
+                    <a href="https://sdcian.com" target="_blank" class="text-decoration-none ">
+                      sdcian.com
+                    </a>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
 
     <div class=" col-md-2 d-none d-md-block">
@@ -300,7 +474,7 @@
           <li><a routerLink="/signup">Registration</a></li>
           <li><a routerLink="/member">Members</a></li>
           <li><a routerLink="/products">Products</a></li>
-          
+
         </ul>
       </div>
     </div>
