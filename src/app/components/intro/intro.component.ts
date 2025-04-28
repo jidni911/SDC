@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { HomeServiceService } from './../../service/home-service.service';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environment';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 
 declare var bootstrap: any;
@@ -66,7 +67,7 @@ export class IntroComponent implements OnInit {
 
   sponsors = [
     {
-      logo: 'assets/logo/logo2.png',
+      logo: 'assets/logo/sdcbikewalalogo.png',
       name: 'SDCBikewala',
       description: 'Providing discounts and support for our members, and partnering with us to promote cycling in our community.'
     }
@@ -85,6 +86,15 @@ export class IntroComponent implements OnInit {
     { src: this.bg1, alt: 'Event 1' },
     { src:this.barishalride, alt: 'Event 2' },
     { src: this.sdcmeetingpoint, alt: 'Event 3' },
+    { src: this.bg1, alt: 'Event 1' },
+    { src:this.barishalride, alt: 'Event 2' },
+    { src: this.sdcmeetingpoint, alt: 'Event 3' },
+    { src: this.bg1, alt: 'Event 1' },
+    { src:this.barishalride, alt: 'Event 2' },
+    { src: this.sdcmeetingpoint, alt: 'Event 3' },
+    { src: this.bg1, alt: 'Event 1' },
+    { src:this.barishalride, alt: 'Event 2' },
+    { src: this.sdcmeetingpoint, alt: 'Event 3' },
     // you can add more real images here
   ];
 
@@ -93,5 +103,120 @@ export class IntroComponent implements OnInit {
     const modal = new bootstrap.Modal(document.getElementById('imageModal'));
     modal.show();
   }
+
+  onImageLoad(event: Event) {
+    const img = event.target as HTMLImageElement;
+    img.classList.add('fade-in');
+    img.classList.remove('opacity-0');
+  }
+
+
+  teamMembers = [
+    {
+      name: 'Md. Salman Rahman',
+      role: 'Admin',
+      tagline: 'Founder & passionate cyclist leading the way.',
+      photo: 'assets/logo/logo2.png',
+      socials: [
+        { link: 'https://facebook.com', icon: 'bi bi-facebook' },
+        { link: 'https://instagram.com', icon: 'bi bi-instagram' }
+      ]
+    },
+    {
+      name: 'Farhana Sultana',
+      role: 'Moderator',
+      tagline: 'Building a stronger cycling community.',
+      photo: 'assets/logo/logo2.png',
+      socials: [
+        { link: 'https://twitter.com', icon: 'bi bi-twitter' }
+      ]
+    },
+    {
+      name: 'Ahmed Karim',
+      role: 'Volunteer',
+      tagline: 'Making every ride smoother and safer!',
+      photo: 'assets/logo/logo2.png',
+      socials: []
+    },
+    {
+      name: 'Md. Salman Rahman',
+      role: 'Admin',
+      tagline: 'Founder & passionate cyclist leading the way.',
+      photo: 'assets/logo/logo2.png',
+      socials: [
+        { link: 'https://facebook.com', icon: 'bi bi-facebook' },
+        { link: 'https://instagram.com', icon: 'bi bi-instagram' }
+      ]
+    },
+    {
+      name: 'Farhana Sultana',
+      role: 'Moderator',
+      tagline: 'Building a stronger cycling community.',
+      photo: 'assets/logo/logo2.png',
+      socials: [
+        { link: 'https://twitter.com', icon: 'bi bi-twitter' }
+      ]
+    },
+    {
+      name: 'Ahmed Karim',
+      role: 'Volunteer',
+      tagline: 'Making every ride smoother and safer!',
+      photo: 'assets/logo/logo2.png',
+      socials: []
+    },
+    {
+      name: 'Md. Salman Rahman',
+      role: 'Admin',
+      tagline: 'Founder & passionate cyclist leading the way.',
+      photo: 'assets/logo/logo2.png',
+      socials: [
+        { link: 'https://facebook.com', icon: 'bi bi-facebook' },
+        { link: 'https://instagram.com', icon: 'bi bi-instagram' }
+      ]
+    },
+    {
+      name: 'Farhana Sultana',
+      role: 'Moderator',
+      tagline: 'Building a stronger cycling community.',
+      photo: 'assets/logo/logo2.png',
+      socials: [
+        { link: 'https://twitter.com', icon: 'bi bi-twitter' }
+      ]
+    },
+    {
+      name: 'Ahmed Karim',
+      role: 'Volunteer',
+      tagline: 'Making every ride smoother and safer!',
+      photo: 'assets/logo/logo2.png',
+      socials: []
+    },
+  ];
+  animations = [
+    trigger('fadeInUpAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ];
+  
+
+  testimonials = [
+    {
+      image: 'assets/logo/logo2.png',
+      name: 'John Doe',
+      testimonial: 'Joining South Dhaka Cyclists has been a life-changing experience. I\'ve met wonderful people and become a more confident cyclist.'
+    },
+    {
+      image: 'assets/logo/logo2.png',
+      name: 'Jane Smith',
+      testimonial: 'I love the sense of community and support that South Dhaka Cyclists provides. The workshops have helped me improve my skills.'
+    },
+    {
+      image: 'assets/logo/logo2.png',
+      name: 'Ahmed Khan',
+      testimonial: 'South Dhaka Cyclists has made a huge difference in my life. I\'ve become more active and made many new friends.'
+    }
+  ];
   
 }

@@ -8,10 +8,10 @@
               <h4>#এই পৃষ্ঠাতে </h4>
             </a>
             <a href="intro#highlights" class="list-group-item list-group-item-action">High Lights</a>
-            <a href="intro#merchendise" class="list-group-item list-group-item-action">Our Merchendise</a>
+            <a href="intro#merchandise" class="list-group-item list-group-item-action">Our Merchandise</a>
             <a href="intro#aboutus" class="list-group-item list-group-item-action">About Us</a>
             <a href="intro#mission" class="list-group-item list-group-item-action">Our Mission</a>
-            <a href="intro#events" class="list-group-item list-group-item-action">Upcoming Events</a>
+            <!-- <a href="intro#events" class="list-group-item list-group-item-action">Upcoming Events</a> -->
             <a href="intro#membership" class="list-group-item list-group-item-action">Membership</a>
             <a href="intro#gallery" class="list-group-item list-group-item-action">Gallery</a>
             <a href="intro#testimonials" class="list-group-item list-group-item-action">Testimonials</a>
@@ -82,7 +82,7 @@
                   <h5 class="card-title fw-bold">{{ merch.title }}</h5>
                   <p class="card-text small">{{ merch.description }}</p>
       
-                  <div *ngIf="merch.buttonText">
+                  <div *ngIf="merch.buttonText" class="mb-4">
                     <a class="btn btn-primary w-100" [href]="merch.buttonLink || '#'" role="button">
                       {{ merch.buttonText }}
                     </a>
@@ -110,44 +110,54 @@
       
 
 
-      <section id="aboutus" class="mb-4 p-4  rounded shadow-sm">
-        <h2 class="text-primary"> আমাদের সম্পর্কে</h2>
-        <p>We are a community of cycling enthusiasts in South Dhaka. Our group is dedicated to promoting cycling as a
-          healthy and eco-friendly mode of transportation. We organize regular rides, events, and workshops to encourage
-          more people to take up cycling. Whether you are a seasoned cyclist or a beginner, you are welcome to join us
-          and
-          be part of our vibrant community.</p>
-        <p>Our mission is to create a supportive and inclusive environment for cyclists of all levels. We believe that
-          cycling is not only a great way to stay fit and healthy, but also a sustainable mode of transportation that
-          can
-          help reduce traffic congestion and pollution in our city. By promoting cycling, we aim to make South Dhaka a
-          more livable and bike-friendly place.</p>
-        <p>We offer a variety of activities and programs for our members, including:</p>
-        <ul class="list-unstyled">
-          <li class="mb-2"><strong>Weekly group rides:</strong> Join us for a fun and social ride every weekend. We have
-            different routes and distances to suit all levels of cyclists.</li>
-          <li class="mb-2"><strong>Workshops and clinics:</strong> Learn new skills and improve your cycling technique
-            with our expert-led workshops and clinics. Topics include bike maintenance, road safety, and advanced riding
-            techniques.</li>
-          <li class="mb-2"><strong>Community events:</strong> Participate in our community events, such as bike fairs,
-            charity rides, and family-friendly activities. These events are a great way to meet other cyclists and get
-            involved in our community.</li>
-          <li class="mb-2"><strong>Advocacy and outreach:</strong> Help us advocate for better cycling infrastructure
-            and
-            policies in South Dhaka. We work with local authorities and organizations to promote cycling and improve
-            conditions for cyclists in our city.</li>
-        </ul>
-        <p>As a member of South Dhaka Cyclists, you will also enjoy exclusive benefits, such as discounts at local bike
-          shops, access to members-only events, and a subscription to our monthly newsletter. Our newsletter features
-          updates on upcoming rides and events, cycling tips and advice, and stories from our members.</p>
-        <p>We are always looking for new members to join our community. Whether you are an experienced cyclist or just
-          starting out, we welcome you to come ride with us and experience the joy of cycling. Together, we can make
-          South
-          Dhaka a better place for cyclists and create a healthier, more sustainable future for our city.</p>
-        <p>For more information about our group and how to join, please visit our website or contact us at <a
-            href="mailto:info@southdhakacyclists.com" class="text-decoration-none">info southdhakacyclists.com</a>. We
-          look forward to riding with you!</p>
+      <section id="aboutus" class="mb-5 p-4 rounded shadow-sm border overflow-hidden">
+        <h2 class="text-primary text-center mb-4">আমাদের সম্পর্কে</h2>
+      
+        <p class="text-center mb-5">
+          South Dhaka Cyclists is a vibrant community promoting fitness, friendship, and eco-friendly living.  
+          Meet the amazing team behind our rides and events!
+        </p>
+      
+        <div class="row g-4 justify-content-center">
+          <div 
+            class="col-6 col-md-4 col-lg-3" 
+            *ngFor="let member of teamMembers"
+            [@fadeInUpAnimation]
+          >
+            <div class="card h-100 text-center border-0 shadow-sm p-3 rounded-4 hover-lift">
+      
+              <!-- Profile Photo -->
+              <img 
+                [src]="member.photo" 
+                class="rounded-circle mx-auto mb-3" 
+                alt="{{ member.name }}" 
+                style="width: 120px; height: 120px; object-fit: cover;"
+                loading="lazy"
+              >
+      
+              <!-- Name and Role -->
+              <h5 class="fw-bold mb-1">{{ member.name }}</h5>
+              <small class="text-primary mb-2 d-block">{{ member.role }}</small>
+      
+              <!-- Tagline -->
+              <p class="text-muted small">{{ member.tagline }}</p>
+      
+              <!-- (Optional) Socials -->
+              <div *ngIf="member.socials" class="d-flex justify-content-center gap-2 mt-2">
+                <a *ngFor="let social of member.socials" [href]="social.link" target="_blank" class="text-decoration-none text-primary fs-5">
+                  <i [class]="social.icon"></i>
+                </a>
+              </div>
+      
+            </div>
+          </div>
+        </div>
+      
+        <p class="text-center mt-5">
+          Want to be part of our journey? <a href="mailto:info@southdhakacyclists.com" class="text-decoration-none text-primary">Contact us</a> today!
+        </p>
       </section>
+      
 
       <section id="mission" class="mb-4 p-4  rounded shadow-sm">
         <h2 class="text-primary">আমাদের লক্ষ্য</h2>
@@ -166,7 +176,7 @@
           difference and create a better environment for cyclists and the community as a whole.</p>
       </section>
 
-      <section id="events" class="mb-4 p-4  rounded shadow-sm">
+      <!-- <section id="events" class="mb-4 p-4  rounded shadow-sm">
         <h2 class="text-primary">আমাদের প্রোগ্রাম </h2>
         <ul class="list-unstyled">
           <li class="mb-2"><strong>Monthly Ride:</strong> Join us on the first Saturday of every month for a fun and
@@ -188,7 +198,7 @@
         <p>For more information about our upcoming events, please visit our website or contact us at <a
             href="mailto:events@southdhakacyclists.com" class="text-decoration-none">events southdhakacyclists.com</a>.
         </p>
-      </section>
+      </section> -->
 
       <section id="membership" class="mb-4 p-4  rounded shadow-sm">
         <h2 class="text-primary">সদস্য</h2>
@@ -225,15 +235,25 @@
       
         <p class="text-center mb-5">
           Check out photos from our recent events and rides. Our gallery showcases the vibrant and diverse community of
-          South Dhaka Cyclists. From group rides to community events, our photos capture the joy and camaraderie of our
-          members.
+          South Dhaka Cyclists.
         </p>
       
         <div class="row g-4 justify-content-center">
-          <div class="col-6 col-md-4 col-lg-3" *ngFor="let photo of galleryPhotos; let i = index">
-            <div class="position-relative overflow-hidden rounded shadow-sm gallery-card" (click)="openImage(photo)">
-              <img [src]="photo.src" [alt]="photo.alt" class="img-fluid w-100 h-100 object-fit-cover">
+          <div class="col-6 col-md-4 col-lg-3" *ngFor="let photo of galleryPhotos">
+              <div class="position-relative overflow-hidden rounded shadow-sm gallery-card" (click)="openImage(photo)">
+                
+                <!-- Image -->
+                <img [src]="photo.src" [alt]="photo.alt" loading="lazy"
+                  class="img-fluid w-100 h-100 object-fit-cover opacity-0"
+                  (load)="onImageLoad($event)">
+            
+                <!-- Overlay -->
+                <div class="gallery-overlay d-flex justify-content-center align-items-center">
+                  <span class="text-white fw-bold">Click to Enlarge</span>
+                </div>
+            
             </div>
+            
           </div>
         </div>
       
@@ -244,7 +264,7 @@
         <!-- Modal -->
         <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content text-dark">
+            <div class="modal-content ">
               <div class="modal-header">
                 <h5 class="modal-title" id="imageModalLabel">{{ selectedImage?.alt }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -258,75 +278,45 @@
       </section>
       
       
+      
 
       <section id="testimonials" class="mb-5 p-4 rounded shadow-sm border">
         <h2 class="text-primary text-center mb-4">ধারণা</h2>
-        <p class="text-center mb-5">Hear from our members about their experiences with South Dhaka Cyclists. Our members
-          come from all walks of life and share a common passion for cycling.</p>
-
+        <p class="text-center mb-5">
+          Hear from our members about their experiences with South Dhaka Cyclists. Our members come from all walks of life and share a common passion for cycling.
+        </p>
+      
         <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-
-            <!-- Testimonial 1 -->
-            <div class="carousel-item active">
+            <!-- Loop through the testimonials array -->
+            <div class="carousel-item" *ngFor="let testimonial of testimonials; let isFirst = first" [class.active]="isFirst">
               <div class="d-flex flex-column align-items-center">
-                <img src="path-to-john-image.jpg" class="rounded-circle mb-3" alt="John Doe"
-                  style="width: 120px; height: 120px; object-fit: cover;">
+                <img [src]="testimonial.image" class="rounded-circle mb-3" [alt]="testimonial.name" style="width: 120px; height: 120px; object-fit: cover;">
                 <blockquote class="blockquote text-center">
-                  <p class="mb-3">"Joining South Dhaka Cyclists has been a life-changing experience. I've met wonderful
-                    people and become a more confident cyclist."</p>
-                  <footer class="blockquote-footer">John Doe</footer>
+                  <p class="mb-3">{{testimonial.testimonial}}</p>
+                  <footer class="blockquote-footer">{{testimonial.name}}</footer>
                 </blockquote>
               </div>
             </div>
-
-            <!-- Testimonial 2 -->
-            <div class="carousel-item">
-              <div class="d-flex flex-column align-items-center">
-                <img src="path-to-jane-image.jpg" class="rounded-circle mb-3" alt="Jane Smith"
-                  style="width: 120px; height: 120px; object-fit: cover;">
-                <blockquote class="blockquote text-center">
-                  <p class="mb-3">"I love the sense of community and support that South Dhaka Cyclists provides. The
-                    workshops have helped me improve my skills."</p>
-                  <footer class="blockquote-footer">Jane Smith</footer>
-                </blockquote>
-              </div>
-            </div>
-
-            <!-- Testimonial 3 -->
-            <div class="carousel-item">
-              <div class="d-flex flex-column align-items-center">
-                <img src="path-to-ahmed-image.jpg" class="rounded-circle mb-3" alt="Ahmed Khan"
-                  style="width: 120px; height: 120px; object-fit: cover;">
-                <blockquote class="blockquote text-center">
-                  <p class="mb-3">"South Dhaka Cyclists has made a huge difference in my life. I've become more active
-                    and made many new friends."</p>
-                  <footer class="blockquote-footer">Ahmed Khan</footer>
-                </blockquote>
-              </div>
-            </div>
-
           </div>
-
+      
           <!-- Controls -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel"
-            data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel"
-            data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
             <span class="carousel-control-next-icon"></span>
             <span class="visually-hidden">Next</span>
           </button>
-
         </div>
-
+      
         <p class="text-center mt-5">
           For more testimonials, please visit our website or contact us at
           <a href="mailto:testimonials@southdhakacyclists.com" class="text-decoration-none text-primary">testimonials southdhakacyclists.com</a>.
         </p>
       </section>
+      
 
 
       <section id="sponsors" class="mb-4 p-5 rounded shadow-sm border">
@@ -340,8 +330,8 @@
         <!-- Desktop View: Grid Wall -->
         <div class="d-none d-md-flex flex-wrap justify-content-center align-items-center gap-5">
           <div *ngFor="let sponsor of sponsors" class="text-center">
-            <img [src]="sponsor.logo" [alt]="sponsor.name + ' Logo'" class="img-fluid mb-2 sponsor-logo" 
-              style="max-width: 150px;">
+            <img [src]="sponsor.logo" [alt]="sponsor.name + ' Logo'" class="img-fluid mb-2 sponsor-logo rounded-circle" 
+              style="max-width: 150px;" >
             <h5 class="text-success sponsor-logo fw-bold">{{ sponsor.name }}</h5>
             <p class="text-muted small">{{ sponsor.description }}</p>
           </div>

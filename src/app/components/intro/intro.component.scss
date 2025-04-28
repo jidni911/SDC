@@ -134,19 +134,75 @@ ul li {
 
 
 
-.gallery-card img {
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+
+
+.gallery-card {
+  position: relative;
+  overflow: hidden;
   cursor: pointer;
+  
+  img {
+    transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease, opacity 1s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.1) blur(1px);
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+  }
+
+  .gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  &:hover .gallery-overlay {
+    opacity: 1;
+  }
 }
-.gallery-card:hover img {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
-}
+
 .object-fit-cover {
   object-fit: cover;
-  height: 250px; /* fixed height for a nice uniform gallery */
+  height: 250px;
 }
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1 !important;
+}
+
 .modal-body img {
   max-height: 70vh;
   object-fit: contain;
 }
+
+
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+
+
+
+
+
+
+
+
