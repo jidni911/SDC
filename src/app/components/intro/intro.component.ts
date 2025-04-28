@@ -34,9 +34,9 @@ export class IntroComponent implements OnInit {
   // savegazaevent = 'assets/photo/savegazaevent.png';
   barishalride = 'assets/photo/barishalride.png';
   sdcmeetingpoint = 'assets/photo/sdcmeetingpoint.png';
-  sreemangalride = 'assets/photo/sreemangalride.png';
+  // sreemangalride = 'assets/photo/sreemangalride.png';
   text() {
-    this.router.navigate(['products/productDetails/52']);
+    this.router.navigate(['merchandise']);
   }
   merchandiseList = [
     {
@@ -45,7 +45,7 @@ export class IntroComponent implements OnInit {
       title: 'SDC বিজয় জার্সি ২০২৫',
       description: 'Celebrate Victory Day with our exclusive 2025 jersey.',
       buttonText: 'Get Now',
-      buttonLink: '#'
+      buttonLink: '/merchandise/item/1'
     },
     {
       imgSrc: this.sdcbijoyjersey21,
@@ -53,7 +53,7 @@ export class IntroComponent implements OnInit {
       title: 'SDC বিজয় জার্সি ২০২১',
       description: 'Limited stock left! Grab your 2021 Victory jersey.',
       buttonText: 'Shop Now',
-      buttonLink: '#'
+      buttonLink: '/merchandise/item/2'
     },
     {
       imgSrc: this.sdcofficialjersey23,
@@ -61,7 +61,7 @@ export class IntroComponent implements OnInit {
       title: 'SDC অফিসিয়াল জার্সি ২০২৩',
       description: 'Our 2023 official team jersey — ride with pride!',
       buttonText: 'Buy Now',
-      buttonLink: '#'
+      buttonLink: '/merchandise/item/3'
     }
   ];
 

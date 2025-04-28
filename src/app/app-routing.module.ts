@@ -54,6 +54,9 @@ const routes: Routes = [
   {
     path: 'storage', loadChildren: () => import('./storage/storage.module').then(m => m.StorageModule)
   },
+  {
+    path: 'merchandise', loadChildren: () => import('./merchandise/merchandise.module').then(m => m.MerchandiseModule)
+  },
   // otherwise redirect to intro,
   { path: '**', component: BugReportComponent }
 

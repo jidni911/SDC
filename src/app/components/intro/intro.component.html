@@ -83,9 +83,10 @@
                   <p class="card-text small">{{ merch.description }}</p>
       
                   <div *ngIf="merch.buttonText" class="mb-4">
-                    <a class="btn btn-primary w-100" [href]="merch.buttonLink || '#'" role="button">
+                    <a class="btn btn-primary w-100" [routerLink]="merch.buttonLink" role="button">
                       {{ merch.buttonText }}
                     </a>
+                    <a class="btn btn-info mt-2" [routerLink]="'/merchandise'">View All </a>
                   </div>
                 </div>
               </div>
@@ -176,29 +177,6 @@
           difference and create a better environment for cyclists and the community as a whole.</p>
       </section>
 
-      <!-- <section id="events" class="mb-4 p-4  rounded shadow-sm">
-        <h2 class="text-primary">আমাদের প্রোগ্রাম </h2>
-        <ul class="list-unstyled">
-          <li class="mb-2"><strong>Monthly Ride:</strong> Join us on the first Saturday of every month for a fun and
-            social ride. We have different routes and distances to suit all levels of cyclists.</li>
-          <li class="mb-2"><strong>Annual Cycling Marathon:</strong> Participate in our annual cycling marathon on
-            December 15th. This event is open to cyclists of all levels and is a great way to challenge yourself and
-            meet
-            other cycling enthusiasts.</li>
-          <li class="mb-2"><strong>Bike Maintenance Workshop:</strong> Learn how to maintain and repair your bike with
-            our
-            expert-led workshop. This workshop covers basic bike maintenance, including how to fix a flat tire, adjust
-            brakes, and clean your bike.</li>
-          <li class="mb-2"><strong>Road Safety Clinic:</strong> Improve your cycling skills and learn how to ride safely
-            on the road with our road safety clinic. This clinic covers topics such as traffic rules, signaling, and
-            defensive riding techniques.</li>
-          <li class="mb-2"><strong>Charity Ride:</strong> Join us for a charity ride to raise funds for a local cause.
-            This event is a great way to give back to the community while enjoying a fun and social ride.</li>
-        </ul>
-        <p>For more information about our upcoming events, please visit our website or contact us at <a
-            href="mailto:events@southdhakacyclists.com" class="text-decoration-none">events southdhakacyclists.com</a>.
-        </p>
-      </section> -->
 
       <section id="membership" class="mb-4 p-4  rounded shadow-sm">
         <h2 class="text-primary">সদস্য</h2>
@@ -464,6 +442,7 @@
           <li><a routerLink="/signup">Registration</a></li>
           <li><a routerLink="/member">Members</a></li>
           <li><a routerLink="/products">Products</a></li>
+          <li><a routerLink="/merchandise">Merchandise</a></li>
 
         </ul>
       </div>

@@ -1,0 +1,92 @@
+.container {
+    max-width: 900px;
+}
+
+.object-fit-cover {
+    object-fit: cover;
+}
+
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Card & Form refinements */
+.card {
+    border: none;
+    border-radius: 8px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 4px;
+    transition: box-shadow 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Responsive tweaks */
+@media (max-width: 767px) {
+    .nav-pills {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .card img {
+        height: auto;
+    }
+}
+
+.jersey-image {
+    transition: transform 0.6s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.08);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+}
+
+
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.jersey-image {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    &.clicked {
+        animation: pop 0.4s ease;
+    }
+}
+
+
+
+#size-chart table tbody tr:hover {
+    background: rgba(0, 123, 255, 0.1);
+    transition: 0.3s;
+}
