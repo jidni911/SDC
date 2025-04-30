@@ -1,7 +1,8 @@
 export const environment = {
     production: false,
     // apiUrl: 'https://ideally-precious-fish.ngrok-free.app',
-    apiUrl: 'https://sdcian.serveo.net',
+    // apiUrl: 'https://sdcian.serveo.net',
+    apiUrl: 'https://api.sdcian.com',
     // apiUrl: 'https://sdcian.loca.lt',
     // apiUrl: 'http://localhost:3000',
     // apiUrl: 'http://192.168.31.48:8081',
