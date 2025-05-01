@@ -203,6 +203,13 @@ ul li {
 
 
 
+.scroll-drawer {
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+}
 
+.scroll-drawer.hidden {
+  transform: translateX(-110%);
+}
 
 

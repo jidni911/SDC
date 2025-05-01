@@ -20,9 +20,22 @@ export class IntroComponent implements OnInit {
     this.homeServiceService.getHome().subscribe((r: any) => {
       this.home = r;
       if (r.welcomeImage && r.welcomeImage.url) {
-        this.previewUrl = environment.apiUrl + r.welcomeImage.url; // Adjust your backend base URL if needed
+        this.previewUrl = environment.apiUrl + r.welcomeImage.url;
       }
+    }, (err: any) => {
+      console.log(err);
+      this.welcomeText = 'Server in under maintenance. <br> retrying in 30 seconds...';
+      setTimeout(() => {
+        window.location.reload();
+      }, 30000);
     })
+
+    let toggleBtn = document.getElementById('toggleScrollSpy');
+   let drawer = document.getElementById('scrollSpyDrawer');
+
+  toggleBtn!.addEventListener('click', () => {
+    drawer!.classList.toggle('hidden');
+  })
   }
   home: any = null;
   previewUrl: string | ArrayBuffer | null = null;
@@ -218,5 +231,8 @@ export class IntroComponent implements OnInit {
       testimonial: 'South Dhaka Cyclists has made a huge difference in my life. I\'ve become more active and made many new friends.'
     }
   ];
+
+
+   
   
 }

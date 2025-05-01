@@ -1,7 +1,11 @@
 <div class="container-fluid mt-5">
   <div class="row">
+   
+
     <div class="col-2 d-none d-md-block">
-      <div class="" style="position: fixed; width: 15%; max-width: 30%;">
+      <!-- <div class="" style="position: fixed; width: 15%; max-width: 30%;"> -->
+      <div id="scrollSpyDrawer" class="scroll-drawer shadow-sm" style="position: fixed; width: 15%;">
+
         <div>
           <div class="list-group">
             <a href="intro#h123" class="list-group-item list-group-item-action">
@@ -24,6 +28,7 @@
         </footer>
       </div>
     </div>
+
 
 
     <div class=" col-12 col-md-8" data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true"
@@ -108,9 +113,6 @@
       
       </section>
       
-      
-
-
       <section id="aboutus" class="mb-5 p-4 rounded shadow-sm border overflow-hidden">
         <h2 class="text-primary text-center mb-4">আমাদের সম্পর্কে</h2>
       
@@ -123,7 +125,6 @@
           <div 
             class="col-6 col-md-4 col-lg-3" 
             *ngFor="let member of teamMembers"
-            [@fadeInUpAnimation]
           >
             <div class="card h-100 text-center border-0 shadow-sm p-3 rounded-4 hover-lift">
       
@@ -255,8 +256,6 @@
         </div>
       </section>
       
-      
-      
 
       <section id="testimonials" class="mb-5 p-4 rounded shadow-sm border">
         <h2 class="text-primary text-center mb-4">ধারণা</h2>
@@ -294,8 +293,6 @@
           <a href="mailto:testimonials@southdhakacyclists.com" class="text-decoration-none text-primary">testimonials southdhakacyclists.com</a>.
         </p>
       </section>
-      
-
 
       <section id="sponsors" class="mb-4 p-5 rounded shadow-sm border">
         <h2 class="text-primary text-center mb-4 sponsor-logo">আমাদের উপস্থাপক</h2>
@@ -364,11 +361,6 @@
         </p>
       
       </section>
-      
-      
-
-
-
 
 
       <section id="contact" class="mb-5 p-4  rounded-3 shadow-sm border">
@@ -436,6 +428,7 @@
 
     <div class=" col-md-2 d-none d-md-block">
       <div style="position: fixed; width: 15%;">
+        
         <h2>গুরুত্বপুর্ণ ঠিকানা </h2>
         <ul>
           <li><a routerLink="/signin">Sign in</a></li>
@@ -455,5 +448,11 @@
 <div style="position: fixed; bottom: 20px; right: 20px;">
   <button class="btn btn-primary btn-sm rounded-pill" routerLink="/**">
     <i>বাগে ভরা ওয়েবসাইট, <br> রিভিউ দিয়ে সহায়তা করুন </i>
+  </button>
+</div>
+
+<div style="position: fixed; top: 50px; left: 20px;" class="d-none d-md-block">
+  <button id="toggleScrollSpy" class="btn btn-outline-primary btn-sm">
+    ☰ In this page
   </button>
 </div>
