@@ -1,0 +1,183 @@
+<div id="form"class="p-0 p-md-4" >
+    <h1 class="text-center text-primary">{{jersey?.title}}</h1>
+    <img src="{{imageUrl}}" alt="" class="img-fluid shadow-sm d-block mx-auto py-3 " style="width: 350px;">
+    <div class="card mb-4 shadow-sm p-0 p-md-4">
+        <section id="size-chart" class="p-0 p-md-4 rounded-3 shadow-sm mb-5 border">
+            <h2 class="text-center text-primary mb-4">T-Shirt Size Chart</h2>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered align-middle text-center">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Size</th>
+                            <th>Chest (inches)</th>
+                            <th>Length (inches)</th>
+                            <th colspan="2">Orders</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let size of sizes">
+                            <td><strong>{{ size.name }}</strong></td>
+                            <td>{{ size.chest }}"</td>
+                            <td>{{ size.length }}"</td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm"
+                                    (click)="addOrderItem(size,'half')">Half sleeve</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm"
+                                    (click)="addOrderItem(size,'full')">Full sleeve</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Custom</strong></td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" placeholder="chest"
+                                    [(ngModel)]="chest">
+                            </td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" placeholder="length"
+                                    [(ngModel)]="length">
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm"
+                                    (click)="addOrderItem({chest:0,length:0,name:'Custom'},'half')">Half
+                                    sleeve</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm"
+                                    (click)="addOrderItem({chest:0,length:0,name:'Custom'},'full')">Full
+                                    sleeve</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <p class="text-muted mt-2 text-center">📏 Sizes may vary by ±0.5 inches. Custom sizes available
+                (T&A).</p>
+        </section>
+        <section>
+            <h4>Delivery Options</h4>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                    [(ngModel)]="deliveryOption" value="Home Delivery (Inside Dhaka)"
+                    (click)="currentOrder.address='' ; currentOrder.deliveryCharge=70">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Home Delivery (Inside Dhaka)
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                    [(ngModel)]="deliveryOption" value="Courier (Outside Dhaka)"
+                    (click)="currentOrder.address='' ; currentOrder.deliveryCharge=110">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Courier (Outside Dhaka)
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"
+                    [(ngModel)]="deliveryOption" value="Free Pick Up Point"
+                    (click)="currentOrder.address=freePickupPointAddresses[0]; currentOrder.deliveryCharge=0">
+                <label class="form-check-label" for="flexRadioDefault3">
+                    Free Pick Up Point
+                </label>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">
+                    <span *ngIf="deliveryOption=='Home Delivery (Inside Dhaka)'">Home Delivery Address</span>
+                    <span *ngIf="deliveryOption=='Courier (Outside Dhaka)'">Courier Address</span>
+                    <span *ngIf="deliveryOption=='Free Pick Up Point'">Choose your pick up point</span>
+                </label>
+                <div *ngIf="deliveryOption=='Free Pick Up Point'" class="dropdown open">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Click to choose
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="triggerId">
+                        <button *ngFor="let freePickupPointAddress of freePickupPointAddresses"
+                            class="dropdown-item"
+                            (click)="currentOrder.address=freePickupPointAddress">{{freePickupPointAddress}}</button>
+                    </div>
+                </div>
+
+                <textarea class="form-control" [(ngModel)]="currentOrder.address" rows="2" placeholder="Address"
+                    *ngIf="deliveryOption!='Free Pick Up Point'"></textarea>
+                <div *ngIf="deliveryOption=='Free Pick Up Point'">{{currentOrder.address}}</div>
+            </div>
+
+
+        </section>
+
+    </div>
+
+    <div class="card mb-4 shadow-sm p-4">
+        <h4 class="mb-3">Place Your Order</h4>
+
+        <h5>Order Items</h5>
+
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Sleeve</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let orderItem of currentOrder.items">
+                        <td>{{ orderItem.jersey.title }}</td>
+                        <td>{{ orderItem.size.name }}</td>
+                        <td>{{ orderItem.sleeve }}</td>
+                        <td>{{ orderItem.price }}</td>
+                        <td>{{ orderItem.quantity }}</td>
+                        <td>{{ orderItem.price * orderItem.quantity }}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" (click)="removeOrderItem(orderItem)">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">Delivery Charge</td>
+                        <td>{{ currentOrder.deliveryCharge }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">Total</td>
+                        <td>{{ calculateTotal(currentOrder) }}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="customerName" class="form-label">Name</label>
+                    <input id="customerName" name="name" class="form-control" [(ngModel)]="currentOrder.name">
+                </div>
+                <div class="col-md-6">
+                    <label for="customerPhone" class="form-label">Phone</label>
+                    <input id="customerPhone" name="phone" class="form-control" [(ngModel)]="currentOrder.phone">
+                </div>
+
+
+                <div class="col-12 text-center align-self-end">
+                    <button type="submit" class="btn btn-success" (click)="submitOrder()">Submit Order</button>
+                    <button type="button" class="btn btn-info" routerLink="/merchandise/orders" >View Orders</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

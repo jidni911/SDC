@@ -13,13 +13,13 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.user = AppComponent.getUser()
     if (this.user) {
-      this.router.navigateByUrl('/dashboard/'+this.roles()[0].name);
+      this.router.navigateByUrl('/dashboard/'+this.roles()[0]);
     } else {
       this.router.navigateByUrl('/signin');
     }
   }
   user!: any;
-  roles(): any[] { return AppComponent.getRoles(); }
+  roles(): any[] { return ['ROLE_ADMIN', 'ROLE_SELLER', 'ROLE_USER', 'ROLE_DEV'] }
   AppComponent = AppComponent;
 
   // forward(route: string) {

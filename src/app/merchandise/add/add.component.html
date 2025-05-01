@@ -1,0 +1,52 @@
+<div *ngIf="isAdmin(); else elseBlock">
+  <form class="container" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-4">
+        <img *ngFor="let image of images" [src]="apiUrl + image.url" class="img-fluid rounded d-block mx-auto" alt="Jersey Image">
+        <div class="form-group">
+          <label for="image">Image</label>
+          <input type="file" class="form-control-file" id="image" (change)="handleFileInput($event)">
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter jersey title">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="halfSleevePrice">Half Sleeve Price</label>
+          <input type="number" class="form-control" id="halfSleevePrice" formControlName="halfSleevePrice" placeholder="Enter half sleeve price">
+        </div>
+        <div class="form-group">
+          <label for="fullSleevePrice">Full Sleeve Price</label>
+          <input type="number" class="form-control" id="fullSleevePrice" formControlName="fullSleevePrice" placeholder="Enter full sleeve price">
+        </div>
+        <div class="form-group">
+          <label for="babyHalfSleevePrice">Baby Half Sleeve Price</label>
+          <input type="number" class="form-control" id="babyHalfSleevePrice" formControlName="babyHalfSleevePrice" placeholder="Enter baby half sleeve price">
+        </div>
+        <div class="form-group">
+          <label for="babyFullSleevePrice">Baby Full Sleeve Price</label>
+          <input type="number" class="form-control" id="babyFullSleevePrice" formControlName="babyFullSleevePrice" placeholder="Enter baby full sleeve price">
+        </div>
+        <div class="form-group">
+          <label for="customHalfSleevePrice">Custom Half Sleeve Price</label>
+          <input type="number" class="form-control" id="customHalfSleevePrice" formControlName="customHalfSleevePrice" placeholder="Enter custom half sleeve price">
+        </div>
+        <div class="form-group">
+          <label for="customFullSleevePrice">Custom Full Sleeve Price</label>
+          <input type="number" class="form-control" id="customFullSleevePrice" formControlName="customFullSleevePrice" placeholder="Enter custom full sleeve price">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<ng-template #elseBlock>
+  Forbidden
+</ng-template>
+

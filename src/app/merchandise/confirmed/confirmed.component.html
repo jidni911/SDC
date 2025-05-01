@@ -1,0 +1,15 @@
+<div class="tab-pane fade" id="verified" role="tabpanel">
+    <h4 class="mb-3">Verified Orders</h4>
+    <div *ngIf="verifiedOrders.length; else noVerified">
+        <div *ngFor="let v of verifiedOrders" class="card mb-2 shadow-sm">
+            <div class="card-body">
+                <!-- <strong>{{ v.name }}</strong> — {{ v.size }} × {{ v.quantity }} -->
+                <span class="badge bg-success ms-2">Verified</span><br>
+                <small class="text-muted">{{ v.phone }}</small>
+            </div>
+        </div>
+    </div>
+    <ng-template #noVerified>
+        <p class="text-muted">No verified orders yet.</p>
+    </ng-template>
+</div>
