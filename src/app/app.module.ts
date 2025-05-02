@@ -25,6 +25,7 @@ import { OrderListComponent } from './components/dashboard-seller/orders/order-l
 import { MemoComponent } from './products/memo/memo.component';
 import { ChatComponent } from './componenets/chat/chat.component';
 import { MerchandiseModule } from './merchandise/merchandise.module';
+import { ContactComponent } from './components/intro/contact/contact.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { MerchandiseModule } from './merchandise/merchandise.module';
     BikeMessengerComponent,
     OrdersComponent,
     OrderListComponent,
-    ChatComponent
+    ChatComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

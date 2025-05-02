@@ -107,3 +107,6 @@ export class PendingComponent implements OnInit {
 
   // currentOrderToVerify: any = null;
 }
+
+
+//TODO work on verification
