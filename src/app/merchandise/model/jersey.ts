@@ -22,7 +22,15 @@ export interface Order {
   phone: string;
   items: OrderItem[];
   deliveryCharge: number;
+  deliveryOption: string;
   address: string;
+  paid: boolean;
+  paymentMethod: string;
+  accountNumber: string;
+  trxId: string;
+
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface OrderItem {

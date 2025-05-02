@@ -4,6 +4,8 @@ import { Jersey, Order, OrderItem, Size } from '../model/jersey';
 import { ActivatedRoute } from '@angular/router';
 import { JerseyService } from '../services/jersey.service';
 import { environment } from 'src/environment';
+import { AppComponent } from 'src/app/app.component';
+import * as bootstrap from 'bootstrap';
 
 
 @Component({
@@ -18,14 +20,27 @@ export class OrderComponent implements OnInit {
   jersey: Jersey | null = null;
   imageUrl: string | null = null;
 
-  currentOrder: Order = { name: '', phone: '', items: [] as OrderItem[], deliveryCharge: 0, address: 'Dhaka' };
-  deliveryOption: string = "Free Pick Up Point";
+  currentOrder: Order = {
+    name: '',
+    phone: '',
+    items: [] as OrderItem[],
+    deliveryCharge: 0,
+    deliveryOption: 'Free Pick Up Point',
+    address: '',
+    paid: false,
+    paymentMethod: '',
+    accountNumber: '',
+    trxId: '',
+    createdAt: '',
+    updatedAt: ''
+  };
+  // deliveryOption: string = "Free Pick Up Point";
   chest: number = 0;
   length: number = 0;
 
   // orders: Order[] = [];
 
-  toastMessage: string | null = null;
+
 
   // jerseys = []
   sizes = sizes
@@ -37,8 +52,18 @@ export class OrderComponent implements OnInit {
     if (this.id) {
       this.jerseyService.getJersey(this.id).subscribe((v: any) => {
         this.jersey = v;
-        this.imageUrl =this.apiUrl+ v.images[0].url;
+        this.imageUrl = this.apiUrl + v.images[0].url;
       })
+    }
+    if (AppComponent.getUser() == null) {
+      this.currentOrder.name = '';
+      this.currentOrder.phone = '';
+      if (window.confirm('Please login first! 🎉')) {
+        window.location.href = '/signin';
+      }
+    } else {
+      this.currentOrder.name = AppComponent.getUser().fullName;
+      this.currentOrder.phone = AppComponent.getUser().phoneNumber;
     }
   }
 
@@ -92,21 +117,65 @@ export class OrderComponent implements OnInit {
     }
   }
   calculateTotal(order: Order) {
-    return order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0) + order.deliveryCharge;
+    return order.items.reduce((sum, item) => sum + (item.price * item.quantity), order.deliveryCharge);
   }
 
   submitOrder() {
+    if (AppComponent.getUser() == null) {
+      this.showToast('Please login first! 🎉', 'warning');
+      return
+    }
+    if (this.currentOrder.items.length == 0) {
+      this.showToast('Please select at least one item! 🎉', 'warning');
+      return
+    }
+    if (this.currentOrder.address == '') {
+      this.showToast('Please enter your address! 🎉', 'warning');
+      return
+    }
+    if (this.currentOrder.name.trim() == '') {
+      this.showToast('Please enter your name! 🎉', 'warning');
+      return
+    }
+    if (this.currentOrder.phone.trim() == '') {
+      this.showToast('Please enter your phone! 🎉', 'warning');
+      return
+    }
+    this.currentOrder.address = this.currentOrder.address.trim();
     this.jerseyService.placeOrder(this.currentOrder).subscribe((v: any) => {
       console.log(v);
-      this.showToast('Order placed successfully! 🎉');
-      this.currentOrder = { name: '', phone: '', items: [] as OrderItem[], deliveryCharge: 0, address: 'Dhaka' };
-      
+      if (v == null) {
+        this.showToast('Some thing went wrong! Contact the developer!', 'warning');
+      } else {
+        this.showToast('Order placed successfully! 🎉', 'success');
+        this.currentOrder = {
+          name: '',
+          phone: '',
+          items: [] as OrderItem[],
+          deliveryCharge: 0,
+          deliveryOption: 'Free Pick Up Point',
+          address: '',
+          paid: false,
+          paymentMethod: '',
+          accountNumber: '',
+          trxId: '',
+          createdAt: '',
+          updatedAt: ''
+        };
+      }
     })
   }
 
-  showToast(message: string) {
+  toastMessage: string | null = null;
+  toastType: string = 'success';
+  showToast(message: string, type: string) {
+    this.toastType = type;
     this.toastMessage = message;
+
+    const toast = new bootstrap.Toast(document.getElementById('liveToast')!);
+    toast.show();
     setTimeout(() => {
+      toast.hide();
       this.toastMessage = null;
     }, 3000); // Hide after 3 seconds
   }

@@ -2,6 +2,9 @@
     <h1 class="text-center text-primary">{{jersey?.title}}</h1>
     <img src="{{imageUrl}}" alt="" class="img-fluid shadow-sm d-block mx-auto py-3 " style="width: 350px;">
     <div class="card mb-4 shadow-sm p-0 p-md-4">
+        <div class="alert alert-warning mt-4" role="alert">
+            <strong>⚠️ Note:</strong> You need to Log in first. This helps tracking your order.
+          </div>
         <section id="size-chart" class="p-0 p-md-4 rounded-3 shadow-sm mb-5 border">
             <h2 class="text-center text-primary mb-4">T-Shirt Size Chart</h2>
 
@@ -62,7 +65,7 @@
             <h4>Delivery Options</h4>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                    [(ngModel)]="deliveryOption" value="Home Delivery (Inside Dhaka)"
+                    [(ngModel)]="currentOrder.deliveryOption" value="Home Delivery (Inside Dhaka)"
                     (click)="currentOrder.address='' ; currentOrder.deliveryCharge=70">
                 <label class="form-check-label" for="flexRadioDefault1">
                     Home Delivery (Inside Dhaka)
@@ -70,7 +73,7 @@
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                    [(ngModel)]="deliveryOption" value="Courier (Outside Dhaka)"
+                    [(ngModel)]="currentOrder.deliveryOption" value="Courier (Outside Dhaka)"
                     (click)="currentOrder.address='' ; currentOrder.deliveryCharge=110">
                 <label class="form-check-label" for="flexRadioDefault2">
                     Courier (Outside Dhaka)
@@ -78,19 +81,19 @@
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"
-                    [(ngModel)]="deliveryOption" value="Free Pick Up Point"
-                    (click)="currentOrder.address=freePickupPointAddresses[0]; currentOrder.deliveryCharge=0">
+                    [(ngModel)]="currentOrder.deliveryOption" value="Free Pick Up Point"
+                    (click)="currentOrder.address=''; currentOrder.deliveryCharge=0">
                 <label class="form-check-label" for="flexRadioDefault3">
                     Free Pick Up Point
                 </label>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">
-                    <span *ngIf="deliveryOption=='Home Delivery (Inside Dhaka)'">Home Delivery Address</span>
-                    <span *ngIf="deliveryOption=='Courier (Outside Dhaka)'">Courier Address</span>
-                    <span *ngIf="deliveryOption=='Free Pick Up Point'">Choose your pick up point</span>
+                    <span *ngIf="currentOrder.deliveryOption=='Home Delivery (Inside Dhaka)'">Home Delivery Address</span>
+                    <span *ngIf="currentOrder.deliveryOption=='Courier (Outside Dhaka)'">Courier Address</span>
+                    <span *ngIf="currentOrder.deliveryOption=='Free Pick Up Point'">Choose your pick up point</span>
                 </label>
-                <div *ngIf="deliveryOption=='Free Pick Up Point'" class="dropdown open">
+                <div *ngIf="currentOrder.deliveryOption=='Free Pick Up Point'" class="dropdown open">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Click to choose
@@ -103,8 +106,8 @@
                 </div>
 
                 <textarea class="form-control" [(ngModel)]="currentOrder.address" rows="2" placeholder="Address"
-                    *ngIf="deliveryOption!='Free Pick Up Point'"></textarea>
-                <div *ngIf="deliveryOption=='Free Pick Up Point'">{{currentOrder.address}}</div>
+                    *ngIf="currentOrder.deliveryOption!='Free Pick Up Point'"></textarea>
+                <div *ngIf="currentOrder.deliveryOption=='Free Pick Up Point'">{{currentOrder.address}}</div>
             </div>
 
 
@@ -134,7 +137,7 @@
                 <tbody>
                     <tr *ngFor="let orderItem of currentOrder.items">
                         <td>{{ orderItem.jersey.title }}</td>
-                        <td>{{ orderItem.size.name }}</td>
+                        <td>{{ orderItem.size.name }} ( {{ orderItem.size.chest }} , {{ orderItem.size.length }} )</td>
                         <td>{{ orderItem.sleeve }}</td>
                         <td>{{ orderItem.price }}</td>
                         <td>{{ orderItem.quantity }}</td>
@@ -172,7 +175,7 @@
                     <input id="customerPhone" name="phone" class="form-control" [(ngModel)]="currentOrder.phone">
                 </div>
 
-
+                
                 <div class="col-12 text-center align-self-end">
                     <button type="submit" class="btn btn-success" (click)="submitOrder()">Submit Order</button>
                     <button type="button" class="btn btn-info" routerLink="/merchandise/orders" >View Orders</button>
@@ -181,3 +184,17 @@
         </div>
     </div>
 </div>
+
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-{{toastType}} text-white">
+            <strong class="me-auto">Order Message</strong>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            {{toastMessage}}
+        </div>
+    </div>
+</div>
+

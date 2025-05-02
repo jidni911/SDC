@@ -1,4 +1,4 @@
-<section id="merchandise" class="mb-5 p-4 rounded shadow-sm text-center border">
+<section class="mb-5 p-4 rounded shadow-sm text-center border">
     <h2 class="text-primary fw-bold mb-4">আমাদের সামগ্রী</h2>
 
     <div id="merchandiseCarousel" class="carousel slide mx-auto" data-bs-ride="carousel"
@@ -52,7 +52,7 @@
     </div>
     <!-- <a class="btn btn-primary" [routerLink]="'/merchandise'">View All </a> -->
 
-    <a class="btn btn-primary" role="button" *ngIf="isAdmin" [routerLink]="'/merchandise/add'">
+    <a class="btn btn-primary" role="button" *ngIf="isAdmin()" [routerLink]="'/merchandise/add'">
         Add
     </a>
 

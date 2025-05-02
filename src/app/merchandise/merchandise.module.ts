@@ -9,6 +9,7 @@ import { OrderComponent } from './order/order.component';
 import { PendingComponent } from './pending/pending.component';
 import { ConfirmedComponent } from './confirmed/confirmed.component';
 import { AddComponent } from './add/add.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -24,7 +25,11 @@ import { AddComponent } from './add/add.component';
     CommonModule,
     MerchandiseRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
+  ],
+  exports:[
+    HomeComponent
   ]
 })
 export class MerchandiseModule { }

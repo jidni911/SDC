@@ -24,6 +24,7 @@ import { SharedModule } from './shared/shared.module';
 import { OrderListComponent } from './components/dashboard-seller/orders/order-list/order-list.component';
 import { MemoComponent } from './products/memo/memo.component';
 import { ChatComponent } from './componenets/chat/chat.component';
+import { MerchandiseModule } from './merchandise/merchandise.module';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { ChatComponent } from './componenets/chat/chat.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    MerchandiseModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

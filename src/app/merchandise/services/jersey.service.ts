@@ -7,14 +7,15 @@ import { Order } from '../model/jersey';
   providedIn: 'root'
 })
 export class JerseyService {
- 
- 
+
+
+
 
   baseUrl = environment.apiUrl + '/jersey';
 
-  constructor( private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  
+
   getJersey(id: number) {
     return this.http.get(this.baseUrl + '/' + id);
   }
@@ -34,6 +35,8 @@ export class JerseyService {
   getOrders() {
     return this.http.get(this.baseUrl + '/order');
   }
-  
 
+  makePayment(currentOrderToPay: Order) {
+    return this.http.post(this.baseUrl + '/payment', currentOrderToPay);
+  }
 }

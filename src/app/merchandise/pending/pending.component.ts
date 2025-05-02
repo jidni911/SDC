@@ -14,12 +14,12 @@ export class PendingComponent implements OnInit {
     this.jerseyService.getOrders().subscribe((v: any) => {
       this.orders = v;
       console.log(v);
-      
+
     })
   }
 
-  currentOrderToVerify: Order | null = null;
-  verifiedOrders: Order[] = [];
+  // currentOrderToVerify: Order | null = null;
+  currentOrderToPay: Order | null = null;
 
 
   orders: Order[] = [];
@@ -27,32 +27,72 @@ export class PendingComponent implements OnInit {
   calculateTotal(order: Order) {
     return order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0) + order.deliveryCharge;
   }
-  verifyOrder(order: Order) {
-    this.verifiedOrders.push(order);
-    this.orders = this.orders.filter(o => o !== order);
-    this.showToast('Order verified! ✅')
+  countTotalJersey(order: Order) {
+    return order.items.reduce((sum, item) => sum + item.quantity, 0);
   }
+  // verifyOrder(order: Order) {
+  //   // this.verifiedOrders.push(order);
+  //   this.orders = this.orders.filter(o => o !== order);
+  //   this.showToast('Order verified! ✅')
+  // }
 
-  confirmVerification() {
-    if (this.currentOrderToVerify) {
-      this.verifiedOrders.push(this.currentOrderToVerify);
-      this.orders = this.orders.filter(o => o !== this.currentOrderToVerify);
-      this.currentOrderToVerify = null;
-      this.showToast('Order verified successfully! ✅');
-      const modalElement = document.getElementById('confirmModal');
-      if (modalElement) {
-        const modal = bootstrap.Modal.getInstance(modalElement);
-        modal?.hide();
-      }
-    }
-  }
+  // confirmVerification() {
+  //   if (this.currentOrderToVerify) {
+  //     // this.verifiedOrders.push(this.currentOrderToVerify);
+  //     this.orders = this.orders.filter(o => o !== this.currentOrderToVerify);
+  //     this.currentOrderToVerify = null;
+  //     this.showToast('Order verified successfully! ✅');
+  //     const modalElement = document.getElementById('confirmModal');
+  //     if (modalElement) {
+  //       const modal = bootstrap.Modal.getInstance(modalElement);
+  //       modal?.hide();
+  //     }
+  //   }
+  // }
 
-  openConfirmModal(order: any) {
-    this.currentOrderToVerify = order;
-    const modalElement = document.getElementById('confirmModal');
+  // openConfirmModal(order: any) {
+  //   this.currentOrderToVerify = order;
+  //   const modalElement = document.getElementById('confirmModal');
+  //   if (modalElement) {
+  //     const modal = new bootstrap.Modal(modalElement);
+  //     modal.show();
+  //   }
+  // }
+  openPayModal(order: any) {
+    this.currentOrderToPay = order;
+    const modalElement = document.getElementById('payModal');
     if (modalElement) {
       const modal = new bootstrap.Modal(modalElement);
       modal.show();
+    }
+  }
+  pay() {
+    if (this.currentOrderToPay) {
+      if (this.currentOrderToPay.paymentMethod == '') {
+        return;
+      }
+      if (this.currentOrderToPay.paymentMethod != 'Cash On Delivery') {
+        if (this.currentOrderToPay.accountNumber == '' || this.currentOrderToPay.trxId == '') {
+          return;
+        }
+      }
+      this.jerseyService.makePayment(this.currentOrderToPay).subscribe((v: any) => {
+        if(v==null){
+          this.showToast('Some thing went wrong! Contact the developer!');
+        }
+        console.log(v);
+        
+        const modalElement = document.getElementById('payModal');
+        if (modalElement) {
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          modal?.hide();
+        }
+        this.ngOnInit();
+        this.showToast('payment successfully! ✅');
+      })
+      // this.orders = this.orders.filter(o => o !== this.currentOrderToVerify);
+      // this.currentOrderToPay = null;
+
     }
   }
 

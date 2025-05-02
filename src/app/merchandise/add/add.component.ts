@@ -13,8 +13,8 @@ import { Router } from '@angular/router';
 })
 export class AddComponent {
   apiUrl = environment.apiUrl
-  constructor(private jerseyService: JerseyService,private filesService: FilesService, private router: Router) { }
-  images: {id: number, url: string}[] = []
+  constructor(private jerseyService: JerseyService, private filesService: FilesService, private router: Router) { }
+  images: { id: number, url: string }[] = []
 
   form = new FormGroup({
     title: new FormControl(''),
@@ -40,13 +40,17 @@ export class AddComponent {
     }
   }
   onSubmit() {
-    let jerseyData = {...this.form.value, imageIds: this.images.map(v => v.id)}
+    let jerseyData = { ...this.form.value, imageIds: this.images.map(v => v.id) }
     this.jerseyService.addJersey(jerseyData).subscribe((v: any) => {
-      console.log(v);
-      this.form.reset();
-      this.images = [];
-      this.router.navigate(['/merchandise']);
+      if (v == null) {
+        this.form.reset();
+        this.images = [];
+        this.router.navigate(['/merchandise']);
+      } else {
+        alert('Some thing went wrong! Contact the developer!')
+      }
+
     })
-   }
+  }
 
 }

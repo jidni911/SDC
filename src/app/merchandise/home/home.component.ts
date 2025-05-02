@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
 
   jerseys : Jersey[] = [];
 
-  isAdmin() {
+  isAdmin() {    
     return AppComponent.getRoles().find((v : any) => v.name == 'ROLE_ADMIN');
   }
 }
