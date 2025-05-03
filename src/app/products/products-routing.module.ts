@@ -21,7 +21,6 @@ const routes: Routes = [
   // { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: '', component: ProductHomeComponent, children: [
-
       { path: '', component: DashboardComponent },
       { path: 'pos', component: PosComponent },
       { path: 'sellsHistory', component: SellsHistoryComponent },
