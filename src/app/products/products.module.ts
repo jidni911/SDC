@@ -6,10 +6,7 @@ import { AllProductsComponent } from './all-products/all-products.component';
 import { AddProductsComponent } from './add-products/add-products.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-import { CartComponent } from './cart/cart.component';
-import { CheckoutComponent } from './checkout/checkout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SellerComponent } from './seller/seller.component';
 import { MemoComponent } from './memo/memo.component';
 import { ShopMemoComponent } from './shop-memo/shop-memo.component';
 import { AllMemoComponent } from './all-memo/all-memo.component';
@@ -21,6 +18,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderListComponent } from './orders/order-list/order-list.component';
 import { SharedModule } from '../shared/shared.module';
+import { InventoryComponent } from './inventory/inventory.component';
 
 
 @NgModule({
@@ -29,9 +27,6 @@ import { SharedModule } from '../shared/shared.module';
     AddProductsComponent,
     ProductCardComponent,
     ProductDetailsComponent,
-    CartComponent,
-    CheckoutComponent,
-    SellerComponent,
     MemoComponent,
     ShopMemoComponent,
     AllMemoComponent,
@@ -41,7 +36,8 @@ import { SharedModule } from '../shared/shared.module';
     SellsHistoryComponent,
     DashboardComponent,
     OrdersComponent,
-    OrderListComponent
+    OrderListComponent,
+    InventoryComponent
   ],
   imports: [
     CommonModule,

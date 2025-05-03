@@ -21,7 +21,7 @@
         <div class="card-body">
           <i class="bi bi-plus-circle fs-2 text-primary"></i>
           <h5 class="mt-2">Add New Product</h5>
-          <button class="btn btn-outline-primary mt-2">Add Product</button>
+          <button class="btn btn-outline-primary mt-2" [routerLink]="['/products/addProduct']">Add Product</button>
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
         <div class="card-body">
           <i class="bi bi-box-seam fs-2 text-primary"></i>
           <h5 class="mt-2">Manage Inventory</h5>
-          <button class="btn btn-outline-primary mt-2">Go to Inventory</button>
+          <button class="btn btn-outline-primary mt-2" [routerLink]="['/products/inventory']">Go to Inventory</button>
         </div>
       </div>
     </div>

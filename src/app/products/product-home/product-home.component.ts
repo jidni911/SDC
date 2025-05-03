@@ -26,6 +26,7 @@ export class ProductHomeComponent implements OnInit {
   links: Link[] = [
     { name: 'Dashboard', icon: 'bi bi-house-door', url: '/products', active: true },
     { name: 'Products', icon: 'bi bi-box', url: '/products/allProducts', active: true },
+    { name: 'Inventory', icon: 'bi bi-box-seam', url: '/products/inventory', active: true },
     { name: 'Orders', icon: 'bi bi-receipt', url: '/products/orders', active: true },
     { name: 'Customers', icon: 'bi bi-people', url: '/products/customers', active: false },
     { name: 'Reports', icon: 'bi bi-bar-chart', url: '/products/reports', active: false },

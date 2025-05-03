@@ -6,6 +6,9 @@ import { environment } from 'src/environment';
   providedIn: 'root'
 })
 export class MemoService {
+  getMemo(memoId: any) {
+    return this.http.get(this.api + '/' + memoId);
+  }
   printMemo(memo:any) {
     return this.http.post(this.api + '/print', memo, { responseType: 'blob' });
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OrdersService } from 'src/app/service/orders.service';
+import { MemoService } from 'src/app/service/memo.service';
 import { ProductsService } from 'src/app/service/products.service';
 import { environment } from 'src/environment';
 
@@ -12,31 +12,32 @@ import { environment } from 'src/environment';
 export class MemoComponent implements OnInit {
 
   apiUrl = environment.apiUrl;
-  orderitemId: any;
-  order: any;
-  orderItems: any[] = [];
+  memoId: any;
+  memo: any;
+  memoItems: any[] = [];
   suggestedProducts: any[] = [];
   serviceCharge: number = 50;
   deliveryCharge: number = 100;
   discount: number = 0;
 
-  constructor(private route: ActivatedRoute, private orderService: OrdersService, private productService: ProductsService) { }
+  constructor(private route: ActivatedRoute, private memoService: MemoService, private productService: ProductsService) { }
 
   ngOnInit(): void {
-    this.orderitemId = this.route.snapshot.paramMap.get('id');
-    console.log(this.orderitemId);
+    this.memoId = this.route.snapshot.paramMap.get('id');
+    console.log(this.memoId);
     
-    if (this.orderitemId) {
-      this.orderService.getMemo(this.orderitemId).subscribe((r: any) => {
-        this.orderItems = r;
-        this.order = r[0].order;
+    if (this.memoId) {
+      this.memoService.getMemo(this.memoId).subscribe((r: any) => {
         console.log(r);
+        
+        this.memo = r;
+        this.memoItems = r.memoItems;
       });
     }
   }
 
   getSubtotal(): number {
-    return this.orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    return this.memoItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 
   getTotal(): number {
@@ -44,7 +45,7 @@ export class MemoComponent implements OnInit {
   }
 
   removeItem(item: any): void {
-    this.orderItems = this.orderItems.filter(i => i !== item);
+    this.memoItems = this.memoItems.filter(i => i !== item);
   }
 
   suggestProduct(event: any): void {
@@ -61,23 +62,23 @@ export class MemoComponent implements OnInit {
   }
 
   addProduct(product: any): void {
-    this.orderItems.push({ product, price: product.discountPrice || product.price, quantity: 1 });
+    this.memoItems.push({ product, price: product.discountPrice || product.price, quantity: 1 });
     this.suggestedProducts = [];
   }
 
   confirmOrderAndPrint() {
-    this.orderService.confirmOrder(this.orderItems, this.serviceCharge, this.deliveryCharge, this.discount)
-      .subscribe((r: any) => {
-      const blob = new Blob([r], { type: 'text/html' });
-      const url = window.URL.createObjectURL(blob);
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.src = url;
-      document.body.appendChild(iframe);
-      iframe.contentWindow?.print();
-      window.URL.revokeObjectURL(url);
+    // this.orderService.confirmOrder(this.orderItems, this.serviceCharge, this.deliveryCharge, this.discount)
+    //   .subscribe((r: any) => {
+    //   const blob = new Blob([r], { type: 'text/html' });
+    //   const url = window.URL.createObjectURL(blob);
+    //   const iframe = document.createElement('iframe');
+    //   iframe.style.display = 'none';
+    //   iframe.src = url;
+    //   document.body.appendChild(iframe);
+    //   iframe.contentWindow?.print();
+    //   window.URL.revokeObjectURL(url);
 
-      });
+    //   });
 
   }
 }

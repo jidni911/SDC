@@ -1,0 +1,11 @@
+table th {
+    cursor: pointer;
+  }
+  
+  .modal {
+    display: block;
+  }
+  .modal.fade:not(.show) {
+    opacity: 0;
+  }
+  

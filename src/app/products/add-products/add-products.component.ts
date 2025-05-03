@@ -93,13 +93,8 @@ apiUrl = environment.apiUrl;
 
     if (file) {
       this.filesService.uploadImage(file).subscribe((res: any) => {
-
         const newUrl = environment.apiUrl + res.url;
-
-        setTimeout(() => {
-          this.mainImageUrl = newUrl; // Assign new reference
-        }, 1000); // Short delay to force UI refresh
-
+        this.mainImageUrl = newUrl; 
         this.mainImage = res.id;
         input.value = '';
       });
@@ -112,9 +107,7 @@ apiUrl = environment.apiUrl;
     if (files) {
       for (let i = 0; i < files.length; i++) {
         this.filesService.uploadImage(files[i]).subscribe((res: any) => {
-          setTimeout(() => {
-            this.galleryImages.push(res);
-          }, 1000);
+          this.galleryImages.push(res);
         });
       }
       input.value = '';
@@ -141,11 +134,23 @@ apiUrl = environment.apiUrl;
       origin: this.origin,
       features: this.features.split(',').map(feature => feature.trim()) // Convert features from string to array
     };
+    if(this.mainImage == ''){
+      alert("Main Image is required!");
+      return;
+    }
   
     this.productsService.createProduct(productData).subscribe((res: any) => {
       console.log(res);
-
-      this.router.navigateByUrl('/products'); // Uncomment if you want to navigate after adding the product
+      if(res==null){
+        alert("Something went wrong! Contact the developer!");
+        return;
+      }
+      const ask = confirm('Product added successfully! Do you want to add more products? (OK = yes, Cancel = go to dashboard)');
+      if (ask) {
+        window.location.reload();
+      } else {
+        this.router.navigateByUrl('/products');
+      }
     });
   }
   

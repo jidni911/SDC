@@ -1,14 +1,14 @@
-<div class="container mt-4" *ngIf="order && orderItems">
+<div class="container mt-4" *ngIf="memo && memoItems">
     <h2>Order Memo</h2>
     <div class="card p-3">
-        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Order ID:</strong> {{ memo.id }}</p>
         <h4>Customer Details</h4>
-        <p><strong>Name:</strong> {{ order.name }}</p>
-        <p><strong>Phone:</strong> {{ order.phoneNumber }}</p>
-        <p><strong>Email:</strong> {{ order.email }}</p>
-        <p><strong>Address:</strong> {{ order.address }}</p>
-        <p><strong>Payment Method:</strong> {{ order.paymentMethod }}</p>
-        <p><strong>Transaction ID:</strong> {{ order.transactionId }}</p>
+        <p><strong>Name:</strong> {{ memo.name }}</p>
+        <p><strong>Phone:</strong> {{ memo.phoneNumber }}</p>
+        <p><strong>Email:</strong> {{ memo.email }}</p>
+        <p><strong>Address:</strong> {{ memo.address }}</p>
+        <p><strong>Payment Method:</strong> {{ memo.paymentMethod }}</p>
+        <p><strong>Transaction ID:</strong> {{ memo.transactionId }}</p>
     </div>
 
     <div class="mt-4">
@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of orderItems">
+                <tr *ngFor="let item of memoItems">
 
                     <td style="display:flex; align-items:center;">
                         <a class="d-flex align-items-center text-decoration-none" routerLink="/products/productDetails/{{ item.product.id }}">

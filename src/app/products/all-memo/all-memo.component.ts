@@ -21,6 +21,8 @@ export class AllMemoComponent implements OnInit {
 
   clicked(memo: any) {
     this.selectedMemo = memo;
+    console.log(memo);
+    
     let modal  =  document.getElementById('modalId')
     if (modal) {
       // Show the modal using Bootstrap's modal method
@@ -35,7 +37,7 @@ export class AllMemoComponent implements OnInit {
   loadMemos(pageNumber: number): void {
     this.memoService.getAllMemo(pageNumber).subscribe((r: any) => {
       this.page = r;
-      this.allMemo = this.page.content;
+      this.allMemo = this.page.content;      
     })
   }
 

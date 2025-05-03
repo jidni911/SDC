@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
   metrics = [
-    { title: 'Total Sales', value: '$15,200', icon: 'bi bi-currency-dollar' },
+    { title: 'Total Sales', value: '$15,200', icon: 'bi bi-cash-coin' },
     { title: 'Products', value: '126', icon: 'bi bi-box' },
     { title: 'Orders', value: '340', icon: 'bi bi-receipt' },
     { title: 'Customers', value: '87', icon: 'bi bi-people' }

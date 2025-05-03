@@ -12,9 +12,7 @@ export class OrdersService {
   constructor(private http: HttpClient) { }
   private url = environment.apiUrl + '/order';
 
-  getMemo(orderitemId: any) {
-    return this.http.get(`${this.url}/memo/${orderitemId}`);
-  }
+ 
   getOrders() {
     return this.http.get(this.url);
   }
