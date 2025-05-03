@@ -1,0 +1,42 @@
+<div class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper" class="border-end" [class.toggled]="!isSidebarVisible">
+    <div class="sidebar-heading fw-bold p-3 border-bottom">Shop Admin</div>
+    <div class="list-group list-group-flush">
+
+      <a
+      *ngFor="let link of links"
+      routerLink="{{link.url}}"
+      class="list-group-item list-group-item-action"
+      [ngClass]="{'active': getCurrentRoute() === link.url,'disabled': !link.active}">
+      <i class="{{link.icon}} me-1"></i>
+      
+      {{link.name}}
+      <i class="bi bi-ban" *ngIf="!link.active"></i>
+    </a>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper" class="flex-grow-1 p-4">
+    <!-- Sidebar Toggle -->
+    <button class="btn btn-outline-secondary mb-3" (click)="toggleSidebar()">
+      <i class="bi bi-list"></i> Toggle Menu
+    </button>
+
+    <!-- POS / History Buttons -->
+
+    <div class="mb-4 text-end">
+
+
+      <button *ngFor="let quickAction of quickActions" class="btn me-2"
+        [class]="'btn-' + (getCurrentRoute() === quickAction.url ? '' : 'outline-') + quickAction.color"
+        routerLink="{{quickAction.url}}">
+        <i class="{{quickAction.icon}} me-1"></i>
+        {{quickAction.name}}
+      </button>
+    </div>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

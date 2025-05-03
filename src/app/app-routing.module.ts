@@ -46,6 +46,9 @@ const routes: Routes = [
     path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
   },
   {
+    path: 'shop', loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
+  },
+  {
     path: 'bikeMessenger', loadChildren: () => import('./bike-messenger/bike-messenger.module').then(m => m.BikeMessengerModule)
   },
   {

@@ -19,10 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DemoComponent } from './components/demo/demo.component';
 import { AuthInterceptor } from './interceptors/auth-interceptor.service';
 import { BikeMessengerComponent } from './bike-messenger/bike-messenger/bike-messenger.component';
-import { OrdersComponent } from './components/dashboard-seller/orders/orders.component';
 import { SharedModule } from './shared/shared.module';
-import { OrderListComponent } from './components/dashboard-seller/orders/order-list/order-list.component';
-import { MemoComponent } from './products/memo/memo.component';
+import { MemoComponent } from './products/memo/memo.component';//TODO check
 import { ChatComponent } from './componenets/chat/chat.component';
 import { MerchandiseModule } from './merchandise/merchandise.module';
 import { ContactComponent } from './components/intro/contact/contact.component';
@@ -44,8 +42,6 @@ import { ContactComponent } from './components/intro/contact/contact.component';
     BugReportComponent,
     DemoComponent,
     BikeMessengerComponent,
-    OrdersComponent,
-    OrderListComponent,
     ChatComponent,
     ContactComponent
   ],

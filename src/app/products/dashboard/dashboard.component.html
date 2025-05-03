@@ -1,0 +1,63 @@
+<!-- Dashboard Title -->
+<h2 class="mb-4 text-center">Shop Management Dashboard</h2>
+  
+<!-- Metric Cards -->
+<div class="row text-white mb-4">
+  <div class="col-md-3" *ngFor="let metric of metrics">
+    <div class="card text-bg-primary shadow mb-3">
+      <div class="card-body text-center">
+        <i [class]="metric.icon + ' display-5 mb-2'"></i>
+        <h5>{{ metric.title }}</h5>
+        <p class="fs-4">{{ metric.value }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-md-6 mb-3">
+      <div class="card shadow border-0 h-100 text-center">
+        <div class="card-body">
+          <i class="bi bi-plus-circle fs-2 text-primary"></i>
+          <h5 class="mt-2">Add New Product</h5>
+          <button class="btn btn-outline-primary mt-2">Add Product</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card shadow border-0 h-100 text-center">
+        <div class="card-body">
+          <i class="bi bi-box-seam fs-2 text-primary"></i>
+          <h5 class="mt-2">Manage Inventory</h5>
+          <button class="btn btn-outline-primary mt-2">Go to Inventory</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Recent Activity -->
+<div class="card shadow border-0">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">Recent Activity</h5>
+  </div>
+  <div class="card-body table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Action</th>
+          <th>User</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let act of recentActivity">
+          <td>{{ act.time }}</td>
+          <td><span class="badge bg-info">{{ act.action }}</span></td>
+          <td>{{ act.user }}</td>
+          <td>{{ act.details }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
