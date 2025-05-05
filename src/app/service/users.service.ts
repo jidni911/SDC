@@ -1,7 +1,9 @@
+// import { User } from 'dummy datas/users';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, retry, throwError } from 'rxjs';
+import { catchError, retry, Subject, throwError } from 'rxjs';
 import { environment } from 'src/environment';
+import { User } from '../model/user';
 
 
 @Injectable({
@@ -49,5 +51,11 @@ export class UsersService {
   }
 
  
+  private userSource = new Subject<User>();
+  userMessage = this.userSource.asObservable();
+
+  changeMessage(user: User) {
+    this.userSource.next(user);
+  }
 
 }
