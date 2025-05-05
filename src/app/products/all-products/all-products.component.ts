@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/model/user';
 import { CartService } from 'src/app/service/cart.service';
 import { ProductsService } from 'src/app/service/products.service';
+import { UsersService } from 'src/app/service/users.service';
 import { environment } from 'src/environment';
 
 @Component({
@@ -14,25 +16,29 @@ import { environment } from 'src/environment';
 
 
 export class AllProductsComponent implements OnInit {
-
+  user: User | null = null
   geturlof(path: any) {
     return environment.apiUrl + path;
   }
 
   isSeller(){
-    return AppComponent.getRoles().map((v : any) => v.name).includes('ROLE_SELLER')
+    return Array.from(this.user?.roles || []).map((v : any) => v.name).includes('ROLE_SELLER')
   }
 
   constructor(
     private productService: ProductsService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private usersService: UsersService
   ) { }
 
   ngOnInit(): void {
     this.loadProducts(0);
+    this.usersService.user.subscribe((res: User | null) => {
+      this.user = res
+    })
 
-    if (AppComponent.getUser()) {
+    if (this.user) {
       this.cartService.getCart().subscribe((res: any) => {
         this.cart = res;
 
@@ -50,7 +56,7 @@ export class AllProductsComponent implements OnInit {
   }
 
   addToCart(product: any) {
-    if (AppComponent.getUser()) {
+    if (this.user) {
       this.cartService.addToCart(product.id).subscribe((res: any) => {
         this.cart = res;
         this.cartItemIds = res.items.map((v: any) => { return v.product.id });

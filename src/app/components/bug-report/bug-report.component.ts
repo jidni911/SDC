@@ -1,7 +1,9 @@
+import { UsersService } from 'src/app/service/users.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/model/user';
 import { BugService } from 'src/app/service/bug.service';
 
 @Component({
@@ -10,8 +12,12 @@ import { BugService } from 'src/app/service/bug.service';
   styleUrls: ['./bug-report.component.scss']
 })
 export class BugReportComponent implements OnInit {
+  user : User | null = null
   ngOnInit(): void {
-    if (!AppComponent.getUser()) {
+    this.usersService.user.subscribe((res: User|null) => {
+      this.user = res
+    })
+    if (!this.user) {
       this.bugForm.patchValue({ submittedBy: null })
       this.bugService.getBugs().subscribe((v: any) => {
         console.log(v);
@@ -19,17 +25,17 @@ export class BugReportComponent implements OnInit {
         this.bugs = v.content;
       })
     } else {
-      this.bugForm.patchValue({ submittedBy: AppComponent.getUser().id })
+      this.bugForm.patchValue({ submittedBy: this.user.id })
       this.bugService.getBugs().subscribe((v: any) => {
         
         this.bugs = v.content;
       })
     }
   }
-  constructor(private router: Router, private bugService: BugService) { }
+  constructor(private router: Router, private bugService: BugService,private usersService: UsersService) { }
   isDeveloper(){
     
-    return AppComponent.getRoles().find((v : any) => v.name == 'ROLE_DEV')
+    return Array.from(this.user?.roles || []).find((v : any) => v.name == 'ROLE_DEV')
   }
   bugForm: FormGroup = new FormGroup({
     title: new FormControl(),

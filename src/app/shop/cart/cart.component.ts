@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
 import { CartService } from 'src/app/service/cart.service';
 import { ProductsService } from 'src/app/service/products.service';
 import { environment } from 'src/environment';
+import { UsersService } from 'src/app/service/users.service';
+import { User } from 'src/app/model/user';
 
 @Component({
   selector: 'app-cart',
@@ -12,12 +13,21 @@ import { environment } from 'src/environment';
 })
 export class CartComponent implements OnInit {
   selectedTotal: number = 0
+  user: User | null = null
 
 
-  constructor(private router: Router, private cartService: CartService, private ps: ProductsService) { }
+  constructor(
+    private router: Router,
+     private cartService: CartService, 
+     private ps: ProductsService,
+     private usersService: UsersService
+    ) { }
   ngOnInit(): void {
+    this.usersService.user.subscribe((res: User| null) => {
+          this.user = res
+        })
 
-    if (!AppComponent.getUser()) {
+    if (this.user == null) {
       this.router.navigateByUrl('/signin')
     }
     this.cartService.getCart().subscribe((r: any) => {

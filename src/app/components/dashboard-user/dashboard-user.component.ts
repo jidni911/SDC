@@ -1,6 +1,8 @@
+import { UsersService } from 'src/app/service/users.service';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/model/user';
 import { PostsService } from 'src/app/service/posts.service';
 import { ProductsService } from 'src/app/service/products.service';
 
@@ -14,7 +16,8 @@ export class DashboardUserComponent implements OnInit {
   constructor(
     private postService: PostsService,
      private productService: ProductsService,
-     private fb : FormBuilder
+     private fb : FormBuilder,
+     private usersService: UsersService
     ) {
     this.postForm = this.fb.group({
       content: ['', Validators.required],
@@ -25,6 +28,9 @@ export class DashboardUserComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.usersService.user.subscribe((res: User|null) => {
+      this.user = res
+    })
     this.productService.getProducts().subscribe((s:any)=>{
       this.products = s;
       this.postService.getPosts().subscribe((r: any) => {
@@ -33,7 +39,7 @@ export class DashboardUserComponent implements OnInit {
     })
   }
 
-  user : any = AppComponent.getUser()
+  user : User | null = null
   posts: any[] = [];
   products:any[] = []
 

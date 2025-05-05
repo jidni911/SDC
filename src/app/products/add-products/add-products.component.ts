@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { environment } from 'src/environment';
+import { User } from 'src/app/model/user';
 
 @Component({
   selector: 'app-add-products',
@@ -29,6 +30,8 @@ export class AddProductsComponent implements OnInit {
   origin = '';
   features = '';
 apiUrl = environment.apiUrl;
+
+  user: User | null = null;
 
   fillDemoData() {
     this.name = "Demo Product";
@@ -79,11 +82,14 @@ apiUrl = environment.apiUrl;
     private filesService: FilesService
   ) { }
   ngOnInit(): void {
-    if (!AppComponent.getUser()) {
+    this.usersService.user.subscribe((res: User|null) => {
+      this.user = res
+    })
+    if (!this.user) {
       this.router.navigateByUrl('/signin');
     }
-    let user = AppComponent.getUser();
-    this.logo = environment.apiUrl + user.profilePicture.url;//TODO sometimes, data is late
+
+    this.logo = environment.apiUrl + this.user?.profilePicture.url;//TODO sometimes, data is late
 
   }
 

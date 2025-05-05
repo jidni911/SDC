@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/model/user';
 import { CartService } from 'src/app/service/cart.service';
 import { OrdersService } from 'src/app/service/orders.service';
+import { UsersService } from 'src/app/service/users.service';
 import { environment } from 'src/environment';
 
 @Component({
@@ -12,18 +13,18 @@ import { environment } from 'src/environment';
 })
 export class CheckoutComponent implements OnInit {
   apiUrl = environment.apiUrl;
-  user :any = AppComponent.getUser()
+  user :User | null = null
 
 
   //Form Values
-  name = this.user.fullName;
-  phoneNumber = this.user.phoneNumber
-  userName = this.user.username;
-  email = this.user.email;
-  phone = this.user.phone;
-  address = this.user.address;
+  name = this.user?.fullName;
+  phoneNumber = this.user?.phoneNumber
+  userName = this.user?.username;
+  email = this.user?.email;
+  phone = this.user?.phoneNumber;
+  address = this.user?.address;
   paymentMethod = 'bkash'
-  paymentNumber = this.user.phoneNumber
+  paymentNumber = this.user?.phoneNumber
   transactionId = 'abcyzx'
   promoCode = ''
 
@@ -31,12 +32,15 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private cs: CartService,
     private orderS: OrdersService,
-    private router: Router
+    private router: Router,
+    private usersService: UsersService
   ) { }
   list: any[] = []
   cartItems: any[] = []
   ngOnInit(): void {
-
+    this.usersService.user.subscribe((res: User | null) => {
+      this.user = res
+    })
     this.router.url.split('?')[1].split('&').forEach((v) => {
       if (v.split('=')[0] === 'ids') {
         this.list = v.split('=')[1].split(',');

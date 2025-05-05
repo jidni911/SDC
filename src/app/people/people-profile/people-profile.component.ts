@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/model/user';
 import { UsersService } from 'src/app/service/users.service';
 import { environment } from 'src/environment';
 
@@ -10,10 +10,11 @@ import { environment } from 'src/environment';
   styleUrls: ['./people-profile.component.scss']
 })
 export class PeopleProfileComponent implements OnInit {
+  user: User | null = null
   peopleId!: any;
   constructor(private route: ActivatedRoute,private router: Router, private us : UsersService) { }
   ngOnInit(): void {
-    if(AppComponent.getUser()) {
+    if(this.user) {
       this.peopleId = this.route.snapshot.params['id'];
       this.us.getUser(this.peopleId).subscribe((r: any) => {
         this.person = r;

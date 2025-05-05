@@ -1,6 +1,5 @@
 import { Router } from '@angular/router';
 import { AfterViewInit, Component, HostListener } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
 import { AuthService } from 'src/app/service/auth.service';
 import { User } from 'src/app/model/user';
 import { UsersService } from 'src/app/service/users.service';
@@ -14,24 +13,24 @@ export class WebComponent implements AfterViewInit {
 
 
   constructor(private router: Router, private authService: AuthService, private usersService: UsersService) { }
+  user:User | null = null
   sign() {
-    if (AppComponent.getUser()) {
+    if (this.user) {
       this.authService.logout().subscribe((v: any) => {
         console.log(v);
+        this.router.navigateByUrl('/');
+        this.usersService.changeUser(null);
       });
-      AppComponent.removeUser();
-      this.router.navigateByUrl('/');
+      // AppComponent.removeUser();
     } else {
       this.router.navigateByUrl('/signin');
     }
   }
-  appComponent = AppComponent;
 
   isDev(): any {
-    return AppComponent.getRoles()?.find((v: any) => v.name == "ROLE_DEV")
+    return Array.from(this.user?.roles || []).find((v: any) => v.name === "ROLE_DEV");
   }
 
-  user:User | null = null
   getUser() {
     // return AppComponent.getUser()
     return this.user
@@ -60,7 +59,7 @@ export class WebComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.navbar = document.getElementById('mainNavbar');
-    this.usersService.getMySelf().subscribe((res: User) => {
+    this.usersService.user.subscribe((res: User|null) => {
       this.user = res
     })
   }

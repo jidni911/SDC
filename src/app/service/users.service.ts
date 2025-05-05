@@ -51,10 +51,10 @@ export class UsersService {
   }
 
  
-  private userSource = new Subject<User>();
+  private userSource = new Subject<User | null>();
   user = this.userSource.asObservable();
 
-  changeUser(user: User) {
+  changeUser(user: User | null) {
     this.userSource.next(user);
   }
 

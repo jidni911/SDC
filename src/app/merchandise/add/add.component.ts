@@ -5,6 +5,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
 import { environment } from 'src/environment';
 import { Router } from '@angular/router';
+import { User } from 'src/app/model/user';
+import { UsersService } from 'src/app/service/users.service';
 
 @Component({
   selector: 'app-add',
@@ -12,8 +14,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent {
+  user: User | null = null
   apiUrl = environment.apiUrl
-  constructor(private jerseyService: JerseyService, private filesService: FilesService, private router: Router) { }
+  constructor(
+    private jerseyService: JerseyService, 
+    private filesService: FilesService, 
+    private router: Router,
+    private usersService: UsersService
+  ) { }
   images: { id: number, url: string }[] = []
 
   form = new FormGroup({
@@ -28,7 +36,7 @@ export class AddComponent {
   });
 
   isAdmin() {
-    return AppComponent.getRoles().find((v: any) => v.name == 'ROLE_ADMIN');
+    return Array.from(this.user?.roles || []).find((v: any) => v.name == 'ROLE_ADMIN');
   }
   handleFileInput($event: Event) {
     const input = $event.target as HTMLInputElement;

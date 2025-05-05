@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/model/user';
+import { UsersService } from 'src/app/service/users.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,9 +11,11 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private usersService: UsersService) { }
   ngOnInit(): void {
-    this.user = AppComponent.getUser()
+    this.usersService.user.subscribe((res: User|null) => {
+          this.user = res
+        })
     if (this.user) {
       this.router.navigateByUrl('/dashboard/'+this.roles()[0]);
     } else {

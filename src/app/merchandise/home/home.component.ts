@@ -3,6 +3,8 @@ import { AppComponent } from 'src/app/app.component';
 import { Jersey } from './../model/jersey';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environment';
+import { User } from 'src/app/model/user';
+import { UsersService } from 'src/app/service/users.service';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +12,13 @@ import { environment } from 'src/environment';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  user: User | null = null
   apiUrl = environment.apiUrl
-  constructor(private jerseyService: JerseyService) { }
+  constructor(private jerseyService: JerseyService, private usersService: UsersService) { }
   ngOnInit(): void {
+    this.usersService.user.subscribe((res: User|null) => {
+      this.user = res
+    })
     this.jerseyService.getJerseys().subscribe((v: any) => {
       this.jerseys = v;
     })
@@ -23,6 +29,6 @@ export class HomeComponent implements OnInit {
   jerseys : Jersey[] = [];
 
   isAdmin() {    
-    return AppComponent.getRoles().find((v : any) => v.name == 'ROLE_ADMIN');
+    return Array.from(this.user?.roles || []).find((v : any) => v.name == 'ROLE_ADMIN');
   }
 }

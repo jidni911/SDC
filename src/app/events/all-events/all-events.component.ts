@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/model/user';
 import { EventsService } from 'src/app/service/events.service';
+import { UsersService } from 'src/app/service/users.service';
 import { environment } from 'src/environment';
 
 @Component({
@@ -11,10 +12,11 @@ import { environment } from 'src/environment';
 })
 export class AllEventsComponent implements OnInit {
   apiUrl = environment.apiUrl;
+  user : User | null = null
   isSeller(): any {
-    return AppComponent.getUser().roles.map((v: any) => { return v.name }).includes('ROLE_SELLER')
+    return Array.from(this.user?.roles || []).map((v: any) => { return v.name }).includes('ROLE_SELLER')
   }
-  constructor(private es: EventsService, private router: Router) { }
+  constructor(private es: EventsService, private router: Router, private usersService: UsersService) { }
   onEventClick(id: number) {
     this.router.navigateByUrl('/events/event/' + id);
   }
@@ -24,6 +26,9 @@ export class AllEventsComponent implements OnInit {
   pastEvents: any[] = []
 
   ngOnInit(): void {
+    this.usersService.user.subscribe((res: User|null) => {
+      this.user = res
+    })
     this.es.getEvents().subscribe((r: any) => {
       this.events = r.content     
 
@@ -56,9 +61,9 @@ export class AllEventsComponent implements OnInit {
     return eventEndTime;
   }
   filterMyEvents(v: any[]) {
-    if(AppComponent.getUser() == null) return []
+    if(this.user == null) return []
     return v.filter((value: any) => {
-      return value.organiser.id == AppComponent.getUser().id
+      return value.organiser.id == this.user?.id
     })
   }
 }

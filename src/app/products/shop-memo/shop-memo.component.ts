@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/model/user';
 import { MemoService } from 'src/app/service/memo.service';
 import { ProductsService } from 'src/app/service/products.service';
+import { UsersService } from 'src/app/service/users.service';
 import { environment } from 'src/environment';
 
 @Component({
@@ -11,18 +12,26 @@ import { environment } from 'src/environment';
   styleUrls: ['./shop-memo.component.scss']
 })
 export class ShopMemoComponent implements OnInit {
-  constructor(private memoService: MemoService, private productService: ProductsService, private router: Router) { }
-  user = AppComponent.getUser();
+  constructor(
+    private memoService: MemoService, 
+    private productService: ProductsService, 
+    private router: Router, 
+    private usersService: UsersService
+  ) { }
+  user :User | null = null
   apiUrl = environment.apiUrl
   buyer : any
   ngOnInit() { 
+    this.usersService.user.subscribe((res: User|null) => {
+      this.user = res
+    })
     this.memoService.nextMemoNumber().subscribe((res: any) => {
       this.memoNumber = res
     })
   }
   isSeller(): any {
     if (this.user) {
-      if (this.user.roles.map((v: any) => { return v.name }).includes('ROLE_SELLER') || this.user.roles.map((v: any) => { return v.name }).includes('ROLE_ADMIN')) {
+      if (Array.from(this.user.roles || []).map((v: any) => { return v.name }).includes('ROLE_SELLER') || Array.from(this.user.roles || []).map((v: any) => { return v.name }).includes('ROLE_ADMIN')) {
         return true
       }
     }

@@ -4,8 +4,9 @@ import { Jersey, Order, OrderItem, Size } from '../model/jersey';
 import { ActivatedRoute } from '@angular/router';
 import { JerseyService } from '../services/jersey.service';
 import { environment } from 'src/environment';
-import { AppComponent } from 'src/app/app.component';
 import * as bootstrap from 'bootstrap';
+import { User } from 'src/app/model/user';
+import { UsersService } from 'src/app/service/users.service';
 
 
 @Component({
@@ -14,7 +15,8 @@ import * as bootstrap from 'bootstrap';
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private jerseyService: JerseyService) { }
+  user: User | null = null
+  constructor(private route: ActivatedRoute, private jerseyService: JerseyService, private usersService: UsersService) { }
   apiUrl = environment.apiUrl
   id: number | null = null;
   jersey: Jersey | null = null;
@@ -48,6 +50,9 @@ export class OrderComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.usersService.user.subscribe((res: User|null) => {
+      this.user = res
+    })
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     if (this.id) {
       this.jerseyService.getJersey(this.id).subscribe((v: any) => {
@@ -55,15 +60,15 @@ export class OrderComponent implements OnInit {
         this.imageUrl = this.apiUrl + v.images[0].url;
       })
     }
-    if (AppComponent.getUser() == null) {
+    if (this.user == null) {
       this.currentOrder.name = '';
       this.currentOrder.phone = '';
       if (window.confirm('Please login first! 🎉')) {
         window.location.href = '/signin';
       }
     } else {
-      this.currentOrder.name = AppComponent.getUser().fullName;
-      this.currentOrder.phone = AppComponent.getUser().phoneNumber;
+      this.currentOrder.name = this.user.fullName;
+      this.currentOrder.phone = this.user.phoneNumber;
     }
   }
 
@@ -121,7 +126,7 @@ export class OrderComponent implements OnInit {
   }
 
   submitOrder() {
-    if (AppComponent.getUser() == null) {
+    if (this.user== null) {
       this.showToast('Please login first! 🎉', 'warning');
       return
     }

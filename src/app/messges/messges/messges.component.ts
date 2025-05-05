@@ -3,6 +3,8 @@ import { MessegeService } from './../../service/messege.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { Modal } from 'bootstrap';
+import { User } from 'src/app/model/user';
+import { UsersService } from 'src/app/service/users.service';
 
 @Component({
   selector: 'app-messges',
@@ -10,15 +12,19 @@ import { Modal } from 'bootstrap';
   styleUrls: ['./messges.component.scss']
 })
 export class MessgesComponent implements OnInit , OnDestroy{
+  user: User | null = null
   apiUrl = environment.apiUrl;
-  currentUserId = AppComponent.getUser().id
-  constructor(private messegeService: MessegeService) { }
+  currentUserId = this.user?.id
+  constructor(private messegeService: MessegeService, private usersService: UsersService) { }
   messeges: any[] = []
   interval: any = null;
   ngOnDestroy(): void {
     clearInterval(this.interval);
   }
   ngOnInit(): void {
+    this.usersService.user.subscribe((res: User|null) => {
+      this.user = res
+    })
     this.messegeService.getChats().subscribe((res: any) => {
       this.chats = res.content
       this.oldChats = this.chats

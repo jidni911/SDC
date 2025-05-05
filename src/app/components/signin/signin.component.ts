@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { AppComponent } from 'src/app/app.component';
+import { UsersService } from 'src/app/service/users.service';
 
 @Component({
   selector: 'app-signin',
@@ -25,7 +26,7 @@ export class SigninComponent implements OnInit {
       rememberMe: false
     })
   }
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private usersService: UsersService) { }
   signinForm: FormGroup = new FormGroup({
     username: new FormControl(),
     password: new FormControl(),
@@ -55,11 +56,11 @@ export class SigninComponent implements OnInit {
               if (this.signinForm.value.rememberMe) {
                 localStorage.setItem('user', JSON.stringify(v.user));
                 localStorage.setItem('token', v.jwtToken);
-                AppComponent.user = v.user
+                this.usersService.changeUser(v.user)
               } else {
                 sessionStorage.setItem('user', JSON.stringify(v.user));
                 sessionStorage.setItem('token', v.jwtToken);
-                AppComponent.user = v.user
+                this.usersService.changeUser(v.user)
               }
               // AppComponent.setUser(JSON.parse(json))
               // window.location.href="/intro";

@@ -1,7 +1,9 @@
 import { CommentService } from './../../service/comment.service';
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/model/user';
 import { PostsService } from 'src/app/service/posts.service';
+import { UsersService } from 'src/app/service/users.service';
 import { environment } from 'src/environment';
 
 @Component({
@@ -20,13 +22,17 @@ getProfilePic(c: any) {
   apiUrl = environment.apiUrl
   constructor(
     private postService: PostsService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private usersService: UsersService
   ) { }
   ngOnInit(): void {
+    this.usersService.user.subscribe((res: User|null) => {
+      this.user = res
+    })
     this.loadPosts(0);
   }
 
-  user: any = AppComponent.getUser()
+  user: User | null = null
   posts: any[] = [];
   products: any[] = []
   page: any;
