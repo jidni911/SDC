@@ -10,6 +10,9 @@ import { User } from '../model/user';
   providedIn: 'root'
 })
 export class UsersService {
+  
+  constructor(private http: HttpClient) { }
+  private url = environment.apiUrl + '/user';
   getMySelf(): any {
     return this.http.get(this.url + '/me');
   }
@@ -28,9 +31,6 @@ export class UsersService {
   getProfilePictureOf(userId: any) {
     return this.http.get(this.url +  '/getProfilePictureOf' + '/' + userId );
   }
-  
-  constructor(private http: HttpClient) { }
-  private url = environment.apiUrl + '/user';
   
   getUsers() {
     return this.http.get(this.url);
@@ -52,9 +52,9 @@ export class UsersService {
 
  
   private userSource = new Subject<User>();
-  userMessage = this.userSource.asObservable();
+  user = this.userSource.asObservable();
 
-  changeMessage(user: User) {
+  changeUser(user: User) {
     this.userSource.next(user);
   }
 

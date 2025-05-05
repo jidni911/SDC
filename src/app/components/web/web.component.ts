@@ -2,6 +2,8 @@ import { Router } from '@angular/router';
 import { AfterViewInit, Component, HostListener } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { AuthService } from 'src/app/service/auth.service';
+import { User } from 'src/app/model/user';
+import { UsersService } from 'src/app/service/users.service';
 
 @Component({
   selector: 'app-web',
@@ -11,7 +13,7 @@ import { AuthService } from 'src/app/service/auth.service';
 export class WebComponent implements AfterViewInit {  
 
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private usersService: UsersService) { }
   sign() {
     if (AppComponent.getUser()) {
       this.authService.logout().subscribe((v: any) => {
@@ -28,8 +30,11 @@ export class WebComponent implements AfterViewInit {
   isDev(): any {
     return AppComponent.getRoles()?.find((v: any) => v.name == "ROLE_DEV")
   }
+
+  user:User | null = null
   getUser() {
-    return AppComponent.getUser()
+    // return AppComponent.getUser()
+    return this.user
   }
 
   toggleTheme(){
@@ -55,6 +60,9 @@ export class WebComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.navbar = document.getElementById('mainNavbar');
+    this.usersService.getMySelf().subscribe((res: User) => {
+      this.user = res
+    })
   }
 
   @HostListener('window:scroll', [])

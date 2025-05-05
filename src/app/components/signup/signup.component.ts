@@ -1,4 +1,3 @@
-import { User } from './../../../../dummy datas/users';
 import { AuthService } from 'src/app/service/auth.service';
 import { UsersService } from './../../service/users.service';
 import { Component, OnInit } from '@angular/core';
