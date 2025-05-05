@@ -1,7 +1,7 @@
 // import { User } from 'dummy datas/users';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, retry, Subject, throwError } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environment';
 import { User } from '../model/user';
 
@@ -51,7 +51,7 @@ export class UsersService {
   }
 
  
-  private userSource = new Subject<User | null>();
+  private userSource = new BehaviorSubject<User | null>(null); 
   user = this.userSource.asObservable();
 
   changeUser(user: User | null) {

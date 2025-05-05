@@ -2,7 +2,6 @@ import { UsersService } from 'src/app/service/users.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
 import { User } from 'src/app/model/user';
 import { BugService } from 'src/app/service/bug.service';
 
@@ -12,40 +11,46 @@ import { BugService } from 'src/app/service/bug.service';
   styleUrls: ['./bug-report.component.scss']
 })
 export class BugReportComponent implements OnInit {
-  user : User | null = null
-  ngOnInit(): void {
-    this.usersService.user.subscribe((res: User|null) => {
-      this.user = res
-    })
-    if (!this.user) {
-      this.bugForm.patchValue({ submittedBy: null })
-      this.bugService.getBugs().subscribe((v: any) => {
-        console.log(v);
-        
-        this.bugs = v.content;
-      })
-    } else {
-      this.bugForm.patchValue({ submittedBy: this.user.id })
-      this.bugService.getBugs().subscribe((v: any) => {
-        
-        this.bugs = v.content;
-      })
-    }
-  }
-  constructor(private router: Router, private bugService: BugService,private usersService: UsersService) { }
-  isDeveloper(){
-    
-    return Array.from(this.user?.roles || []).find((v : any) => v.name == 'ROLE_DEV')
-  }
+  user: User | null = null
   bugForm: FormGroup = new FormGroup({
     title: new FormControl(),
     description: new FormControl(),
     severity: new FormControl(),
     steps: new FormControl(),
-    isSolved: new FormControl(false)
-  })
+    isSolved: new FormControl(false),
+
+  });
+  
+  showBugs = false;
+  bugs: any[] = [];
+  constructor(
+    private router: Router,
+    private bugService: BugService,
+    private usersService: UsersService
+  ) { }
+
+  ngOnInit(): void {
+    this.usersService.user.subscribe((res: User | null) => {
+      this.user = res
+    })
+
+    this.bugService.getBugs().subscribe((v: any) => {
+
+      this.bugs = v.content;
+    })
+  }
+  isDeveloper() {
+
+    return Array.from(this.user?.roles || []).find((v: any) => v.name == 'ROLE_DEV')
+  }
+  
 
   onSubmit() {
+    if (!this.user) {
+      this.bugForm.patchValue({ submittedBy: null })
+    } else {
+      this.bugForm.patchValue({ submittedBy: this.user.id })
+    }
     if (this.bugForm.valid) {
       this.bugService.createBug(this.bugForm.value).subscribe(response => {
         console.log('Bug report submitted successfully', response);
@@ -59,9 +64,7 @@ export class BugReportComponent implements OnInit {
     }
   }
 
-  showBugs = false;
-  bugs: any[] = [];
-  selectedBug : any = {
+  selectedBug: any = {
     id: "d4b5",
     title: "Role Selection",
     description: "When role is modified, it doesnt change",
@@ -69,21 +72,21 @@ export class BugReportComponent implements OnInit {
     steps: "Click on the nav bar",
     isSolved: false
   }
-  load(bug:any){
+  load(bug: any) {
     this.selectedBug = bug;
   }
-  solve(bug:any){
+  solve(bug: any) {
     bug.isSolved = true;
     // console.log(bug);
 
-    this.bugService.updateBug(bug.id,bug).subscribe((r)=>{
+    this.bugService.updateBug(bug.id, bug).subscribe((r) => {
       console.log(r);
 
       this.ngOnInit()
     })
   }
-  delete(bug:any){
-    this.bugService.deleteBug(bug.id).subscribe((r:any)=>{
+  delete(bug: any) {
+    this.bugService.deleteBug(bug.id).subscribe((r: any) => {
       this.ngOnInit()
     })
   }

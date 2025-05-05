@@ -27,6 +27,7 @@ const routes: Routes = [
   {
     path: 'dashboard', component: DashboardComponent,
     children: [
+      { path: '', redirectTo: 'ROLE_USER', pathMatch: 'full' },
       { path: 'ROLE_ADMIN', component: DashboardAdminComponent },
       { path: 'ROLE_DEV', component: DashboardDeveloperComponent },
       { path: 'ROLE_SELLER', component: DashboardSellerComponent },

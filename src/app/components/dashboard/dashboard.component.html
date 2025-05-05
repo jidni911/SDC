@@ -1,8 +1,14 @@
-<nav class="navbar navbar-expand navbar-light  nav-tabs pb-0" >
-    <div class="nav navbar-nav ms-auto">
-        <a class="nav-item nav-link" [ngClass]="{active: roles()[0]==role}" data-bs-toggle="tab" *ngFor="let role of roles()" routerLink="/dashboard/{{role}}" >{{role}} </a>
-    </div>
-</nav>
-
-
-<router-outlet></router-outlet>
+{{user==null}}
+<div *ngIf="user;else templateName">
+    <nav class="navbar navbar-expand navbar-light  nav-tabs pb-0" >
+        <div class="nav navbar-nav ms-auto">
+            <a class="nav-item nav-link" [ngClass]="{active: getCurrentRoute() == '/dashboard/'+role.name}" data-bs-toggle="tab" *ngFor="let role of roles()" routerLink="/dashboard/{{role.name}}" >{{role.name}} </a>
+        </div>
+    </nav>
+    
+    
+    <router-outlet></router-outlet>
+</div>
+<ng-template #templateName>
+    <app-signin></app-signin>
+</ng-template>
