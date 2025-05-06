@@ -15,16 +15,7 @@ export class WebComponent implements AfterViewInit {
   constructor(private router: Router, private authService: AuthService, private usersService: UsersService) { }
   user:User | null = null
   sign() {
-    if (this.user) {
-      this.authService.logout().subscribe((v: any) => {
-        console.log(v);
-        this.router.navigateByUrl('/');
-        this.usersService.changeUser(null);
-      });
-      // AppComponent.removeUser();
-    } else {
-      this.router.navigateByUrl('/signin');
-    }
+    this.router.navigateByUrl('/auth');
   }
 
   isDev(): any {

@@ -1,0 +1,26 @@
+
+  
+  .signup-card {
+    border: none;
+    max-width: 800px;
+  }
+  
+  .signup-graphic {
+    background: linear-gradient(135deg, #00bfff 0%, #006cad 100%);
+    // color: white;
+  }
+  
+  .input-icon {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: #6c757d;
+    pointer-events: none;
+  }
+  
+  /* Ensure the form input has space for the icon */
+  .form-control.ps-5 {
+    padding-left: 3rem !important;
+  }
+  

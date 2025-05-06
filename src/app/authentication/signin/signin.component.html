@@ -49,10 +49,13 @@
                             <small class="text-muted">-- {{ userInfo.username }}</small>
                         </div>
                         <form (ngSubmit)="login()">
-                            <div class="mb-3">
-                                <label class="form-label">Password</label>
-                                <input type="password" class="form-control" [(ngModel)]="password" name="password"
+                            <label class="form-label">Password</label>
+                            <div class="mb-3 input-group">
+                                <input [type]="showPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="password" name="password"
                                     required placeholder="Enter your password" />
+                                <span class="input-group-text" (click)="showPassword = !showPassword">
+                                    <i class="bi" [ngClass]="{'bi-eye': !showPassword, 'bi-eye-slash': showPassword}"></i>
+                                </span>
                             </div>
                             <button class="btn btn-success w-100" [disabled]="loading">
                                 {{ loading ? 'Signing in...' : 'Login' }}
@@ -132,7 +135,7 @@
 
 <div *ngIf="user" class="text-center w-100 ">
     <div class="card text-center mx-auto" style="max-width: 18rem;">
-        <img class="card-img-top mx-auto d-block" [src]="user.profilePicture ? apiUrl+ user.profilePicture.url : 'assets/logo/logo2.png'" alt="Title" />
+        <img class="card-img-top mx-auto d-block p-3" [src]="userImageUrl" alt="Title" />
         <div class="card-body">
             <h4 class="card-title">{{user.fullName}}</h4>
             <p class="card-text">{{user.username}}</p>

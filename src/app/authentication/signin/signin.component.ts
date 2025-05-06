@@ -11,17 +11,22 @@ import { environment } from 'src/environment';
 })
 export class SigninComponent implements OnInit {
   user: User | null = null;
-  identifier = '';
-  password = '';
+  userImageUrl = 'https://i.pravatar.cc/150?img=3';
+  identifier = 'demoUser';
+  password = 'Demo@1234';
   userFetched: boolean | null = null;
   loading = false;
   rememberMe = false;//TODO try it, try music
+  showPassword = false;
   userInfo = { username: '', fullName: '', profilePicture: '' };
   apiUrl = environment.apiUrl
   constructor(private authService: AuthService, private usersService: UsersService) { }
   ngOnInit(): void {
     this.usersService.user.subscribe((r: User | null) => {
-      this.user = r
+      this.user = r;
+      if (r) {
+        this.userImageUrl = r.profilePicture.url ? this.apiUrl + r.profilePicture.url : 'https://i.pravatar.cc/150?img=3';
+      }
     })
   }
 
