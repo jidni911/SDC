@@ -16,7 +16,7 @@ export class SigninComponent implements OnInit {
   password = 'Demo@1234';
   userFetched: boolean | null = null;
   loading = false;
-  rememberMe = false;//TODO try it, try music
+  rememberMe = true;//TODO try it, try music
   showPassword = false;
   userInfo = { username: '', fullName: '', profilePicture: '' };
   apiUrl = environment.apiUrl
