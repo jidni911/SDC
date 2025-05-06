@@ -24,6 +24,8 @@ import { MemoComponent } from './products/memo/memo.component';//TODO check
 import { ChatComponent } from './componenets/chat/chat.component';
 import { MerchandiseModule } from './merchandise/merchandise.module';
 import { ContactComponent } from './components/intro/contact/contact.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import { ContactComponent } from './components/intro/contact/contact.component';
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
-    MerchandiseModule
+    MerchandiseModule,
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

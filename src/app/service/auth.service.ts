@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environment';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +25,10 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     return this.http.post(`${this.apiUrl}/signout`, {});
   }
 
-  // isLoggedIn() {
-  //   const token = this.getToken();
-  //   return token && !this.jwtHelper.isTokenExpired(token);
-  // }
 
   checkEmailAvailability(email: any) {
     return this.http.get(this.apiUrl + '/checkEmailAvailability?email=' + email);
@@ -39,7 +37,8 @@ export class AuthService {
     return this.http.get(this.apiUrl + '/checkUsernameAvailability?username=' + username);
   }
 
-  getAllUsernames(){
-    return this.http.get(this.apiUrl + '/allUserNames');
+  getUserByIdentifier(identifier: string) : Observable<User> {
+    return this.http.get<User>(this.apiUrl + '/getUserByIdentifier?identifier=' + identifier);
   }
+ 
 }

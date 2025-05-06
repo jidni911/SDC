@@ -13,10 +13,7 @@ export class SigninComponent implements OnInit {
   usernames : any[] = []
   messege = "Waiting for submit button click";
   ngOnInit(): void {
-    this.authService.getAllUsernames().subscribe((r:any)=>{
-      this.usernames = r;
-      
-    })
+  
 
     this.signinForm.setValue({
       // email: '',
