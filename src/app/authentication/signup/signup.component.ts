@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as bootstrap from 'bootstrap';
 import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
@@ -9,204 +7,303 @@ import { AuthService } from 'src/app/service/auth.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent  implements OnInit {
+export class SignupComponent implements OnInit {
+  currentStep: number = 1;
+  progress: number = 0;
+  emailVerificationCode: string = '';
 
 
-  constructor(private authService: AuthService, private router: Router) { }
-  ngOnInit(): void {
-    this.signupForm.setValue({
-      fullName: '',
-      username: '',
-      email: '',
-      password: '',
-      retypePassword: '',
-      gender: '',
-      dob: '',
-      phoneNumber: '',
-      address: '',
-      profilePicture: ''
-    })
-    this.fullNameState = "";
-    this.usernameState = "";
-    this.emailState = "";
-    this.passwordState = "";
-    this.retypePasswordState = "";
-    this.genderState = "";
-    this.dobState = "";
-    this.phoneNumberState = "";
-    this.addressState = "";
-    this.profilePictureState = "";
-    this.messege = "Waiting for submit button click";
+  signUpObj = {
+    fullName: '',
+    username: '',
+    email: '',
+    phoneNumber: '',
+    address: '',
+    dob: '',
+    gender: '',
+    password: '',
+    retypePassword: ''
   }
-  signupForm: FormGroup = new FormGroup({
-    fullName: new FormControl(''),
-    username: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    retypePassword: new FormControl(''),
-    gender: new FormControl(''),
-    dob: new FormControl(''),
-    phoneNumber: new FormControl(''),
-    address: new FormControl(''),
-    profilePicture: new FormControl()
-  });
-  fullNameState = "";
-  usernameState = "";
-  emailState = "";
-  passwordState = "";
-  retypePasswordState = "";
-  genderState = "";
-  dobState = "";
-  phoneNumberState = "";
-  addressState = "";
-  profilePictureState = "";
-  messege = "Waiting for submit button click"
+
+  signUpObjState = {
+    fullName: null as boolean | null,
+    username: null as boolean | null,
+    email: null as boolean | null,
+    phoneNumber: null as boolean | null,
+    address: null as boolean | null,
+    dob: null as boolean | null,
+    gender: null as boolean | null,
+    password: null as boolean | null,
+    retypePassword: null as boolean | null
+  }
+
+  signUpObjError = {
+    fullName: '',
+    username: '',
+    email: '',
+    phoneNumber: '',
+    address: '',
+    dob: '',
+    gender: '',
+    password: '',
+    retypePassword: ''
+  }
+
+  constructor(
+    // private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    // this.signupForm = this.fb.group({
+    //   fullName: ['', [Validators.required]],
+    //   username: ['', [Validators.required, Validators.minLength(5)]],
+    //   email: ['', [Validators.required, Validators.email]],
+    //   phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10,}$/)]],
+    //   address: ['', [Validators.required, Validators.minLength(10)]],
+    //   dob: ['', [Validators.required]],
+    //   gender: ['', [Validators.required]],
+    //   password: [
+    //     '',
+    //     [
+    //       Validators.required,
+    //       Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
+    //     ]
+    //   ],
+    //   retypePassword: ['', [Validators.required]]
+    // });
+
+    this.updateProgress();
+  }
+
+
+  nextStep(): void {
+    if (this.isCurrentStepValid()) {
+      this.currentStep++;
+      this.updateProgress();
+    } else {
+
+    }
+  }
+
+  prevStep(): void {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+      this.updateProgress();
+    }
+  }
+
+  updateProgress(): void {
+    const totalSteps = 3;
+    this.progress = (this.currentStep / totalSteps) * 100;
+  }
+
+  isCurrentStepValid(): boolean {
+
+    if (this.currentStep === 1) {
+      if (this.signUpObjState.fullName && this.signUpObjState.username && this.signUpObjState.email) {
+        return true;
+      }
+
+    } else if (this.currentStep === 2) {
+      if (this.signUpObjState.phoneNumber && this.signUpObjState.address && this.signUpObjState.dob) {
+        return true;
+      }
+    } else if (this.currentStep === 3) {
+      if (this.signUpObjState.gender && this.signUpObjState.password && this.signUpObjState.retypePassword) {
+        return true;
+      }
+    }
+    return false;
+
+  }
+
+  fullNameChange() {
+    const fullName = this.signUpObj.fullName;
+    if (fullName == "") {
+      this.signUpObjError.fullName = '';
+      this.signUpObjState.fullName = null;
+      return
+    }
+    if (fullName.length >= 3) {
+      this.signUpObjError.fullName = '';
+      this.signUpObjState.fullName = true;
+    } else {
+      this.signUpObjError.fullName = 'At least 3 characters';
+      this.signUpObjState.fullName = false;
+    }
+
+  }
 
   checkUsernameAvailability() {
-    if (this.signupForm.value.username.length >= 5) {
-      this.authService.checkUsernameAvailability(this.signupForm.value.username).subscribe((r: any) => {
-        if (r) {
-          this.usernameState = "is-valid"
+    const username = this.signUpObj.username;
+    if (username.length >= 5) {
+      this.authService.checkUsernameAvailability(username).subscribe((available) => {
+
+        if (!available) {
+          this.signUpObjError.username = 'This username is already taken.';
+          this.signUpObjState.username = false;
         } else {
-          this.usernameState = "is-invalid"
+          this.signUpObjError.username = '';
+          this.signUpObjState.username = true;
         }
-      })
+
+      });
+    } else if (username == "") {
+      this.signUpObjError.username = '';
+      this.signUpObjState.username = null;
     } else {
-      this.usernameState = "is-invalid"
+      this.signUpObjError.username = 'At least 5 characters';
+      this.signUpObjState.username = false;
     }
   }
 
   checkEmailAvailability() {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (emailPattern.test(this.signupForm.value.email)) {
-      this.authService.checkEmailAvailability(this.signupForm.value.email).subscribe((r: any) => {
-        if (r) {
-          this.emailState = "is-valid"
+    const email = this.signUpObj.email;
+    if (email == "") {
+      this.signUpObjError.email = '';
+      this.signUpObjState.email = null;
+      return
+    }
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (emailRegex.test(email)) {
+      this.authService.checkEmailAvailability(email).subscribe((available) => {
+        if (!available) {
+          this.signUpObjError.email = 'This email is already taken.';
+          this.signUpObjState.email = false;
         } else {
-          this.emailState = "is-invalid"
+          this.signUpObjError.email = '';
+          this.signUpObjState.email = true;
         }
-      })
-    }
-  }
-
-  onSubmit() {
-    this.messege = "checking input, please wait..."
-    let flag = true;
-    if (this.signupForm.value.username.length < 3) {
-      flag = false;
-      this.usernameState = "is-invalid"
-    } else {
-      this.usernameState = "is-valid"
-    }
-    if (!/^\d{10,}$/.test(this.signupForm.value.phoneNumber)) {
-      flag = false;
-      this.phoneNumberState = "is-invalid"
-    } else {
-      this.phoneNumberState = "is-valid"
-    }
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailPattern.test(this.signupForm.value.email)) {
-      flag = false;
-      this.emailState = "is-invalid"
-    } else {
-      this.emailState = "is-valid"
-    }
-    if (this.signupForm.value.address.length < 10) {
-      flag = false;
-      this.addressState = "is-invalid"
-    } else {
-      this.addressState = "is-valid"
-    }
-    const dob = new Date(this.signupForm.value.dob);
-    const today = new Date();
-    let age = today.getFullYear() - dob.getFullYear();
-    const monthDifference = today.getMonth() - dob.getMonth();
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dob.getDate())) {
-      age--;
-    }
-    if (isNaN(dob.getTime()) || age < 10) {
-      flag = false;
-      this.dobState = "is-invalid";
-    } else {
-      this.dobState = "is-valid";
-    }
-    const validGenders = ['MALE', 'FEMALE', 'NOT_SPECIFIED'];
-    if (!validGenders.includes(this.signupForm.value.gender)) {
-      flag = false;
-      this.genderState = "is-invalid";
-    } else {
-      this.genderState = "is-valid";
-    }
-    const password = this.signupForm.value.password;
-    const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!passwordPattern.test(password)) {
-      flag = false;
-      this.passwordState = "is-invalid";
-    } else {
-      this.passwordState = "is-valid";
-    }
-    if (this.signupForm.value.password !== this.signupForm.value.retypePassword) {
-      flag = false;
-      this.retypePasswordState = "is-invalid"
-    } else {
-      this.retypePasswordState = "is-valid"
-    }
-
-    if (flag) {
-      this.messege = "all data looks valid. trying to modify and submit"
-      this.authService.signup(this.signupForm.value).subscribe((data: any) => {
-        this.messege = "submitted successfully redirecting to log in page"
-        document.getElementById('modalId')?.addEventListener('hidden.bs.modal', () => {
-          this.router.navigateByUrl('/signin');
-        });
-
-        const modalElement: any = document.getElementById('modalId');
-        const bootstrapModal = bootstrap.Modal.getInstance(modalElement);
-        bootstrapModal?.hide();
-        // 🔥 Remove the remaining backdrop manually
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-          backdrop.remove();
-        }
-
-        // 🔥 Also remove "modal-open" class from body to prevent scroll issues
-        document.body.classList.remove('modal-open');
-
-        this.router.navigateByUrl('/signin')
       });
     } else {
-      this.messege = "some data wasnt standand. check again"
+      this.signUpObjError.email = 'Invalid email';
+      this.signUpObjState.email = false;
     }
   }
 
-
-  onReset() {
-    this.ngOnInit()
+  checkPhoneNumberAvailability() {
+    const phoneNumber = this.signUpObj.phoneNumber;
+    if (phoneNumber == "") {
+      this.signUpObjError.phoneNumber = '';
+      this.signUpObjState.phoneNumber = null;
+      return
+    }
+    if (phoneNumber.length >= 11 && phoneNumber.length <= 14) {
+      this.signUpObjError.phoneNumber = '';
+      this.signUpObjState.phoneNumber = true;
+    } else {
+      this.signUpObjError.phoneNumber = 'Valid phone number required.';
+      this.signUpObjState.phoneNumber = false;
+    }
   }
-  fillDemoData() {
-    // this.populateDatabase()
-    this.signupForm.setValue({
-      fullName: 'Demo User',
-      username: 'demoUser',
-      email: 'demo@example.com',
-      password: 'Demo@1234',
-      retypePassword: 'Demo@1234',
-      gender: 'MALE',
-      dob: '2000-01-01',
-      phoneNumber: '1234567890',
-      address: '123 Demo Street, Demo City',
-      profilePicture: ''
+
+  checkAddressAvailability() {
+    const address = this.signUpObj.address;
+    if (address == "") {
+      this.signUpObjError.address = '';
+      this.signUpObjState.address = null;
+      return
+    }
+    if (address.length >= 10) {
+      this.signUpObjError.address = '';
+      this.signUpObjState.address = true;
+    } else {
+      this.signUpObjError.address = 'Minimum 10 characters.';
+      this.signUpObjState.address = false;
+    }
+  }
+
+  checkDobAvailability() {
+    const dob = this.signUpObj.dob;
+    if (dob == "") {
+      this.signUpObjError.dob = '';
+      this.signUpObjState.dob = null;
+      return
+    }
+    const today = new Date();
+    const birthDate = new Date(dob);
+    const age = today.getFullYear() - birthDate.getFullYear();
+    if (age >= 10) {
+      this.signUpObjError.dob = '';
+      this.signUpObjState.dob = true;
+    } else {
+      this.signUpObjError.dob = 'You must be at least 10 years old.';
+      this.signUpObjState.dob = false;
+    }
+  }
+
+  checkGenderAvailability() {
+    const gender = this.signUpObj.gender;
+    if (gender == "") {
+      this.signUpObjError.gender = '';
+      this.signUpObjState.gender = null;
+      return
+    }
+    if (gender) {
+      this.signUpObjError.gender = '';
+      this.signUpObjState.gender = true;
+    } else {
+      this.signUpObjError.gender = 'Please select a gender.';
+      this.signUpObjState.gender = false;
+    }
+  }
+
+  checkPasswordAvailability() {
+    const password = this.signUpObj.password;
+    if (password == "") {
+      this.signUpObjError.password = '';
+      this.signUpObjState.password = null;
+      return
+    }
+    if (password.length >= 8) {
+      this.signUpObjError.password = '';
+      this.signUpObjState.password = true;
+    } else {
+      this.signUpObjError.password = 'Minimum 8 characters.';
+      this.signUpObjState.password = false;
+    }
+  }
+
+  checkRetypePasswordAvailability() {
+    const password = this.signUpObj.password;
+    const retypePassword = this.signUpObj.retypePassword;
+    if (retypePassword == "") {
+      this.signUpObjError.retypePassword = '';
+      this.signUpObjState.retypePassword = null;
+      return
+    }
+    if (password === retypePassword) {
+      this.signUpObjError.retypePassword = '';
+      this.signUpObjState.retypePassword = true;
+    } else {
+      this.signUpObjError.retypePassword = 'Passwords do not match.';
+      this.signUpObjState.retypePassword = false;
+    }
+  }
+
+  onSubmit(): void {
+    if (!this.isCurrentStepValid()) {
+      return;
+    }
+
+    this.authService.signup(this.signUpObj).subscribe((v:boolean) => {
+      if (v) {
+        this.currentStep = 4;
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
     });
   }
-
-  // populateDatabase() {
-  //    let users = new User().data
-  //    console.log(users.length);
-  //    users.forEach(user => {
-  //     // this.authService.signup(user).subscribe()
-  //    });
-
-  // }
-
-
+  verifyEmail(){
+    this.authService.verifyEmail(this.signUpObj.email, this.emailVerificationCode.trim()).subscribe((v:boolean) => {
+      if (v) {
+        this.currentStep = 1;
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    });
+  }
 }
+

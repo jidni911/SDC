@@ -7,8 +7,6 @@ import { AppComponent } from './app.component';
 import { WebComponent } from './components/web/web.component';
 import { IntroComponent } from './components/intro/intro.component';
 // import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { ResetpassComponent } from './components/resetpass/resetpass.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
 import { DashboardDeveloperComponent } from './components/dashboard-developer/dashboard-developer.component';
@@ -24,7 +22,6 @@ import { MemoComponent } from './products/memo/memo.component';//TODO check
 import { ChatComponent } from './componenets/chat/chat.component';
 import { MerchandiseModule } from './merchandise/merchandise.module';
 import { ContactComponent } from './components/intro/contact/contact.component';
-import { SigninComponent } from './authentication/signin/signin.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -36,8 +33,6 @@ import { AuthenticationModule } from './authentication/authentication.module';
     WebComponent,
     IntroComponent,
     // SigninComponent,
-    SignupComponent,
-    ResetpassComponent,
     DashboardComponent,
     DashboardAdminComponent,
     DashboardDeveloperComponent,

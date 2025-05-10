@@ -1,203 +1,146 @@
-<div class=" min-vh-100 d-flex align-items-center justify-content-center">
-    <div class="card signup-card shadow-lg overflow-hidden">
-      <div class="row g-0">
-        <!-- Illustration / Branding (Right on desktop, Top on mobile) -->
-        <div class="col-lg-5 signup-graphic d-none d-lg-flex align-items-center justify-content-center bg-gradient">
-          <div class="text-center p-4">
-            <img src="assets/logo/logo1.png" alt="Logo" class="mb-3" width="72" height="72" />
-            <h2 class="h4">Join South Dhaka Cyclists</h2>
-            <p class="small opacity-75">Create your account to start managing your cycling community.</p>
+<div class="signup-container" *ngIf="currentStep!==4">
+  <div class="signup-card">
+    <div class="logo text-center">
+      <img src="assets/logo/logo1.png" alt="Logo" />
+      <h2 class="mb-4">Create Your Account</h2>
+    </div>
+
+    <div class="progress mb-3">
+      <div class="progress-bar" role="progressbar" [style.width.%]="progress" aria-valuemin="0" aria-valuemax="100">
+      </div>
+    </div>
+
+    <div>
+      <div class="form-step" [class.active]="currentStep === 1">
+        <div class="mb-3">
+          <label>Full Name</label>
+          <input type="text" class="form-control" [(ngModel)]="signUpObj.fullName" name="fullName"
+            [class.is-invalid]="signUpObjState.fullName === false" [class.is-valid]="signUpObjState.fullName === true"
+            (input)="fullNameChange()" />
+          <div class="invalid-feedback">{{signUpObjError.fullName}}</div>
+        </div>
+        <div class="mb-3">
+          <label>Username</label>
+          <input type="text" class="form-control " [(ngModel)]="signUpObj.username" name="username"
+            [class.is-invalid]="signUpObjState.username === false" [class.is-valid]="signUpObjState.username === true"
+            (input)="checkUsernameAvailability()" />
+          <div class="invalid-feedback">{{signUpObjError.username}}</div>
+
+        </div>
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" class="form-control" [(ngModel)]="signUpObj.email" name="email"
+            (input)="checkEmailAvailability()" [class.is-invalid]="signUpObjState.email === false"
+            [class.is-valid]="signUpObjState.email === true" required />
+          <div class="invalid-feedback">{{ signUpObjError.email}}</div>
+        </div>
+        <div class="text-end">
+          <button class="btn btn-primary" [class.disabled]="!isCurrentStepValid()" type="button"
+            (click)="nextStep()">Next</button>
+        </div>
+      </div>
+
+      <div class="form-step" [class.active]="currentStep === 2">
+        <div class="mb-3">
+          <label>Phone Number</label>
+          <input type="text" class="form-control" [(ngModel)]="signUpObj.phoneNumber" name="phoneNumber"
+            [class.is-invalid]="signUpObjState.phoneNumber === false"
+            [class.is-valid]="signUpObjState.phoneNumber === true" (input)="checkPhoneNumberAvailability()" />
+          <div class="invalid-feedback">Valid phone number required.</div>
+        </div>
+        <div class="mb-3">
+          <label>Address</label>
+          <input type="text" class="form-control" [(ngModel)]="signUpObj.address" name="address"
+            [class.is-invalid]="signUpObjState.address === false" [class.is-valid]="signUpObjState.address === true"
+            (input)="checkAddressAvailability()" />
+          <div class="invalid-feedback">Minimum 10 characters.</div>
+        </div>
+        <div class="mb-3">
+          <label>Date of Birth</label>
+          <input type="date" class="form-control" [(ngModel)]="signUpObj.dob" name="dateOfBirth"
+            [class.is-invalid]="signUpObjState.dob === false" [class.is-valid]="signUpObjState.dob === true"
+            (input)="checkDobAvailability()" />
+          <div class="invalid-feedback">You must be at least 10 years old.</div>
+        </div>
+        <div class="text-end">
+          <button class="btn btn-secondary me-2" type="button" (click)="prevStep()">Back</button>
+          <button class="btn btn-primary" type="button" [class.disabled]="!isCurrentStepValid()"
+            (click)="nextStep()">Next</button>
+        </div>
+      </div>
+
+      <div class="form-step" [class.active]="currentStep === 3">
+        <div class="mb-3">
+          <label>Gender</label>
+          <select class="form-select" [(ngModel)]="signUpObj.gender" name="gender"
+            [class.is-invalid]="signUpObjState.gender === false" [class.is-valid]="signUpObjState.gender === true"
+            (change)="checkGenderAvailability()">
+            <option value="">Select</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+            <option value="NOT_SPECIFIED">Not specified</option>
+          </select>
+          <div class="invalid-feedback">Please select a gender.</div>
+        </div>
+        <div class="mb-3">
+          <label>Password</label>
+          <input type="password" class="form-control" [(ngModel)]="signUpObj.password" name="password"
+            (input)="checkPasswordAvailability()" [class.is-invalid]="signUpObjState.password === false"
+            [class.is-valid]="signUpObjState.password === true" />
+          <div class="invalid-feedback">
+            8+ character
           </div>
         </div>
-  
-        <!-- Form Section -->
-        <div class="col-lg-7 p-4">
-          <h3 class="mb-4 text-center text-primary">Get Started</h3>
-          <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
-  
-            <!-- Full Name -->
-            <div class="form-floating mb-3 position-relative">
-              <span class="input-icon"><i class="bi bi-person-fill"></i></span>
-              <input
-                type="text"
-                class="form-control ps-5"
-                id="fullName"
-                formControlName="fullName"
-                placeholder="Full Name"
-                [class.is-invalid]="signupForm.get('fullName')?.invalid && signupForm.get('fullName')?.touched"
-              />
-              <label for="fullName" class="ms-4">Full Name</label>
-              <div class="invalid-feedback">
-                Please enter your full name (at least 3 characters).
-              </div>
-            </div>
-  
-            <!-- Username -->
-            <div class="form-floating mb-3 position-relative">
-              <span class="input-icon"><i class="bi bi-person-badge-fill"></i></span>
-              <input
-                type="text"
-                class="form-control ps-5"
-                id="username"
-                formControlName="username"
-                placeholder="Username"
-                (input)="checkUsernameAvailability()"
-                [class.is-invalid]="signupForm.get('username')?.invalid && signupForm.get('username')?.touched"
-              />
-              <label for="username" class="ms-4">Username</label>
-              <div class="invalid-feedback">
-                Must be at least 5 letters and unique.
-              </div>
-            </div>
-  
-            <!-- Email -->
-            <div class="form-floating mb-3 position-relative">
-              <span class="input-icon"><i class="bi bi-envelope-fill"></i></span>
-              <input
-                type="email"
-                class="form-control ps-5"
-                id="email"
-                formControlName="email"
-                placeholder="name@example.com"
-                (input)="checkEmailAvailability()"
-                [class.is-invalid]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
-              />
-              <label for="email" class="ms-4">Email address</label>
-              <div class="invalid-feedback">
-                Please provide a valid unique email.
-              </div>
-            </div>
-  
-            <!-- Phone & DOB Row -->
-            <div class="row g-3 mb-3">
-              <div class="col-md-6 position-relative">
-                <span class="input-icon"><i class="bi bi-telephone-fill"></i></span>
-                <input
-                  type="text"
-                  class="form-control ps-5"
-                  id="phoneNumber"
-                  formControlName="phoneNumber"
-                  placeholder="Phone Number"
-                  [class.is-invalid]="signupForm.get('phoneNumber')?.invalid && signupForm.get('phoneNumber')?.touched"
-                />
-                <label for="phoneNumber" class="form-label visually-hidden ms-4">Phone Number</label>
-                <div class="invalid-feedback">
-                  Please provide a valid phone number (at least 10 digits).
-                </div>
-              </div>
-              <div class="col-md-6 position-relative">
-                <span class="input-icon"><i class="bi bi-calendar-event-fill"></i></span>
-                <input
-                  type="date"
-                  class="form-control ps-5"
-                  id="dob"
-                  formControlName="dob"
-                  [class.is-invalid]="signupForm.get('dob')?.invalid && signupForm.get('dob')?.touched"
-                />
-                <label for="dob" class="form-label visually-hidden">Date of Birth</label>
-                <div class="invalid-feedback">
-                  Must be at least 10 years old.
-                </div>
-              </div>
-            </div>
-  
-            <!-- Address -->
-            <div class="form-floating mb-3 position-relative">
-              <span class="input-icon"><i class="bi bi-geo-alt-fill"></i></span>
-              <input
-                type="text"
-                class="form-control ps-5"
-                id="address"
-                formControlName="address"
-                placeholder="Address"
-                [class.is-invalid]="signupForm.get('address')?.invalid && signupForm.get('address')?.touched"
-              />
-              <label for="address" class="ms-4">Address</label>
-              <div class="invalid-feedback">
-                Please provide an address (at least 10 characters).
-              </div>
-            </div>
-  
-            <!-- Gender & Profile Picture Row -->
-            <div class="row g-3 mb-4">
-              <div class="col-md-6">
-                <select
-                  class="form-select"
-                  id="gender"
-                  formControlName="gender"
-                  [class.is-invalid]="signupForm.get('gender')?.invalid && signupForm.get('gender')?.touched"
-                >
-                  <option value="">Select Gender</option>
-                  <option value="NOT_SPECIFIED">Not specified</option>
-                  <option value="MALE">Male</option>
-                  <option value="FEMALE">Female</option>
-                </select>
-                <div class="invalid-feedback">
-                  Please choose a gender.
-                </div>
-              </div>
-              <div class="col-md-6 position-relative">
-                <label for="profilePicture" class="form-label">Profile Picture</label>
-                <input
-                  type="file"
-                  class="form-control"
-                  id="profilePicture"
-                  formControlName="profilePicture"
-                  [class.is-invalid]="signupForm.get('profilePicture')?.invalid && signupForm.get('profilePicture')?.touched"
-                />
-                <div class="invalid-feedback">
-                  Please select a valid profile picture.
-                </div>
-              </div>
-            </div>
-  
-            <!-- Passwords -->
-            <div class="form-floating mb-3 position-relative">
-              <span class="input-icon"><i class="bi bi-lock-fill"></i></span>
-              <input
-                type="password"
-                class="form-control ps-5"
-                id="password"
-                formControlName="password"
-                placeholder="Password"
-                [class.is-invalid]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
-              />
-              <label for="password" class="ms-4">Password</label>
-              <div class="invalid-feedback">
-                Must be at least 8 chars, 1 number, uppercase, lowercase & special.
-              </div>
-            </div>
-            <div class="form-floating mb-4 position-relative">
-              <span class="input-icon"><i class="bi bi-lock-fill"></i></span>
-              <input
-                type="password"
-                class="form-control ps-5"
-                id="retypePassword"
-                formControlName="retypePassword"
-                placeholder="Retype Password"
-                [class.is-invalid]="
-                  signupForm.get('retypePassword')?.invalid &&
-                  signupForm.get('retypePassword')?.touched
-                "
-              />
-              <label for="retypePassword" class="ms-4">Retype Password</label>
-              <div class="invalid-feedback">
-                Passwords do not match.
-              </div>
-            </div>
-  
-            <!-- Actions -->
-            <button class="btn btn-lg btn-primary w-100 mb-2" type="submit" [disabled]="signupForm.invalid">
-              Sign Up
-            </button>
-            <button class="btn btn-lg btn-outline-secondary w-100" type="button" (click)="onReset()">
-              Reset
-            </button>
-  
-            <p class="mt-4 text-center text-muted small">&copy; 2025 South Dhaka Cyclists</p>
-          </form>
+        <div class="mb-3">
+          <label>Retype Password</label>
+          <input type="password" class="form-control" [(ngModel)]="signUpObj.retypePassword" name="retypePassword"
+            [class.is-invalid]="signUpObjState.retypePassword === false"
+            [class.is-valid]="signUpObjState.retypePassword === true" (input)="checkRetypePasswordAvailability()" />
+          <div class="invalid-feedback">Passwords must match.</div>
+        </div>
+        <div class="text-end">
+          <button class="btn btn-secondary me-2" type="button" (click)="prevStep()">Back</button>
+          <button class="btn btn-success" type="submit" [class.disabled]="!isCurrentStepValid()"
+            (click)="onSubmit()">Sign Up</button>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
+
+<div class="email-verification-card animate__animated animate__fadeInUp" *ngIf="currentStep === 4">
+  <div class="logo-container mb-3">
+    <img src="assets/logo/logo1.png" alt="SDCian Logo" class="logo" />
+  </div>
+
+  <h2 class="text-center fw-bold">Welcome to <span class="brand-name">SDCian</span></h2>
+
+  <div class="step-indicator my-3 d-flex justify-content-center align-items-center">
+    <div class="step completed"><i class="bi bi-check2-circle"></i></div>
+    <div class="step-line"></div>
+    <div class="step completed"><i class="bi bi-check2-circle"></i></div>
+    <div class="step-line"></div>
+    <div class="step completed"><i class="bi bi-check2-circle"></i></div>
+    <div class="step-line"></div>
+    <div class="step active">4</div>
+  </div>
+
+  <div class="text-center mb-4">
+    <h5 class="fw-semibold">Step 4</h5>
+    <p class="mb-1 fs-5 fw-semibold">Verify Your Email. Check your email for verification code</p>
+  </div>
+
+  <div>
+    <div class="d-flex justify-content-center gap-2 mb-3">
+      <input class="otp-box text-center form-control" type="text" [(ngModel)]="emailVerificationCode" />
+    </div>
+
+    <div class="d-grid">
+      <button class="btn btn-primary" type="button" [class.disabled]="emailVerificationCode.length!==6" (click)="verifyEmail()">Verify</button>
+    </div>
+
+    <div class="text-center mt-3">
+      <!-- <small>Didn’t receive the code? <a href="javascript:void(0)" >Resend</a></small> -->
+    </div>
+  </div>
+</div>

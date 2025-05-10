@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IntroComponent } from './components/intro/intro.component';
 // import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { ResetpassComponent } from './components/resetpass/resetpass.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
 import { DashboardDeveloperComponent } from './components/dashboard-developer/dashboard-developer.component';
@@ -21,8 +19,8 @@ const routes: Routes = [
   { path: 'demo', component: DemoComponent },
   { path: 'intro', component: IntroComponent },
   // { path: 'signin', component: SigninComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'resetpass', component: ResetpassComponent },
+  // { path: 'signup', component: SignupComponent },
+  // { path: 'resetpass', component: ResetpassComponent },
   { path: 'chat', component: ChatComponent },
   {
     path: 'dashboard', component: DashboardComponent,

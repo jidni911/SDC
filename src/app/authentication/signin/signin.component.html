@@ -26,7 +26,6 @@
                             </button>
                         </form>
                         <div class="d-flex justify-content-between mt-3 small">
-                            <a routerLink="/auth/resetpass">Forgot password?</a>
                             <a routerLink="/auth/signup">Sign up</a>
                         </div>
                     </ng-container>
@@ -61,6 +60,8 @@
                                 {{ loading ? 'Signing in...' : 'Login' }}
                             </button>
                         </form>
+                            <a [routerLink]="'/auth/resetpass/'+userInfo.username">Forgot password?</a>
+
                         <button class="btn btn-link mt-3 w-100 text-danger" (click)="reset()">
                             <i class="bi bi-arrow-left"></i> Back
                         </button>
@@ -97,7 +98,6 @@
                                 </button>
                             </form>
                             <div class="d-flex justify-content-between mt-3 small">
-                                <a routerLink="/auth/forgot-password">Forgot password?</a>
                                 <a routerLink="/auth/signup">Sign up</a>
                             </div>
                         </ng-container>
@@ -120,6 +120,8 @@
                                     {{ loading ? 'Signing in...' : 'Login' }}
                                 </button>
                             </form>
+                            <a [routerLink]="'/auth/resetpass/'+userInfo.username">Forgot password?</a>
+
                             <button class="btn btn-link mt-3 w-100 text-danger" (click)="reset()">
                                 <i class="bi bi-arrow-left"></i> Back
                             </button>

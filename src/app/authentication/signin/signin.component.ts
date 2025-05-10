@@ -25,7 +25,7 @@ export class SigninComponent implements OnInit {
     this.usersService.user.subscribe((r: User | null) => {
       this.user = r;
       if (r) {
-        this.userImageUrl = r.profilePicture.url ? this.apiUrl + r.profilePicture.url : 'https://i.pravatar.cc/150?img=3';
+        this.userImageUrl = r.profilePicture?.url ? this.apiUrl + r.profilePicture.url : 'https://i.pravatar.cc/150?img=3';
       }
     })
   }
@@ -38,7 +38,7 @@ export class SigninComponent implements OnInit {
       if (r) {
         this.userInfo.username = r.username;
         this.userInfo.fullName = r.fullName;
-        this.userInfo.profilePicture = r.profilePicture.url ? this.apiUrl + r.profilePicture.url : 'https://i.pravatar.cc/150?img=3';
+        this.userInfo.profilePicture = r.profilePicture?.url ? this.apiUrl + r.profilePicture.url : 'https://i.pravatar.cc/150?img=3';
         this.loading = false;
         this.userFetched = true;
       } else {

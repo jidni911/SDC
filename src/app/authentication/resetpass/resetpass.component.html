@@ -1,1 +1,52 @@
-<p>resetpass works!</p>
+<div class="reset-container">
+
+    <div *ngIf="response === ''" class="loading-box">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-3">Sending verification email...</p>
+    </div>
+
+    <div *ngIf="response !== '' && response !== 'email sent'" class="alert alert-danger shadow-sm">
+        <strong>Error:</strong> {{ response }}<br>
+        Please contact the developer.
+    </div>
+
+    <div *ngIf="response === 'email sent'" class="card otp-card animate-slide-up">
+        <div class="card-body">
+            <h5 class="card-title text-center mb-3">
+                <i class="bi bi-envelope-check text-primary fs-3"></i><br>
+                Check Your Email!
+            </h5>
+            <p class="text-muted text-center">We've sent you a verification code. Enter it below to reset your password.
+            </p>
+            <p class="text-warning text-center mt-3" >
+                <i class="bi bi-exclamation-triangle-fill text-warning"></i> Please complete the process within 5
+                minutes to avoid session expiration.
+            </p>
+
+
+            <div>
+                <div *ngIf="showErrorMessage" class="alert alert-danger" role="alert">
+                    Failed to reset password. try again
+                </div>
+                <div class="mb-3">
+                    <label for="otp" class="form-label">Verification Code</label>
+                    <input type="text" class="form-control" id="otp" [(ngModel)]="resetConfirmation.otp" name="otp"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="password" [(ngModel)]="resetConfirmation.password"
+                        name="password" required>
+                </div>
+                <div class="mb-4">
+                    <label for="retypePassword" class="form-label">Retype Password</label>
+                    <input type="password" class="form-control" id="retypePassword"
+                        [(ngModel)]="resetConfirmation.retypePassword" name="retypePassword" required>
+                </div>
+                <button class="btn btn-primary w-100 shadow-sm" type="submit" (click)="resetPassword()">Reset
+                    Password</button>
+            </div>
+        </div>
+    </div>
+
+</div>
