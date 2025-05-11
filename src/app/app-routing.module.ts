@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IntroComponent } from './components/intro/intro.component';
+// import { IntroComponent } from './components/intro/intro.component';
 // import { SigninComponent } from './components/signin/signin.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
@@ -17,7 +17,6 @@ const routes: Routes = [
 
   // { path: 'home', component: DashboardUserComponent },
   { path: 'demo', component: DemoComponent },
-  { path: 'intro', component: IntroComponent },
   // { path: 'signin', component: SigninComponent },
   // { path: 'signup', component: SignupComponent },
   // { path: 'resetpass', component: ResetpassComponent },
@@ -32,6 +31,7 @@ const routes: Routes = [
       { path: 'ROLE_USER', component: DashboardUserComponent },
     ]
   },
+  { path: 'intro', loadChildren: () => import('./intro/intro.module').then(m => m.IntroModule) },
   {
     path: 'auth', loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
   },

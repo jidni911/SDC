@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WebComponent } from './components/web/web.component';
-import { IntroComponent } from './components/intro/intro.component';
+// import { IntroComponent } from './components/intro/intro.component';
 // import { SigninComponent } from './components/signin/signin.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DashboardAdminComponent } from './components/dashboard-admin/dashboard-admin.component';
@@ -21,7 +21,7 @@ import { SharedModule } from './shared/shared.module';
 import { MemoComponent } from './products/memo/memo.component';//TODO check
 import { ChatComponent } from './componenets/chat/chat.component';
 import { MerchandiseModule } from './merchandise/merchandise.module';
-import { ContactComponent } from './components/intro/contact/contact.component';
+// import { ContactComponent } from './components/intro/contact/contact.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -31,7 +31,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
   declarations: [
     AppComponent,
     WebComponent,
-    IntroComponent,
+    // IntroComponent,
     // SigninComponent,
     DashboardComponent,
     DashboardAdminComponent,
@@ -42,7 +42,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
     DemoComponent,
     BikeMessengerComponent,
     ChatComponent,
-    ContactComponent
+    // ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +51,6 @@ import { AuthenticationModule } from './authentication/authentication.module';
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
-    MerchandiseModule,
     AuthenticationModule
     // BrowserAnimationsModule
   ],
