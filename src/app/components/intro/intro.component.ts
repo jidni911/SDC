@@ -5,6 +5,7 @@ import { environment } from 'src/environment';
 import { trigger, style, animate, transition } from '@angular/animations';
 
 
+
 declare var bootstrap: any;
 
 @Component({
@@ -213,6 +214,13 @@ export class IntroComponent implements OnInit {
   ];
 
 
-   
+   importantLinks = [
+    { link: '/auth', name: 'Sign in' },
+    { link: '/auth/signup', name: 'Registration' },
+    { link: '/people', name: 'Members' },
+    { link: '/products', name: 'Shop Management' },
+    { link: '/merchandise', name: 'Merchandise' },
+    { link: '/sdcbikewala' , name: 'SDC Bikewala' }
+   ]
   
 }

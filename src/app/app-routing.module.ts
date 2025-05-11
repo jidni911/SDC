@@ -62,6 +62,10 @@ const routes: Routes = [
   {
     path: 'merchandise', loadChildren: () => import('./merchandise/merchandise.module').then(m => m.MerchandiseModule)
   },
+  {
+    path: 'sdcbikewala', loadChildren: () => import('./sdcbikewala/sdcbikewala.module').then(m => m.SdcbikewalaModule)
+  },
+
   // otherwise redirect to intro,
   { path: '**', component: BugReportComponent }
 

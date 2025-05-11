@@ -325,12 +325,7 @@
         
         <h2>গুরুত্বপুর্ণ ঠিকানা </h2>
         <ul>
-          <li><a routerLink="/signin">Sign in</a></li>
-          <li><a routerLink="/signup">Registration</a></li>
-          <li><a routerLink="/member">Members</a></li>
-          <li><a routerLink="/products">Shop Management</a></li>
-          <li><a routerLink="/merchandise">Merchandise</a></li>
-          <!-- <li><a routerLink="/shop">Shop</a></li> -->
+          <li *ngFor="let link of importantLinks"> <a [routerLink]="link.link" [innerHTML]="link.name"></a></li>
 
         </ul>
       </div>

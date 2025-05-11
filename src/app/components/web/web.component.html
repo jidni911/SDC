@@ -1,4 +1,4 @@
-<nav id="mainNavbar" class="navbar navbar-expand-sm bg-info sticky-top py-0">
+<nav id="mainNavbar" class="navbar navbar-expand-sm bg-info sticky-top py-0" *ngIf="showNavValue">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/intro"><img src="assets/logo/logo2.png" height="30px" class="me-2">
       <span class="d-none d-md-inline">South Dhaka Cyclists</span>
@@ -10,33 +10,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav nav nav-tabs me-auto mb-0 mb-lg-0 d-md-flex flex-row justify-content-between">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/home" data-bs-toggle="tab"><i class="bi bi-house-door px-xl-3 p-0 px-sm-1"></i></a>
+        <li class="nav-item" *ngFor="let navlink of navLinks">
+          <a class="nav-link" [routerLink]="navlink.url" data-bs-toggle="tab" 
+          [ngClass]="{'active': getCurrentRoute().startsWith(navlink.url),'disabled': !navlink.active}">
+            <i [class]=" 'px-xl-3 p-0 px-sm-1 ' + navlink.icon"></i>
+          </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/messges" data-bs-toggle="tab"><i class="bi bi-chat-left-dots px-xl-3 p-0 px-sm-1"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/people" data-bs-toggle="tab"><i class="bi bi-people px-xl-3 p-0 px-sm-1"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/events" data-bs-toggle="tab"><i class="bi bi-calendar2-event px-xl-3 p-0 px-sm-1"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/shop" data-bs-toggle="tab"><i class="bi bi-shop px-xl-3 p-0 px-sm-1"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/bikeMessenger" data-bs-toggle="tab"><i class="bi bi-bicycle px-xl-3 p-0 px-sm-1"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/storage" data-bs-toggle="tab"><i class="bi bi-sd-card px-xl-3 p-0 px-sm-1"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard" data-bs-toggle="tab"><i class="bi bi-speedometer2 px-xl-3 p-0 px-sm-1"></i></a>
-        </li>
-        <li class="nav-item" >
-          <a class="nav-link" routerLink="/demo" data-bs-toggle="tab"><i class="bi bi-music-note-beamed px-xl-3 p-0 px-sm-1"></i></a>
-        </li>
+        
       </ul>
       <div class="d-flex align-items-center">
         <div class="me-2">
