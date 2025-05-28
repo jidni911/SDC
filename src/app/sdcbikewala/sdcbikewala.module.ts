@@ -14,6 +14,7 @@ import { TopsellerClothingComponent } from './home/topseller-clothing/topseller-
 import { BrandsComponent } from './home/brands/brands.component';
 import { SuggestionsComponent } from './home/suggestions/suggestions.component';
 import { EndingsComponent } from './home/endings/endings.component';
+import { MenuItemComponent } from './menu-item/menu-item.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { EndingsComponent } from './home/endings/endings.component';
     TopsellerClothingComponent,
     BrandsComponent,
     SuggestionsComponent,
-    EndingsComponent
+    EndingsComponent,
+    MenuItemComponent
   ],
   imports: [
     CommonModule,

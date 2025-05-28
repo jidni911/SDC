@@ -54,3 +54,7 @@ ng build --base-href /SDC/
 npx angular-cli-ghpages --dir=dist
 (Get-Content src/index.html) -replace '<base href="/SDC/"', '<base href="/"' | Set-Content src/index.html
 
+
+## for custom domain
+ng build
+npx angular-cli-ghpages --dir=dist
