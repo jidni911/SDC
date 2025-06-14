@@ -2,7 +2,15 @@
   <form class="container" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-md-4">
-        <img *ngFor="let image of images" [src]="apiUrl + image.url" class="img-fluid rounded d-block mx-auto" alt="Jersey Image">
+        <div *ngIf="images.length > 0; else noImage">
+          <img *ngFor="let image of images" [src]="apiUrl + image.url" class="img-fluid rounded d-block mx-auto" alt="Jersey Image">
+        </div>
+        <ng-template #noImage>
+          <div class="text-center">
+            <p class="display-4 text-muted">No image uploaded yet.</p>
+            <p class="lead text-muted">Please upload an image to continue.</p>
+          </div>
+        </ng-template>
         <div class="form-group">
           <label for="image">Image</label>
           <input type="file" class="form-control-file" id="image" (change)="handleFileInput($event)">

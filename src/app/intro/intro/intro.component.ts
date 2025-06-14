@@ -220,7 +220,9 @@ export class IntroComponent implements OnInit {
     { link: '/people', name: 'Members' },
     { link: '/products', name: 'Shop Management' },
     { link: '/merchandise', name: 'Merchandise' },
-    { link: '/sdcbikewala' , name: 'SDC Bikewala' }
+    { link: '/sdcbikewala' , name: 'SDC Bikewala' },
+    { link: '/tempfile' , name: 'Temp File' },
+
    ]
   
 }

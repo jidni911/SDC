@@ -6,7 +6,7 @@ export const environment = {
     // apiUrl: 'http://localhost:3000',
     // apiUrl: 'http://192.168.31.48:8081',
     // apiUrl: 'https://sdcianspring-production-17a5.up.railway.app',
-    apiUrl: 'https://api.sdcian.com',
-    // apiUrl: 'http://localhost:8081',
+    apiUrl: 'https://api.sdcian.com/api',
+    // apiUrl: 'http://localhost:8081/api',
     basePath : '/'
 };

@@ -1,6 +1,6 @@
 import { FilesService } from 'src/app/service/files.service';
 import { JerseyService } from './../services/jersey.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
 import { environment } from 'src/environment';
@@ -13,7 +13,7 @@ import { UsersService } from 'src/app/service/users.service';
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
-export class AddComponent {
+export class AddComponent implements OnInit {
   user: User | null = null
   apiUrl = environment.apiUrl
   constructor(
@@ -22,6 +22,11 @@ export class AddComponent {
     private router: Router,
     private usersService: UsersService
   ) { }
+  ngOnInit(): void {
+    this.usersService.user.subscribe((res: User | null) => {
+      this.user = res
+    })
+  }
   images: { id: number, url: string }[] = []
 
   form = new FormGroup({

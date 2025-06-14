@@ -65,6 +65,9 @@ const routes: Routes = [
   {
     path: 'sdcbikewala', loadChildren: () => import('./sdcbikewala/sdcbikewala.module').then(m => m.SdcbikewalaModule)
   },
+  {
+    path: 'tempfile', loadChildren: () => import('./temp-file/temp-file.module').then(m => m.TempFileModule)
+  },
 
   // otherwise redirect to intro,
   { path: '**', component: BugReportComponent }
