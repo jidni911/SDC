@@ -58,3 +58,7 @@ npx angular-cli-ghpages --dir=dist
 ## for custom domain
 ng build
 npx angular-cli-ghpages --dir=dist
+
+goto github project-> settings-> Pages ->
+branch -> gh-pages/docs
+Custom Domain -> your domain.com
